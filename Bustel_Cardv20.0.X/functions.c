@@ -3,6 +3,7 @@
 #include <string.h>
 #include "functions.h"
 #include "variables.h"
+#include "bustel_communication_variables.h"
 
 
 //*************************************************************************************
@@ -37,6 +38,7 @@ Function reads the fifo from the transiver, and returns the sent data package.
 *******************************************************/
 void TransiverReadFIFO()
 {
+	unsigned char ReceivedString[30];//Char string containing the data received from the transiver
 	timerFunction(3, 5); //Set a timeout timer on five seconds for problem with the transiver
 	
 	SetRFMode(RF_STANDBY);
@@ -48,101 +50,114 @@ void TransiverReadFIFO()
 	}
 	while((trIRQ0)&&(!bTimerComplete[3]))										//Read the FIFO from the transiver until the FIFO is empty 
 	{
-		TransmittedString[i] = ReadFIFO();				//Place bytes in the string for received data
+		ReceivedString[i] = ReadFIFO();				//Place bytes in the string for received data
 		i++;
 	}
 
 	__delay_ms(10);	
-	SetRFMode(RF_SLEEP);								//Set the transiver into sleep-mode		
-	TransmittedDataHandler();
+	SetRFMode(RF_SLEEP);								//Set the transiver into sleep-mode	
+
+	ReceivedDataHandler(ReceivedString);
 }
-void TransmittedDataHandler()
+/*********************************************************************
+*Function for decrypting the package received and handling the data 
+*
+*
+*
+*
+**********************************************************************/
+
+void ReceivedDataHandler(unsigned char Data[30])
 {
-	//Check data to se what command that has been sent
-	if((strstr(TransmittedString, "N1BLINK")) && (OperationMode() == 6))					//Requsted node == 1
-	{
-		intBlinkCycle = 1;
-		intBlinkCounter = 0;
-		DelayDs(100);			//Delay between succesfull recived commands
-	}
-	else if((strstr(TransmittedString, "N2BLINK")) && (OperationMode() == 7))				//Requested node == 2
-	{
-		intBlinkCycle = 1;
-		intBlinkCounter = 0;
-		DelayDs(100);			//Delay between succesfull recived commands
-	}
-	else if((strstr(TransmittedString,"FLASHL")))
-	{
-		oLEDLight = 1;
-		DelayDs(10);
-		oLEDLight = 0;
-		DelayDs(5);
-	}
-	else if((strstr(TransmittedString,"FLASHB")))
-	{
-		oLEDBlink = 1;
-		DelayDs(10);
-		oLEDBlink = 0;
-		DelayDs(5);
-	}
-	else if((strstr(TransmittedString,"SENSVAL")))
-	{
-		unsigned char slask[8];
-		slask[0] = AnalogValue(0);
-		TransmittString(slask);
-	}
-	else if((strstr(TransmittedString,"POTVAL")))
-	{
-		unsigned char slask[8];
-		slask[0] = AnalogValue(3);
-		TransmittString(slask);
-	}
-	else if((strstr(TransmittedString,"DARKCALC")))
-	{
-		DarknessCheck();
-		if(bDark)	
-			TransmittString("It's Dark    ");
-		else
-			TransmittString("Not Dark     ");
-	}
-	else if((strstr(TransmittedString,"STATE?")))
-	{
-		if(bValueFromPot == TRUE)
-			TransmittString("Pot");
-		else
-			TransmittString("PIC");
+	if(Data[0] != STARTCHAR || Data[3] != ENDCHAR) //Check if the packet is complete and correct
+		return;
 
-	}
-	else if((strstr(TransmittedString,"CHSTATE")))
-	{
-		if(bValueFromPot== TRUE)
-			bValueFromPot= FALSE;
-		else
-			bValueFromPot=TRUE;
-	}
-	// RMDV: Read Manual Darkness Value.
-	else if((strstr(TransmittedString,"RMDV")))
-	{
-		unsigned char slask[8];
-		slask[0] = eeprom_read(addressDarknessValue);
-		TransmittString(slask);
 
-	}
-	// 
-	else if((strstr(TransmittedString,"SETDV")))
+	switch Data[1]
 	{
-		//The format of the received string should be: "SETDV nnn" where nnn is the value to be set as the new darkness value
-		int value;
-		unsigned char slask[8];		
-		value = atoi(&TransmittedString[6]);
-		slask[0] = (unsigned char)value;
-		TransmittString(slask);
-		eeprom_write(addressDarknessValue,(unsigned char)value);		
+		case FLASH:
+			switch Data[2]
+			{
+				case LED1:
+					oLEDLight = 1;
+					DelayDs(10);
+					oLEDLight = 0;
+					DelayDs(5);
+					break;
+		
+				case LED2:
+					oLEDBlink = 1;
+					DelayDs(10);
+					oLEDBlink = 0;
+					DelayDs(5);
+					break;
 
+				case LED3:
+
+					break;
+				default:
+					break;
+					
+			}
+			break;
+		case BUSSIGNAL:
+			if(Data[2] == NODE1 && OperationMode() == 6)
+			{
+				intBlinkCycle = 1;
+				intBlinkCounter = 0;
+				DelayDs(100);			//Delay between succesfull recived commands
+			}
+			if(Data[2] == NODE2 && OperationMode() == 7)
+			{
+				intBlinkCycle = 1;
+				intBlinkCounter = 0;
+				DelayDs(100);			//Delay between succesfull recived commands
+			}
+			break;
+
+		case LIGHTSENSVAL:
+			if(Data[2] != 0)
+				break;
+			TransmittPacket(LIGHTSENSVAL, AnalogValue[0]);		
+			break;
+
+		case POTVAL:
+			if(Data[2] != 0)
+				break;
+			TransmittPacket(POTVAL, AnalogValue(3));		
+			break;
+
+		case PROGVAL:
+			if(Data[2] != 0)
+				break;
+			TransmittPacket(PROGAL, eeprom_read(addressDarknessValue));
+			break;
+
+		case USEPOT:
+			if(Data[2] != 0)
+				break;
+			if(bValueFromPot == TRUE)
+				TransmittPacket(USEPOT, YES);
+			else
+				TransmittPacket(USEPOT, NO);
+			break;
+
+		case DARKCALC:
+			if(Data[2] != 0)
+				break;
+			DarknessCheck();
+			if(bDark)	
+				TransmittPacket(DARKCALC, DARK);
+			else
+				TransmittPacket(DARKCALC, NOTDARK);
+			break;
+
+		default:
+			break;
 	}
 }
 /*********************************************************************
- * void TransmittString(unsigned char dataString)
+ * void TransmittPacket(char, char)
  *
  * Overview:        
  *              Sends the variable "dataString" through the transiver
@@ -160,7 +175,7 @@ void TransmittedDataHandler()
  *              
  *
  ********************************************************************/
-void TransmittString(const unsigned char dataString[])
+void TransmittPacket(BYTE topic, BYTE value)
 {
 	timerFunction(4, 5); //Set a timeout timer on five seconds for problem with the transiver
 	//Local variables
@@ -189,12 +204,11 @@ void TransmittString(const unsigned char dataString[])
 		WriteFIFO('N');
 		WriteFIFO('C');
 
-	//Transmitt data
-		while(dataString[i] != 0)
-		{
-			WriteFIFO(dataString[i]);
-			i++;
-		}
+	//Transmitt data packet
+		WriteFIFO(STARTCHAR);
+		WriteFIFO(topic);
+		WriteFIFO(value);
+		WRITEFIFO(ENDCHAR);
 
 	//wait for transmitt done, set the transiver back to sleep
 		while(!trIRQ1)

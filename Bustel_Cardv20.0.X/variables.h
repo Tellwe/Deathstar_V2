@@ -40,7 +40,6 @@ int intClockTimer[5];				//Timers made by Seb
 BOOL bTimerComplete[5];				//Flag for timer complete by Seb
 int intNumberOfBlinks = 600;		//Number of blinks for a blinkcycle
 BOOL bTransiverModeReceive = FALSE;	//Active state of the transiver for receive
-unsigned char TransmittedString[30];//Char containing the data received from the transiver
 BOOL bValueFromPot = TRUE;			//TODO
 int addressDarknessValue = 0;
 

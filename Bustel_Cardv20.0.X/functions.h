@@ -33,6 +33,6 @@ void Mode_6();
 void Mode_7();
 void TransiverToReceive();
 void TransiverReadFIFO();
-void TransmittedDataHandler();
-void TransmittString(const unsigned char dataString[]);
+void ReceivedDataHandler();
+void TransmittPacket(char,char);
 char FindChannel(void);
