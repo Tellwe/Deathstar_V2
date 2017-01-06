@@ -1,6 +1,6 @@
- build/default/production/main.d  \
- build/default/production/main.p1:  \
- main.c  \
+ build/default/debug/functions.d  \
+ build/default/debug/functions.p1:  \
+ functions.c  \
 functions.h  \
 bustel_communication_variables.h  \
 variables.h  \

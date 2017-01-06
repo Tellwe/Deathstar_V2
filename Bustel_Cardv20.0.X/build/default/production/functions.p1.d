@@ -2,8 +2,7 @@
  build/default/production/functions.p1:  \
  functions.c  \
 functions.h  \
+bustel_communication_variables.h  \
 variables.h  \
-compiler.h  \
 MRF89XA.h  \
-RadioDriverDefs.h  \
 GenericTypeDefs.h 

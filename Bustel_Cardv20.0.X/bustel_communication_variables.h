@@ -4,10 +4,11 @@ File containing all the variables used for communication between bustel-units bu
 
 */
 
-
+#ifndef _bustel_communication_variables_
+#define _bustel_communication_variables_
 //Start and end chars
-#define STARTCHAR		'S'
-#define ENDCHAR			'E'
+#define STARTCHAR		44
+#define ENDCHAR			55
 
 //Topics
 #define FLASH			1
@@ -32,3 +33,6 @@ File containing all the variables used for communication between bustel-units bu
 #define YES				1
 #define DARK 			1
 #define NOTDARK			2
+
+
+#endif

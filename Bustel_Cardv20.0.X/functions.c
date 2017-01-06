@@ -1,4 +1,4 @@
-#include <htc.h>
+#include <xc.h>
 #include "MRF89XA.h"
 #include <string.h>
 #include "functions.h"
@@ -46,7 +46,7 @@ void TransiverReadFIFO()
 	int i = 0;
 	for (int j = 0; j < 30; ++j)
 	{
-		TransmittedString[j] = 0;
+		ReceivedString[j] = 0;
 	}
 	while((trIRQ0)&&(!bTimerComplete[3]))										//Read the FIFO from the transiver until the FIFO is empty 
 	{
@@ -57,7 +57,7 @@ void TransiverReadFIFO()
 	__delay_ms(10);	
 	SetRFMode(RF_SLEEP);								//Set the transiver into sleep-mode	
 
-	ReceivedDataHandler(ReceivedString);
+	ReceivedPacketHandler(ReceivedString);
 }
 /*********************************************************************
 *Function for decrypting the package received and handling the data 
@@ -67,16 +67,16 @@ void TransiverReadFIFO()
 *
 **********************************************************************/
 
-void ReceivedDataHandler(unsigned char Data[30])
+void ReceivedPacketHandler(unsigned char Data[])
 {
 	if(Data[0] != STARTCHAR || Data[3] != ENDCHAR) //Check if the packet is complete and correct
 		return;
 
 
-	switch Data[1]
+	switch (Data[1])
 	{
 		case FLASH:
-			switch Data[2]
+			switch (Data[2])
 			{
 				case LED1:
 					oLEDLight = 1;
@@ -118,7 +118,7 @@ void ReceivedDataHandler(unsigned char Data[30])
 		case LIGHTSENSVAL:
 			if(Data[2] != 0)
 				break;
-			TransmittPacket(LIGHTSENSVAL, AnalogValue[0]);		
+			TransmittPacket(LIGHTSENSVAL, AnalogValue(0));		
 			break;
 
 		case POTVAL:
@@ -130,7 +130,7 @@ void ReceivedDataHandler(unsigned char Data[30])
 		case PROGVAL:
 			if(Data[2] != 0)
 				break;
-			TransmittPacket(PROGAL, eeprom_read(addressDarknessValue));
+			TransmittPacket(PROGVAL, eeprom_read(addressDarknessValue));
 			break;
 
 		case USEPOT:
@@ -208,7 +208,7 @@ void TransmittPacket(BYTE topic, BYTE value)
 		WriteFIFO(STARTCHAR);
 		WriteFIFO(topic);
 		WriteFIFO(value);
-		WRITEFIFO(ENDCHAR);
+		WriteFIFO(ENDCHAR);
 
 	//wait for transmitt done, set the transiver back to sleep
 		while(!trIRQ1)
@@ -272,7 +272,7 @@ void Mode_4()
 {
 	if(!iButton)
 	{
-		TransmittString("N1BLINK");
+		TransmittPacket(BUSSIGNAL, NODE1);
 	}
 	LightWithSensController();
 }
@@ -284,7 +284,7 @@ void Mode_5()
 {
 	if(!iButton)
 		{
-			TransmittString("N2BLINK");
+			TransmittPacket(BUSSIGNAL, NODE2);
 		}
 		LightWithSensController();
 }
@@ -391,15 +391,28 @@ void init()
 	PORTA = 0x00;
 	PORTB = 0x00;
 	PORTC = 0x00;
+	PORTD = 0x00;
+	PORTE = 0x00;
+
 	TRISA = 0b00001011; //RA0 and RA1 inputs, RA2, RA4 and RA5 DI on transmitter
-	TRISB = 0b00111111; //RB5, RB2, RB1 and RB0 inputs, RB3 and RB4 connected to transiver 
+	TRISB = 0b00110110; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
 	TRISC = 0b00010000; //RC4 connected to transiver
+	TRISD = 0b00000111; //RD0, RD1, RD2 for the brackets
+	TRISE = 0b00000111; //RE1, RE2, RE3 connected to amp and volt measurements
+	
 	ANSEL = 0b00000000; //Analog select
 	ANSELH = 0b00000000; //Analog Select
 	ANSELbits.ANS0 = 1;	//RA0 = analog input
 	ANSELbits.ANS3 = 1;	//RA3 = analog input
+	ANSELbits.ANS5 = 1;	//RE0 = analog input
+	ANSELbits.ANS6 = 1;	//RE1 = analog input
+	ANSELbits.ANS7 = 1;	//RE2 = analog input
+	ANSELHbits.ANS9 = 1;	//RB3 = analog input
+
 	OPTION_REGbits.nRBPU = 0; //For enabling of pull-ups
-	WPUBbits.WPUB5 = 0; //Weak pull-up enabled RB5
+	WPUBbits.WPUB1 = 1; //Weak pull-up enabled RB0
+	while(!RB1);		//Wait for the input to stabilize
+	WPUBbits.WPUB5 = 1; //Weak pull-up enabled RB5
 	while(!RB5);		//Wait for the input to stabilize
 
 	//Configuration of the SPI communication
@@ -410,15 +423,18 @@ void init()
     SSPCONbits.SSPEN=0x01;      // Enable SPI Port
 	SSPIE = 0; //Dectivates the SPI-interrupt
 
-	//Initial values to transiver
+	//Initial values to the SPI Nodes
 	trCSDATA = 1; //initial value of CSDATA
 	trCSCON = 1; //initial value of CSCON
+	clCS = 1;	//Initial value of clCS
+	memCE = 1;	//Initial value of memCE
+
 
 	//Configuration of interrupt handler
 	INTCONbits.RBIE = 1;	//Enable interrupt when change on PORTB
 	INTCONbits.PEIE = 1;	//Enable peripheal interrupts
 	PIE1bits.TMR1IE = 1;	//Enable overflow interrupt TMR1
-	INTCONbits.GIE = 1;  	//Enable all unmasked interrupts
+//	INTCONbits.GIE = 1;  	//Enable all unmasked interrupts
 	IOCBbits.IOCB5 = 1;		//Enable interrupt on change for input RB5
 
 	//Configuration of timers
@@ -759,7 +775,6 @@ void WriteFIFO(unsigned char Data)
 
 void interrupt tc_int(void){
 
-	
 	//Make sure that the application is without wireless
 	if((iButton == 0)&&(intBlinkCycle == 0)&&(OperationMode() < 2)){
 		intBlinkCycle = 1;

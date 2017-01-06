@@ -2615,28 +2615,17 @@ PORTC = 0x00;
 PORTD = 0x00;
 PORTE = 0x00;
 
-TRISA = 0b00001011;
-TRISB = 0b00110110;
-TRISC = 0b00010000;
-TRISD = 0b00000111;
-TRISE = 0b00000111;
-
+# 401
+TRISB = 0b11111111;
+TRISC = 0x00;
 ANSEL = 0b00000000;
 ANSELH = 0b00000000;
-ANSELbits.ANS0 = 1;
-ANSELbits.ANS3 = 1;
-ANSELbits.ANS5 = 1;
-ANSELbits.ANS6 = 1;
-ANSELbits.ANS7 = 1;
-ANSELHbits.ANS9 = 1;
 
 OPTION_REGbits.nRBPU = 0;
-WPUBbits.WPUB1 = 1;
-while(!RB1);
-WPUBbits.WPUB5 = 1;
-while(!RB5);
+WPUBbits.WPUB0 = 0;
+while(!RB0);
 
-
+# 436
 SSPCONbits.SSPM=0x00;
 SSPCONbits.CKP=0;
 SSPSTATbits.CKE=1;
@@ -2735,7 +2724,7 @@ SetRFMode(0x00);
 
 }
 
-# 535
+# 552
 char FindChannel(void)
 {
 int cnt = 0;
@@ -2773,7 +2762,7 @@ return 0;
 
 }
 
-# 590
+# 607
 void SetRFMode(BYTE mode)
 {
 RA4 = 0;
@@ -2804,7 +2793,7 @@ break;
 RA4 = 1;
 }
 
-# 638
+# 655
 void Blink(int n)
 {
 for(int i = 1;i<=n;i++)
@@ -2817,7 +2806,7 @@ DelayDs(6);
 
 }
 
-# 669
+# 686
 unsigned char RegisterRead(unsigned char adress)
 {
 BYTE value;
@@ -2829,7 +2818,7 @@ RA4 = 1;
 return value;
 }
 
-# 699
+# 716
 void RegisterSet(unsigned char adress, unsigned char value)
 {
 RA4 = 0;
@@ -2839,7 +2828,7 @@ WriteSPI(value);
 RA4 = 1;
 }
 
-# 725
+# 742
 unsigned char ReadFIFO(void)
 {
 BYTE value;
@@ -2850,7 +2839,7 @@ return value;
 
 }
 
-# 752
+# 769
 void WriteFIFO(unsigned char Data)
 {
 RA5 = 0;
@@ -2858,7 +2847,7 @@ WriteSPI(Data);
 RA5 = 1;
 }
 
-# 776
+# 793
 void interrupt tc_int(void){
 
 
@@ -2913,7 +2902,7 @@ GIE = 1;
 return;
 }
 
-# 846
+# 863
 unsigned char AnalogValue(unsigned char channel)
 {
 ADCON0bits.CHS = channel;
@@ -2927,7 +2916,7 @@ return ADRESH;
 
 }
 
-# 873
+# 890
 void DarknessCheck(void)
 {
 unsigned char darknessValue;
@@ -2946,7 +2935,7 @@ RC0 = 0;
 
 }
 
-# 907
+# 924
 unsigned char OperationMode(void)
 {
 unsigned char bracketStatus;

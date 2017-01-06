@@ -1,8 +1,9 @@
-#include <htc.h>
+#include <xc.h>
 #include "MRF89XA.h"
 #include <string.h>
 #include "functions.h"
 #include "variables.h"
+#include "bustel_communication_variables.h"
 
 /**********************		Description		*************************************** 					
 
@@ -19,17 +20,19 @@
 ***********************************************************************************/
 //Configline for initial configuration of registers in the PIC
 
-__CONFIG(DEBUG_OFF & LVP_OFF & FCMEN_OFF & IESO_OFF & BOREN_OFF & CPD_ON & CP_ON & MCLRE_OFF & PWRTE_OFF & WDTE_OFF & FOSC_INTRC_NOCLKOUT);
-
+//__CONFIG(DEBUG_OFF & LVP_OFF & FCMEN_OFF & IESO_OFF & BOREN_OFF & CPD_ON & CP_ON & MCLRE_OFF & PWRTE_OFF & WDTE_OFF & FOSC_INTRC_NOCLKOUT);
+#pragma config DEBUG=OFF, LVP=OFF, FCMEN=OFF, IESO=OFF, BOREN=OFF, CPD=ON, CP=ON, MCLRE=OFF, PWRTE=OFF, WDTE=OFF, FOSC=INTRC_NOCLKOUT 
 
 //*************************************************************************************
 
-void main()
+int main(void)
 { 
 	//Initiation of hardware...
 	init();
 
-	__delay_ms(800);
+	
+	
+/*
 	TransiverInit();
 		
 	while(1)
@@ -66,5 +69,5 @@ void main()
 			TransiverReadFIFO();			
 
 	}
-
+*/
 }

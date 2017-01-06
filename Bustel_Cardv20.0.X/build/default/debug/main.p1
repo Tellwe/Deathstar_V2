@@ -5,9 +5,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "2 functions.h
 [v _init `(v ~T0 @X0 0 ef ]
-"3844 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
-[v _RB1 `Vb ~T0 @X0 0 e@49 ]
-"3864
+[v F1637 `(v ~T0 @X0 1 tf1`ul ]
+"152 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic.h
+[v __delay `JF1637 ~T0 @X0 0 e ]
+[p i __delay ]
+"3864 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
 [v _RC1 `Vb ~T0 @X0 0 e@57 ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
@@ -1817,28 +1819,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 35: {
 "35
 {
-[; ;main.c: 36: if(RB1)
+[; ;main.c: 36: _delay((unsigned long)((200)*(4000000/4000.0)));
 "36
-[e $ ! _RB1 151  ]
-[; ;main.c: 37: RC1 = 0;
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;main.c: 37: RC1 = 1;
 "37
-[e = _RC1 -> -> 0 `i `b ]
-[e $U 152  ]
-"38
-[e :U 151 ]
-[; ;main.c: 38: else
-[; ;main.c: 39: RC1 = 1;
-"39
 [e = _RC1 -> -> 1 `i `b ]
-[e :U 152 ]
-"41
+[; ;main.c: 38: _delay((unsigned long)((200)*(4000000/4000.0)));
+"38
+[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;main.c: 39: RC1 = 0;
+"39
+[e = _RC1 -> -> 0 `i `b ]
+"40
 }
 [e :U 148 ]
 "34
 [e $U 149  ]
 [e :U 150 ]
-[; ;main.c: 41: }
-[; ;main.c: 81: }
-"81
+[; ;main.c: 40: }
+[; ;main.c: 80: }
+"80
 [e :UE 147 ]
 }

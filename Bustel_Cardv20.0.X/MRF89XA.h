@@ -34,8 +34,6 @@
 #define _MRF89XA_
 
 #include "GenericTypeDefs.h"
-#include "compiler.h"
-#include "RadioDriverDefs.h"
 /********************************************************************
 MRF89XA Operating modes
 **********************************************************************/
