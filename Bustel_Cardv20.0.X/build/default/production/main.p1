@@ -5,10 +5,36 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p mainexit ]
 "2 functions.h
 [v _init `(v ~T0 @X0 0 ef ]
+"8
+[v _TransiverInit `(v ~T0 @X0 0 ef ]
+"3846 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
+[v _RB2 `Vb ~T0 @X0 0 e@50 ]
+[v F1637 `(v ~T0 @X0 1 tf1`ul ]
+"152 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic.h
+[v __delay `JF1637 ~T0 @X0 0 e ]
+[p i __delay ]
 "3844 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
 [v _RB1 `Vb ~T0 @X0 0 e@49 ]
-"3864
-[v _RC1 `Vb ~T0 @X0 0 e@57 ]
+"37 functions.h
+[v _TransmittPacket `(v ~T0 @X0 0 ef2`uc`uc ]
+"23
+[v _OperationMode `(uc ~T0 @X0 0 ef ]
+"26
+[v _Mode_0 `(v ~T0 @X0 0 ef ]
+"27
+[v _Mode_1 `(v ~T0 @X0 0 ef ]
+"28
+[v _Mode_2 `(v ~T0 @X0 0 ef ]
+"30
+[v _Mode_4 `(v ~T0 @X0 0 ef ]
+"31
+[v _Mode_5 `(v ~T0 @X0 0 ef ]
+"34
+[v _TransiverToReceive `(v ~T0 @X0 0 ef ]
+"3850 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
+[v _RB4 `Vb ~T0 @X0 0 e@52 ]
+"35 functions.h
+[v _TransiverReadFIFO `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -1811,33 +1837,120 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 31: init();
 "31
 [e ( _init ..  ]
-[; ;main.c: 34: while(1)
-"34
-[e :U 149 ]
-[; ;main.c: 35: {
-"35
-{
-[; ;main.c: 36: if(RB1)
+[; ;main.c: 33: TransiverInit();
+"33
+[e ( _TransiverInit ..  ]
+[; ;main.c: 36: RB2 = 0;
 "36
-[e $ ! _RB1 151  ]
-[; ;main.c: 37: RC1 = 0;
+[e = _RB2 -> -> 0 `i `b ]
+[; ;main.c: 37: _delay((unsigned long)((300)*(4000000/4000.0)));
 "37
-[e = _RC1 -> -> 0 `i `b ]
-[e $U 152  ]
+[e ( __delay (1 -> * -> -> 300 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;main.c: 38: RB2 = 1;
 "38
-[e :U 151 ]
-[; ;main.c: 38: else
-[; ;main.c: 39: RC1 = 1;
+[e = _RB2 -> -> 1 `i `b ]
+[; ;main.c: 39: _delay((unsigned long)((300)*(4000000/4000.0)));
 "39
-[e = _RC1 -> -> 1 `i `b ]
+[e ( __delay (1 -> * -> -> 300 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;main.c: 43: while(1)
+"43
+[e :U 149 ]
+[; ;main.c: 44: {
+"44
+{
+[; ;main.c: 45: if(!RB1)
+"45
+[e $ ! ! _RB1 151  ]
+[; ;main.c: 46: TransmittPacket(1, 1);
+"46
+[e ( _TransmittPacket (2 , -> -> 1 `i `uc -> -> 1 `i `uc ]
+[e :U 151 ]
+[; ;main.c: 48: if(OperationMode() == 0)
+"48
+[e $ ! == -> ( _OperationMode ..  `i -> 0 `i 152  ]
+[; ;main.c: 49: {
+"49
+{
+[; ;main.c: 50: Mode_0();
+"50
+[e ( _Mode_0 ..  ]
+"51
+}
 [e :U 152 ]
-"41
+[; ;main.c: 51: }
+[; ;main.c: 52: if(OperationMode() == 1)
+"52
+[e $ ! == -> ( _OperationMode ..  `i -> 1 `i 153  ]
+[; ;main.c: 53: {
+"53
+{
+[; ;main.c: 54: Mode_1();
+"54
+[e ( _Mode_1 ..  ]
+"55
+}
+[e :U 153 ]
+[; ;main.c: 55: }
+[; ;main.c: 57: if(OperationMode() == 2)
+"57
+[e $ ! == -> ( _OperationMode ..  `i -> 2 `i 154  ]
+[; ;main.c: 58: {
+"58
+{
+[; ;main.c: 59: Mode_2();
+"59
+[e ( _Mode_2 ..  ]
+"60
+}
+[e :U 154 ]
+[; ;main.c: 60: }
+[; ;main.c: 62: if(OperationMode() == 4)
+"62
+[e $ ! == -> ( _OperationMode ..  `i -> 4 `i 155  ]
+[; ;main.c: 63: {
+"63
+{
+[; ;main.c: 64: Mode_4();
+"64
+[e ( _Mode_4 ..  ]
+"65
+}
+[e :U 155 ]
+[; ;main.c: 65: }
+[; ;main.c: 67: if(OperationMode() == 5)
+"67
+[e $ ! == -> ( _OperationMode ..  `i -> 5 `i 156  ]
+[; ;main.c: 68: {
+"68
+{
+[; ;main.c: 69: Mode_5();
+"69
+[e ( _Mode_5 ..  ]
+"70
+}
+[e :U 156 ]
+[; ;main.c: 70: }
+[; ;main.c: 74: if(!bTransiverModeReceive)
+"74
+[e $ ! ! != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1644 `i 157  ]
+[; ;main.c: 75: TransiverToReceive();
+"75
+[e ( _TransiverToReceive ..  ]
+[e :U 157 ]
+[; ;main.c: 76: if(RB4 && bTransiverModeReceive)
+"76
+[e $ ! && _RB4 != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1644 `i 158  ]
+[; ;main.c: 77: TransiverReadFIFO();
+"77
+[e ( _TransiverReadFIFO ..  ]
+[e :U 158 ]
+"79
 }
 [e :U 148 ]
-"34
+"43
 [e $U 149  ]
 [e :U 150 ]
-[; ;main.c: 41: }
+[; ;main.c: 79: }
 [; ;main.c: 81: }
 "81
 [e :UE 147 ]

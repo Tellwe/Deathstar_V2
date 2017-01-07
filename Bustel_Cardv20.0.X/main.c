@@ -30,13 +30,21 @@ int main(void)
 	//Initiation of hardware...
 	init();
 
-	
-	
-/*
 	TransiverInit();
-		
+	
+//Initiation Complete
+	oOnBoardLED = 0;
+	__delay_ms(300);
+	oOnBoardLED = 1;
+	__delay_ms(300);
+
+
+
 	while(1)
 	{
+		if(!iSW1)
+			TransmittPacket(FLASH, NODE1);
+		
 		if(OperationMode() == 0)
 		{
 			Mode_0();			
@@ -69,5 +77,5 @@ int main(void)
 			TransiverReadFIFO();			
 
 	}
-*/
+
 }

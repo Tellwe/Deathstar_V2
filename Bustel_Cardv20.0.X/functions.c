@@ -72,7 +72,6 @@ void ReceivedPacketHandler(unsigned char Data[])
 	if(Data[0] != STARTCHAR || Data[3] != ENDCHAR) //Check if the packet is complete and correct
 		return;
 
-
 	switch (Data[1])
 	{
 		case FLASH:
@@ -93,8 +92,12 @@ void ReceivedPacketHandler(unsigned char Data[])
 					break;
 
 				case LED3:
-
+					oOnBoardLED = 0;
+					DelayDs(10);
+					oOnBoardLED = 1;
+					DelayDs(5);
 					break;
+
 				default:
 					break;
 					
@@ -284,7 +287,7 @@ void Mode_5()
 {
 	if(!iButton)
 		{
-			TransmittPacket(BUSSIGNAL, NODE2);
+			TransmittPacket(BUSSIGNAL, NODE2)
 		}
 		LightWithSensController();
 }
@@ -395,7 +398,7 @@ void init()
 	PORTE = 0x00;
 
 	TRISA = 0b00001011; //RA0 and RA1 inputs, RA2, RA4 and RA5 DI on transmitter
-	TRISB = 0b00110110; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
+	TRISB = 0b00110010; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
 	TRISC = 0b00010000; //RC4 connected to transiver
 	TRISD = 0b00000111; //RD0, RD1, RD2 for the brackets
 	TRISE = 0b00000111; //RE1, RE2, RE3 connected to amp and volt measurements
@@ -428,6 +431,9 @@ void init()
 	trCSCON = 1; //initial value of CSCON
 	clCS = 1;	//Initial value of clCS
 	memCE = 1;	//Initial value of memCE
+
+	oOnBoardLED = 1;
+
 
 
 	//Configuration of interrupt handler
@@ -909,6 +915,6 @@ unsigned char OperationMode(void)
 	unsigned char bracketStatus;
 	bracketStatus = ((~PORTB) & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
 
-	return bracketStatus;
+	return 6; //bracketStatus;
 }
 

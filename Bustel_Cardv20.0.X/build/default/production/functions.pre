@@ -2340,7 +2340,7 @@ for (int j = 0; j < 30; ++j)
 {
 ReceivedString[j] = 0;
 }
-while((RB3)&&(!bTimerComplete[3]))
+while((RD0)&&(!bTimerComplete[3]))
 {
 ReceivedString[i] = ReadFIFO();
 i++;
@@ -2379,7 +2379,10 @@ DelayDs(5);
 break;
 
 case 3:
-
+RB2 = 0;
+DelayDs(10);
+RB2 = 1;
+DelayDs(5);
 break;
 default:
 break;
@@ -2443,7 +2446,7 @@ break;
 }
 }
 
-# 178
+# 181
 void TransmittPacket(BYTE topic, BYTE value)
 {
 timerFunction(4, 5);
@@ -2491,13 +2494,13 @@ _delay((unsigned long)((1)*(4000000/4000.0)));
 
 }
 
-# 230
+# 233
 void Mode_0()
 {
 LightWithSensController();
 }
 
-# 238
+# 241
 void Mode_1()
 {
 
@@ -2509,7 +2512,7 @@ else
 RC2 = 0;
 }
 
-# 252
+# 255
 void Mode_2()
 {
 LightWithSensController();
@@ -2519,13 +2522,13 @@ else
 RC1 = 0;
 }
 
-# 263
+# 266
 void Mode_3()
 {
 
 }
 
-# 271
+# 274
 void Mode_4()
 {
 if(!RB5)
@@ -2535,7 +2538,7 @@ TransmittPacket(2, 1);
 LightWithSensController();
 }
 
-# 283
+# 286
 void Mode_5()
 {
 if(!RB5)
@@ -2545,7 +2548,7 @@ TransmittPacket(2, 2);
 LightWithSensController();
 }
 
-# 296
+# 299
 void LightWithSensController(void)
 {
 
@@ -2578,7 +2581,7 @@ RC2 = 0;
 
 }
 
-# 347
+# 350
 unsigned char timerFunction(int intTimerNumber, int intSetSeconds )
 {
 intClockTimer[intTimerNumber] = intSetSeconds;
@@ -2586,7 +2589,7 @@ bTimerComplete[intTimerNumber] = 0;
 return 1;
 }
 
-# 369
+# 372
 void TimerCounter()
 {
 for (int i = 0; i < 5; i++)
@@ -2616,7 +2619,7 @@ PORTD = 0x00;
 PORTE = 0x00;
 
 TRISA = 0b00001011;
-TRISB = 0b00110110;
+TRISB = 0b00110010;
 TRISC = 0b00010000;
 TRISD = 0b00000111;
 TRISE = 0b00000111;
@@ -2649,6 +2652,9 @@ RA5 = 1;
 RA4 = 1;
 RD4 = 1;
 RD3 = 1;
+
+RB2 = 1;
+
 
 
 
@@ -2735,7 +2741,7 @@ SetRFMode(0x00);
 
 }
 
-# 535
+# 541
 char FindChannel(void)
 {
 int cnt = 0;
@@ -2773,7 +2779,7 @@ return 0;
 
 }
 
-# 590
+# 596
 void SetRFMode(BYTE mode)
 {
 RA4 = 0;
@@ -2804,7 +2810,7 @@ break;
 RA4 = 1;
 }
 
-# 638
+# 644
 void Blink(int n)
 {
 for(int i = 1;i<=n;i++)
@@ -2817,7 +2823,7 @@ DelayDs(6);
 
 }
 
-# 669
+# 675
 unsigned char RegisterRead(unsigned char adress)
 {
 BYTE value;
@@ -2829,7 +2835,7 @@ RA4 = 1;
 return value;
 }
 
-# 699
+# 705
 void RegisterSet(unsigned char adress, unsigned char value)
 {
 RA4 = 0;
@@ -2839,7 +2845,7 @@ WriteSPI(value);
 RA4 = 1;
 }
 
-# 725
+# 731
 unsigned char ReadFIFO(void)
 {
 BYTE value;
@@ -2850,7 +2856,7 @@ return value;
 
 }
 
-# 752
+# 758
 void WriteFIFO(unsigned char Data)
 {
 RA5 = 0;
@@ -2858,7 +2864,7 @@ WriteSPI(Data);
 RA5 = 1;
 }
 
-# 776
+# 782
 void interrupt tc_int(void){
 
 
@@ -2913,7 +2919,7 @@ GIE = 1;
 return;
 }
 
-# 846
+# 852
 unsigned char AnalogValue(unsigned char channel)
 {
 ADCON0bits.CHS = channel;
@@ -2927,7 +2933,7 @@ return ADRESH;
 
 }
 
-# 873
+# 879
 void DarknessCheck(void)
 {
 unsigned char darknessValue;
@@ -2946,12 +2952,12 @@ RC0 = 0;
 
 }
 
-# 907
+# 913
 unsigned char OperationMode(void)
 {
 unsigned char bracketStatus;
 bracketStatus = ((~PORTB) & 0b00000111) ;
 
-return bracketStatus;
+return 6;
 }
 

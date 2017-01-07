@@ -2313,15 +2313,52 @@ int main(void)
 
 init();
 
+TransiverInit();
+
+
+RB2 = 0;
+_delay((unsigned long)((300)*(4000000/4000.0)));
+RB2 = 1;
+_delay((unsigned long)((300)*(4000000/4000.0)));
+
+
 
 while(1)
 {
-if(RB1)
-RC1 = 0;
-else
-RC1 = 1;
+if(!RB1)
+TransmittPacket(1, 1);
+
+if(OperationMode() == 0)
+{
+Mode_0();
+}
+if(OperationMode() == 1)
+{
+Mode_1();
+}
+
+if(OperationMode() == 2)
+{
+Mode_2();
+}
+
+if(OperationMode() == 4)
+{
+Mode_4();
+}
+
+if(OperationMode() == 5)
+{
+Mode_5();
+}
+
+
+
+if(!bTransiverModeReceive)
+TransiverToReceive();
+if(RB4 && bTransiverModeReceive)
+TransiverReadFIFO();
 
 }
 
-# 81
 }

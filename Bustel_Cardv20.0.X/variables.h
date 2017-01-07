@@ -18,14 +18,14 @@
 #define oOnBoardLED		RB2 //RB1 according to electrical scheme
 
 //SPI connections
-#define trSDI 			RC5 	//DO
-#define trSDO 			RC4 	//DI
+#define trSDO 			RC5 	//DO
+#define trSDI 			RC4 	//DI
 #define trSCK 			RC3 	//DO
 
 //Connections to the transiver (MRF89XAM8A)
 #define trRESET 		RA2 	//DO
 #define trCSCON 		RA4 	//DO
-#define trIRQ0 			RB3 	//DI
+#define trIRQ0 			RD0 	//DI Should be RB3 but because of wrong HW solderd to RD0 
 #define trIRQ1 			RB4 	//DI
 #define trCSDATA 		RA5 	//DO
 

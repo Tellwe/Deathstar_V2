@@ -5,7 +5,7 @@ Linker command line:
 -W-3 --edf=C:\Program Files (x86)\Microchip\xc8\v1.40\dat\en_msgs.txt -cs \
   -h+dist/default/production\Bustel_Cardv20.0.X.production.sym \
   --cmf=dist/default/production\Bustel_Cardv20.0.X.production.cmf -z \
-  -Q16F887 -oC:\Users\tellw\AppData\Local\Temp\sb4k.2 \
+  -Q16F887 -oC:\Users\tellw\AppData\Local\Temp\sgrg.2 \
   -Mdist/default/production/Bustel_Cardv20.0.X.production.map -E1 -ver=XC8 \
   -ASTACK=0110h-016fh -pstack=STACK -ACODE=00h-07FFhx4 -ASTRCODE=00h-01FFFh \
   -ASTRING=00h-0FFhx32 -ACONST=00h-0FFhx32 -AENTRY=00h-0FFhx32 \
@@ -18,7 +18,7 @@ Linker command line:
   -pfunctab=CODE -ACONFIG=02007h-02008h -pconfig=CONFIG -DCONFIG=2 \
   -AIDLOC=02000h-02003h -pidloc=IDLOC -DIDLOC=2 -AEEDATA=00h-0FFh/02100h \
   -peeprom_data=EEDATA -DEEDATA=2 -DCODE=2 -DSTRCODE=2 -DSTRING=2 -DCONST=2 \
-  -DENTRY=2 -k C:\Users\tellw\AppData\Local\Temp\sb4k.obj \
+  -DENTRY=2 -k C:\Users\tellw\AppData\Local\Temp\sgrg.obj \
   dist/default/production\Bustel_Cardv20.0.X.production.obj 
 
 Object code version is 3.11
@@ -28,49 +28,100 @@ Machine type is 16F887
 
 
                 Name                               Link     Load   Length Selector   Space Scale
-C:\Users\tellw\AppData\Local\Temp\sb4k.obj
+C:\Users\tellw\AppData\Local\Temp\sgrg.obj
                 end_init                             12       12        3        8       0
                 reset_vec                             0        0        3        0       0
                 config                             2007     2007        1     400E       0
 dist/default/production\Bustel_Cardv20.0.X.production.obj
-                cinit                                15       15       1E        8       0
+                cinit                                15       15       27        8       0
                 intentry                              4        4        E        8       0
-                text4                               1D1      1D1        9      388       0
-                text3                               155      155       42        8       0
-                text2                                33       33       C0        8       0
-                text1                                F3       F3       62        8       0
-                maintext                            1C4      1C4        D      388       0
+                text30                              70E      70E       42        8       0
+                text29                              EAC      EAC        9     1D58       0
+                text28                              372      372       C4        8       0
+                text27                              F67      F67       23     1ECE       0
+                text26                              FAE      FAE       29     1F5C       0
+                text25                              F8A      F8A       24     1F14       0
+                text24                              FD7      FD7       29     1FAE       0
+                text23                              EF3      EF3       12     1DE6       0
+                text22                              750      750       3F        8       0
+                text21                              E98      E98        4     1D30       0
+                text20                              F17      F17       1A     1E2E       0
+                text19                              ECA      ECA        D     1D94       0
+                text18                              ED7      ED7        E     1DAE       0
+                text17                              E9C      E9C        8     1D38       0
+                text16                              F4B      F4B       1C     1E96       0
+                text15                              F31      F31       1A     1E62       0
+                text14                              577      577       6F        8       0
+                text13                              188      188      100        8       0
+                text12                              EBE      EBE        C     1D7C       0
+                text11                              436      436       AF        8       0
+                text10                              7EF      7EF       10      FDE       0
+                text9                               F05      F05       12     1E0A       0
+                text8                               78F      78F       33        8       0
+                text7                               288      288       EA        8       0
+                text6                               EE5      EE5        E     1DCA       0
+                text5                               EB5      EB5        9     1D6A       0
+                text4                                3C       3C      14C        8       0
+                text3                               5E6      5E6       67        8       0
+                text2                               6B2      6B2       5C        8       0
+                text1                               64D      64D       65        8       0
+                maintext                            4E5      4E5       92        8       0
+                cstackBANK0                          20       20       44       20       1
                 cstackCOMMON                         70       70        C       70       1
-                clrtext                             1DA      1DA        8      388       0
-                dataBANK0                            69       69        2       20       1
-                bssBANK0                             20       20       49       20       1
-                dataCOMMON                           7D       7D        1       70       1
-                bssCOMMON                            7C       7C        1       70       1
-                strings                             197      197       2D      32E       0
-                idataBANK0                          1E2      1E2        2      388       0
-                idataCOMMON                         1E4      1E4        1      388       0
+                clrtext                             EA4      EA4        8     1D48       0
+                bssBANK1                             A0       A0       3F       A0       1
+                dataBANK0                            6D       6D        3       20       1
+                bssBANK0                             64       64        9       20       1
+                bssCOMMON                            7C       7C        2       70       1
+                strings                             7C2      7C2       2D      F84       0
+                idataBANK0                          E95      E95        3     1D2A       0
 
 TOTAL           Name                               Link     Load   Length     Space
         CLASS   STACK          
 
         CLASS   CODE           
                 end_init                             12       12        3         0
-                cinit                                15       15       1E         0
+                cinit                                15       15       27         0
                 intentry                              4        4        E         0
                 reset_vec                             0        0        3         0
-                text4                               1D1      1D1        9         0
-                text3                               155      155       42         0
-                text2                                33       33       C0         0
-                text1                                F3       F3       62         0
-                maintext                            1C4      1C4        D         0
-                clrtext                             1DA      1DA        8         0
-                idataBANK0                          1E2      1E2        2         0
-                idataCOMMON                         1E4      1E4        1         0
+                text30                              70E      70E       42         0
+                text29                              EAC      EAC        9         0
+                text28                              372      372       C4         0
+                text27                              F67      F67       23         0
+                text26                              FAE      FAE       29         0
+                text25                              F8A      F8A       24         0
+                text24                              FD7      FD7       29         0
+                text23                              EF3      EF3       12         0
+                text22                              750      750       3F         0
+                text21                              E98      E98        4         0
+                text20                              F17      F17       1A         0
+                text19                              ECA      ECA        D         0
+                text18                              ED7      ED7        E         0
+                text17                              E9C      E9C        8         0
+                text16                              F4B      F4B       1C         0
+                text15                              F31      F31       1A         0
+                text14                              577      577       6F         0
+                text13                              188      188      100         0
+                text12                              EBE      EBE        C         0
+                text11                              436      436       AF         0
+                text10                              7EF      7EF       10         0
+                text9                               F05      F05       12         0
+                text8                               78F      78F       33         0
+                text7                               288      288       EA         0
+                text6                               EE5      EE5        E         0
+                text5                               EB5      EB5        9         0
+                text4                                3C       3C      14C         0
+                text3                               5E6      5E6       67         0
+                text2                               6B2      6B2       5C         0
+                text1                               64D      64D       65         0
+                maintext                            4E5      4E5       92         0
+                clrtext                             EA4      EA4        8         0
+                idataBANK0                          E95      E95        3         0
 
         CLASS   STRCODE        
 
         CLASS   STRING         
-                strings                             197      197       2D         0
+                strings                             7C2      7C2       2D         0
 
         CLASS   CONST          
 
@@ -78,14 +129,15 @@ TOTAL           Name                               Link     Load   Length     Sp
 
         CLASS   COMMON         
                 cstackCOMMON                         70       70        C         1
-                dataCOMMON                           7D       7D        1         1
-                bssCOMMON                            7C       7C        1         1
+                bssCOMMON                            7C       7C        2         1
 
         CLASS   BANK0          
-                dataBANK0                            69       69        2         1
-                bssBANK0                             20       20       49         1
+                cstackBANK0                          20       20       44         1
+                dataBANK0                            6D       6D        3         1
+                bssBANK0                             64       64        9         1
 
         CLASS   BANK1          
+                bssBANK1                             A0       A0       3F         1
 
         CLASS   BANK2          
 
@@ -116,32 +168,53 @@ TOTAL           Name                               Link     Load   Length     Sp
 SEGMENTS        Name                           Load    Length   Top    Selector   Space  Class     Delta
 
                 reset_vec                      000000  000003  000003         0       0  CODE        2
-                intentry                       000004  000193  000197         8       0  CODE        2
-                bssBANK0                       000020  00004B  00006B        20       1  BANK0       1
+                intentry                       000004  0007BE  0007C2         8       0  CODE        2
+                cstackBANK0                    000020  000050  000070        20       1  BANK0       1
                 cstackCOMMON                   000070  00000E  00007E        70       1  COMMON      1
-                strings                        000197  00002D  0001C4       32E       0  STRING      2
-                maintext                       0001C4  000021  0001E5       388       0  CODE        2
+                bssBANK1                       0000A0  00003F  0000DF        A0       1  BANK1       1
+                strings                        0007C2  00002D  0007EF       F84       0  STRING      2
+                text10                         0007EF  000010  0007FF       FDE       0  CODE        2
+                idataBANK0                     000E95  000003  000E98      1D2A       0  CODE        2
+                text21                         000E98  000004  000E9C      1D30       0  CODE        2
+                text17                         000E9C  000008  000EA4      1D38       0  CODE        2
+                clrtext                        000EA4  000008  000EAC      1D48       0  CODE        2
+                text29                         000EAC  000009  000EB5      1D58       0  CODE        2
+                text5                          000EB5  000009  000EBE      1D6A       0  CODE        2
+                text12                         000EBE  00000C  000ECA      1D7C       0  CODE        2
+                text19                         000ECA  00000D  000ED7      1D94       0  CODE        2
+                text18                         000ED7  00000E  000EE5      1DAE       0  CODE        2
+                text6                          000EE5  00000E  000EF3      1DCA       0  CODE        2
+                text23                         000EF3  000012  000F05      1DE6       0  CODE        2
+                text9                          000F05  000012  000F17      1E0A       0  CODE        2
+                text20                         000F17  00001A  000F31      1E2E       0  CODE        2
+                text15                         000F31  00001A  000F4B      1E62       0  CODE        2
+                text16                         000F4B  00001C  000F67      1E96       0  CODE        2
+                text27                         000F67  000023  000F8A      1ECE       0  CODE        2
+                text25                         000F8A  000024  000FAE      1F14       0  CODE        2
+                text26                         000FAE  000029  000FD7      1F5C       0  CODE        2
+                text24                         000FD7  000029  001000      1FAE       0  CODE        2
                 config                         002007  000001  002008      400E       0  CONFIG      2
 
 
 UNUSED ADDRESS RANGES
 
         Name                Unused          Largest block    Delta
-        BANK0            006B-006F              5           1
-        BANK1            00A0-00EF             50           1
+        BANK1            00DF-00EF             11           1
         BANK2            0110-016F             60           1
         BANK3            0190-01EF             60           1
         CODE             0003-0003              1           2
-                         01E5-1FFF            800
+                         07FF-0E94              1
+                         1000-1FFF            800
         CONFIG           2008-2008              1           2
         CONST            0003-0003              1           2
-                         01E5-1FFF            100
+                         07FF-0E94            100
+                         1000-1FFF            100
         EEDATA           2100-21FF            100           2
         ENTRY            0003-0003              1           2
-                         01E5-1FFF            100
+                         07FF-0E94            100
+                         1000-1FFF            100
         IDLOC            2000-2003              4           2
-        RAM              006B-006F              5           1
-                         00A0-00EF             50
+        RAM              00DF-00EF             11           1
                          0110-016F             60
                          0190-01EF             60
         SFR0             0000-001F             20           1
@@ -150,235 +223,368 @@ UNUSED ADDRESS RANGES
         SFR3             0180-018F             10           1
         STACK            0110-016F             60           1
         STRCODE          0003-0003              1           2
-                         01E5-1FFF           1E1B
+                         07FF-0E94            696
+                         1000-1FFF           1000
         STRING           0003-0003              1           2
-                         01E5-1FFF            100
+                         07FF-0E94            100
+                         1000-1FFF            100
 
                                   Symbol Table
 
-OperationMode@bracketStatus cstackCOMMON 0071
-TimerCounter@i              cstackCOMMON 0073
-_ADCON0bits                 (abs)        001F
-_ADCON1bits                 (abs)        009F
-_ADRESH                     (abs)        001E
-_ANSEL                      (abs)        0188
-_ANSELH                     (abs)        0189
-_ANSELHbits                 (abs)        0189
-_ANSELbits                  (abs)        0188
-_ChannelP                   strings      019D
-_ChannelR                   strings      01AA
-_ChannelS                   strings      01B7
-_EEADR                      (abs)        010D
-_EECON1                     (abs)        018C
-_EEDATA                     (abs)        010C
-_GIE                        (abs)        005F
-_INTCONbits                 (abs)        000B
-_IOCBbits                   (abs)        0096
-_OPTION_REGbits             (abs)        0081
-_OSCCONbits                 (abs)        008F
-_OperationMode              text4        01D1
-_PIE1bits                   (abs)        008C
-_PIR1bits                   (abs)        000C
-_PORTA                      (abs)        0005
-_PORTB                      (abs)        0006
-_PORTC                      (abs)        0007
-_PORTD                      (abs)        0008
-_PORTE                      (abs)        0009
-_RA1                        (abs)        0029
-_RA4                        (abs)        002C
-_RA5                        (abs)        002D
-_RB1                        (abs)        0031
-_RB3                        (abs)        0033
-_RB4                        (abs)        0034
-_RB5                        (abs)        0035
-_RBIF                       (abs)        0058
-_RC0                        (abs)        0038
-_RC1                        (abs)        0039
-_RC2                        (abs)        003A
-_RD                         (abs)        0C60
-_RD3                        (abs)        0043
-_RD4                        (abs)        0044
-_SSPBUF                     (abs)        0013
-_SSPCONbits                 (abs)        0014
-_SSPIE                      (abs)        0463
-_SSPSTATbits                (abs)        0094
-_T1CON                      (abs)        0010
-_T1CONbits                  (abs)        0010
-_TMR1H                      (abs)        000F
-_TMR1IF                     (abs)        0060
-_TMR1L                      (abs)        000E
-_TMR1ON                     (abs)        0080
-_TRISA                      (abs)        0085
-_TRISB                      (abs)        0086
-_TRISC                      (abs)        0087
-_TRISD                      (abs)        0088
-_TRISE                      (abs)        0089
-_TimerCounter               text3        0155
-_WPUBbits                   (abs)        0095
-_WR                         (abs)        0C61
-__CFG_BOREN$OFF             (abs)        0000
-__CFG_CP$ON                 (abs)        0000
-__CFG_CPD$ON                (abs)        0000
-__CFG_DEBUG$OFF             (abs)        0000
-__CFG_FCMEN$OFF             (abs)        0000
-__CFG_FOSC$INTRC_NOCLKOUT   (abs)        0000
-__CFG_IESO$OFF              (abs)        0000
-__CFG_LVP$OFF               (abs)        0000
-__CFG_MCLRE$OFF             (abs)        0000
-__CFG_PWRTE$OFF             (abs)        0000
-__CFG_WDTE$OFF              (abs)        0000
-__Habs1                     abs1         0000
-__Hbank0                    bank0        0000
-__Hbank1                    bank1        0000
-__Hbank2                    bank2        0000
-__Hbank3                    bank3        0000
-__HbssBANK0                 bssBANK0     0000
-__HbssCOMMON                bssCOMMON    0000
-__Hcinit                    cinit        0033
-__Hclrtext                  clrtext      0000
-__Hcode                     code         0000
-__Hcommon                   common       0000
-__Hconfig                   config       2008
-__HcstackBANK0              cstackBANK0  0000
-__HcstackCOMMON             cstackCOMMON 0000
-__HdataBANK0                dataBANK0    0000
-__HdataCOMMON               dataCOMMON   0000
-__Heeprom_data              eeprom_data  0000
-__Hend_init                 end_init     0015
-__Hfunctab                  functab      0000
-__HidataBANK0               idataBANK0   0000
-__HidataCOMMON              idataCOMMON  0000
-__Hidloc                    idloc        0000
-__Hinit                     init         0012
-__Hintentry                 intentry     0012
-__Hmaintext                 maintext     0000
-__Hpowerup                  powerup      0000
-__Hram                      ram          0000
-__Hreset_vec                reset_vec    0003
-__Hsfr0                     sfr0         0000
-__Hsfr1                     sfr1         0000
-__Hsfr2                     sfr2         0000
-__Hsfr3                     sfr3         0000
-__Hspace_0                  (abs)        2008
-__Hspace_1                  (abs)        007E
-__Hspace_2                  (abs)        0000
-__Hspace_3                  (abs)        0000
-__Hstack                    stack        0000
-__Hstrings                  strings      0000
-__Htext                     text         0000
-__Labs1                     abs1         0000
-__Lbank0                    bank0        0000
-__Lbank1                    bank1        0000
-__Lbank2                    bank2        0000
-__Lbank3                    bank3        0000
-__LbssBANK0                 bssBANK0     0000
-__LbssCOMMON                bssCOMMON    0000
-__Lcinit                    cinit        0015
-__Lclrtext                  clrtext      0000
-__Lcode                     code         0000
-__Lcommon                   common       0000
-__Lconfig                   config       2007
-__LcstackBANK0              cstackBANK0  0000
-__LcstackCOMMON             cstackCOMMON 0000
-__LdataBANK0                dataBANK0    0000
-__LdataCOMMON               dataCOMMON   0000
-__Leeprom_data              eeprom_data  0000
-__Lend_init                 end_init     0012
-__Lfunctab                  functab      0000
-__LidataBANK0               idataBANK0   0000
-__LidataCOMMON              idataCOMMON  0000
-__Lidloc                    idloc        0000
-__Linit                     init         0012
-__Lintentry                 intentry     0004
-__Lmaintext                 maintext     0000
-__Lpowerup                  powerup      0000
-__Lram                      ram          0000
-__Lreset_vec                reset_vec    0000
-__Lsfr0                     sfr0         0000
-__Lsfr1                     sfr1         0000
-__Lsfr2                     sfr2         0000
-__Lsfr3                     sfr3         0000
-__Lspace_0                  (abs)        0000
-__Lspace_1                  (abs)        0000
-__Lspace_2                  (abs)        0000
-__Lspace_3                  (abs)        0000
-__Lstack                    stack        0000
-__Lstrings                  strings      0000
-__Ltext                     text         0000
-__S0                        (abs)        2008
-__S1                        (abs)        007E
-__S2                        (abs)        0000
-__S3                        (abs)        0000
-___int_sp                   stack        0000
-___latbits                  (abs)        0002
-___sp                       stack        0000
-__end_of_ChannelP           strings      01AA
-__end_of_ChannelR           strings      01B7
-__end_of_ChannelS           strings      01C4
-__end_of_OperationMode      text4        01DA
-__end_of_TimerCounter       text3        0197
-__end_of__initialization    cinit        002F
-__end_of__stringtab         strings      019D
-__end_of_init               text1        0155
-__end_of_main               maintext     01D1
-__end_of_tc_int             text2        00F3
-__initialization            cinit        0015
-__pbssBANK0                 bssBANK0     0020
-__pbssCOMMON                bssCOMMON    007C
-__pcstackBANK0              cstackBANK0  0000
-__pcstackCOMMON             cstackCOMMON 0070
-__pdataBANK0                dataBANK0    0069
-__pdataCOMMON               dataCOMMON   007D
-__pidataBANK0               idataBANK0   01E2
-__pidataCOMMON              idataCOMMON  01E4
-__pintentry                 intentry     0004
-__pmaintext                 maintext     01C4
-__pstrings                  strings      0197
-__ptext1                    text1        00F3
-__ptext2                    text2        0033
-__ptext3                    text3        0155
-__ptext4                    text4        01D1
-__size_of_OperationMode     (abs)        0000
-__size_of_TimerCounter      (abs)        0000
-__size_of_init              (abs)        0000
-__size_of_main              (abs)        0000
-__size_of_tc_int            (abs)        0000
-__stringbase                strings      019C
-__stringtab                 strings      0197
-_addressDarknessValue       bssBANK0     0057
-_bChannelFound              bssBANK0     0067
-_bDark                      bssCOMMON    007C
-_bTimerComplete             bssBANK0     0052
-_bTransiverModeReceive      bssBANK0     0068
-_bValueFromPot              dataCOMMON   007D
-_channelFound               bssBANK0     0059
-_init                       text1        00F3
-_intBlinkCounter            bssBANK0     005B
-_intBlinkCycle              bssBANK0     005D
-_intClockTimer              bssBANK0     0048
-_intHalfSecondCounter       bssBANK0     0061
-_intMinuteCounter           bssBANK0     0063
-_intNumberOfBlinks          dataBANK0    0069
-_intSecondCounter           bssBANK0     0065
-_main                       maintext     01C4
-_tc_int                     text2        0033
-btemp                       (abs)        007E
-clear_ram0                  clrtext      01DA
-end_of_initialization       cinit        002F
-interrupt_function          intentry     0004
-intlevel0                   functab      0000
-intlevel1                   functab      0000
-intlevel2                   functab      0000
-intlevel3                   functab      0000
-intlevel4                   functab      0000
-intlevel5                   functab      0000
-reset_vec                   reset_vec    0000
-saved_w                     (abs)        007E
-stackhi                     (abs)        0000
-stacklo                     (abs)        0000
-start                       init         0012
-start_initialization        cinit        0015
-wtemp0                      (abs)        007E
+AnalogValue@channel               cstackBANK0  0027
+Blink@i                           cstackBANK0  0029
+Blink@n                           cstackBANK0  0026
+DarknessCheck@darknessValue       cstackBANK0  0029
+DelayDs@cnt                       cstackBANK0  0020
+DelayDs@i                         cstackBANK0  0024
+FindChannel@cnt                   cstackBANK0  0031
+FindChannel@i                     cstackBANK0  0033
+OperationMode@bracketStatus       cstackBANK0  0021
+ReadFIFO@value                    cstackBANK0  0024
+ReceivedPacketHandler@Data        cstackBANK0  003C
+RegisterRead@adress               cstackBANK0  0026
+RegisterRead@value                cstackBANK0  0025
+RegisterSet@adress                cstackBANK0  002A
+RegisterSet@value                 cstackBANK0  0027
+SetRFMode@mcparam0_read           cstackBANK0  002D
+SetRFMode@mode                    cstackBANK0  002C
+TimerCounter@i                    cstackCOMMON 0073
+TransiverReadFIFO@ReceivedString  cstackBANK0  003F
+TransiverReadFIFO@i               cstackBANK0  005D
+TransiverReadFIFO@j               cstackBANK0  005F
+TransmittPacket@i                 cstackBANK0  0038
+TransmittPacket@topic             cstackBANK0  003A
+TransmittPacket@value             cstackBANK0  0035
+WriteFIFO@Data                    cstackBANK0  0023
+WriteSPI@buffer                   cstackBANK0  0021
+WriteSPI@databyte                 cstackBANK0  0022
+_ADCON0bits                       (abs)        001F
+_ADCON1bits                       (abs)        009F
+_ADRESH                           (abs)        001E
+_ANSEL                            (abs)        0188
+_ANSELH                           (abs)        0189
+_ANSELHbits                       (abs)        0189
+_ANSELbits                        (abs)        0188
+_AnalogValue                      text26       0FAE
+_Blink                            text8        078F
+_ChannelP                         strings      07C8
+_ChannelR                         strings      07D5
+_ChannelS                         strings      07E2
+_DarknessCheck                    text24       0FD7
+_DelayDs                          text27       0F67
+_EEADR                            (abs)        010D
+_EECON1                           (abs)        018C
+_EEDATA                           (abs)        010C
+_FindChannel                      text13       0188
+_GIE                              (abs)        005F
+_INTCONbits                       (abs)        000B
+_IOCBbits                         (abs)        0096
+_LightWithSensController          text22       0750
+_Mode_0                           text21       0E98
+_Mode_1                           text20       0F17
+_Mode_2                           text19       0ECA
+_Mode_4                           text10       07EF
+_Mode_5                           text9        0F05
+_OPTION_REGbits                   (abs)        0081
+_OSCCONbits                       (abs)        008F
+_OperationMode                    text5        0EB5
+_PIE1bits                         (abs)        008C
+_PIR1bits                         (abs)        000C
+_PORTA                            (abs)        0005
+_PORTB                            (abs)        0006
+_PORTC                            (abs)        0007
+_PORTD                            (abs)        0008
+_PORTE                            (abs)        0009
+_RA1                              (abs)        0029
+_RA4                              (abs)        002C
+_RA5                              (abs)        002D
+_RB1                              (abs)        0031
+_RB2                              (abs)        0032
+_RB4                              (abs)        0034
+_RB5                              (abs)        0035
+_RBIF                             (abs)        0058
+_RC0                              (abs)        0038
+_RC1                              (abs)        0039
+_RC2                              (abs)        003A
+_RD                               (abs)        0C60
+_RD0                              (abs)        0040
+_RD3                              (abs)        0043
+_RD4                              (abs)        0044
+_ReadFIFO                         text6        0EE5
+_ReadSPI                          text17       0E9C
+_ReceivedPacketHandler            text4        003C
+_RegisterRead                     text16       0F4B
+_RegisterSet                      text15       0F31
+_SSPBUF                           (abs)        0013
+_SSPCONbits                       (abs)        0014
+_SSPIE                            (abs)        0463
+_SSPSTATbits                      (abs)        0094
+_SetRFMode                        text14       0577
+_T1CON                            (abs)        0010
+_T1CONbits                        (abs)        0010
+_TMR1H                            (abs)        000F
+_TMR1IF                           (abs)        0060
+_TMR1L                            (abs)        000E
+_TMR1ON                           (abs)        0080
+_TRISA                            (abs)        0085
+_TRISB                            (abs)        0086
+_TRISC                            (abs)        0087
+_TRISD                            (abs)        0088
+_TRISE                            (abs)        0089
+_TimerCounter                     text30       070E
+_TransiverInit                    text7        0288
+_TransiverReadFIFO                text3        05E6
+_TransiverToReceive               text2        06B2
+_TransmittPacket                  text11       0436
+_WPUBbits                         (abs)        0095
+_WR                               (abs)        0C61
+_WriteFIFO                        text12       0EBE
+_WriteSPI                         text18       0ED7
+__CFG_BOREN$OFF                   (abs)        0000
+__CFG_CP$ON                       (abs)        0000
+__CFG_CPD$ON                      (abs)        0000
+__CFG_DEBUG$OFF                   (abs)        0000
+__CFG_FCMEN$OFF                   (abs)        0000
+__CFG_FOSC$INTRC_NOCLKOUT         (abs)        0000
+__CFG_IESO$OFF                    (abs)        0000
+__CFG_LVP$OFF                     (abs)        0000
+__CFG_MCLRE$OFF                   (abs)        0000
+__CFG_PWRTE$OFF                   (abs)        0000
+__CFG_WDTE$OFF                    (abs)        0000
+__Habs1                           abs1         0000
+__Hbank0                          bank0        0000
+__Hbank1                          bank1        0000
+__Hbank2                          bank2        0000
+__Hbank3                          bank3        0000
+__HbssBANK0                       bssBANK0     0000
+__HbssBANK1                       bssBANK1     0000
+__HbssCOMMON                      bssCOMMON    0000
+__Hcinit                          cinit        003C
+__Hclrtext                        clrtext      0000
+__Hcode                           code         0000
+__Hcommon                         common       0000
+__Hconfig                         config       2008
+__HcstackBANK0                    cstackBANK0  0000
+__HcstackCOMMON                   cstackCOMMON 0000
+__HdataBANK0                      dataBANK0    0000
+__Heeprom_data                    eeprom_data  0000
+__Hend_init                       end_init     0015
+__Hfunctab                        functab      0000
+__HidataBANK0                     idataBANK0   0000
+__Hidloc                          idloc        0000
+__Hinit                           init         0012
+__Hintentry                       intentry     0012
+__Hmaintext                       maintext     0000
+__Hpowerup                        powerup      0000
+__Hram                            ram          0000
+__Hreset_vec                      reset_vec    0003
+__Hsfr0                           sfr0         0000
+__Hsfr1                           sfr1         0000
+__Hsfr2                           sfr2         0000
+__Hsfr3                           sfr3         0000
+__Hspace_0                        (abs)        2008
+__Hspace_1                        (abs)        00DF
+__Hspace_2                        (abs)        0000
+__Hspace_3                        (abs)        0000
+__Hstack                          stack        0000
+__Hstrings                        strings      0000
+__Htext                           text         0000
+__Labs1                           abs1         0000
+__Lbank0                          bank0        0000
+__Lbank1                          bank1        0000
+__Lbank2                          bank2        0000
+__Lbank3                          bank3        0000
+__LbssBANK0                       bssBANK0     0000
+__LbssBANK1                       bssBANK1     0000
+__LbssCOMMON                      bssCOMMON    0000
+__Lcinit                          cinit        0015
+__Lclrtext                        clrtext      0000
+__Lcode                           code         0000
+__Lcommon                         common       0000
+__Lconfig                         config       2007
+__LcstackBANK0                    cstackBANK0  0000
+__LcstackCOMMON                   cstackCOMMON 0000
+__LdataBANK0                      dataBANK0    0000
+__Leeprom_data                    eeprom_data  0000
+__Lend_init                       end_init     0012
+__Lfunctab                        functab      0000
+__LidataBANK0                     idataBANK0   0000
+__Lidloc                          idloc        0000
+__Linit                           init         0012
+__Lintentry                       intentry     0004
+__Lmaintext                       maintext     0000
+__Lpowerup                        powerup      0000
+__Lram                            ram          0000
+__Lreset_vec                      reset_vec    0000
+__Lsfr0                           sfr0         0000
+__Lsfr1                           sfr1         0000
+__Lsfr2                           sfr2         0000
+__Lsfr3                           sfr3         0000
+__Lspace_0                        (abs)        0000
+__Lspace_1                        (abs)        0000
+__Lspace_2                        (abs)        0000
+__Lspace_3                        (abs)        0000
+__Lstack                          stack        0000
+__Lstrings                        strings      0000
+__Ltext                           text         0000
+__S0                              (abs)        2008
+__S1                              (abs)        00DF
+__S2                              (abs)        0000
+__S3                              (abs)        0000
+___int_sp                         stack        0000
+___latbits                        (abs)        0002
+___sp                             stack        0000
+__end_of_AnalogValue              text26       0FD7
+__end_of_Blink                    text8        07C2
+__end_of_ChannelP                 strings      07D5
+__end_of_ChannelR                 strings      07E2
+__end_of_ChannelS                 strings      07EF
+__end_of_DarknessCheck            text24       1000
+__end_of_DelayDs                  text27       0F8A
+__end_of_FindChannel              text13       0288
+__end_of_LightWithSensController  text22       078F
+__end_of_Mode_0                   text21       0E9C
+__end_of_Mode_1                   text20       0F31
+__end_of_Mode_2                   text19       0ED7
+__end_of_Mode_4                   text10       07FF
+__end_of_Mode_5                   text9        0F17
+__end_of_OperationMode            text5        0EBE
+__end_of_ReadFIFO                 text6        0EF3
+__end_of_ReadSPI                  text17       0EA4
+__end_of_ReceivedPacketHandler    text4        0188
+__end_of_RegisterRead             text16       0F67
+__end_of_RegisterSet              text15       0F4B
+__end_of_SetRFMode                text14       05E6
+__end_of_TimerCounter             text30       0750
+__end_of_TransiverInit            text7        0372
+__end_of_TransiverReadFIFO        text3        064D
+__end_of_TransiverToReceive       text2        070E
+__end_of_TransmittPacket          text11       04E5
+__end_of_WriteFIFO                text12       0ECA
+__end_of_WriteSPI                 text18       0EE5
+__end_of__initialization          cinit        0038
+__end_of__stringtab               strings      07C8
+__end_of_eeprom_read              text25       0FAE
+__end_of_init                     text1        06B2
+__end_of_main                     maintext     0577
+__end_of_tc_int                   text28       0436
+__end_of_timerFunction            text23       0F05
+__end_ofi1_OperationMode          text29       0EB5
+__initialization                  cinit        0015
+__pbssBANK0                       bssBANK0     0064
+__pbssBANK1                       bssBANK1     00A0
+__pbssCOMMON                      bssCOMMON    007C
+__pcstackBANK0                    cstackBANK0  0020
+__pcstackCOMMON                   cstackCOMMON 0070
+__pdataBANK0                      dataBANK0    006D
+__pidataBANK0                     idataBANK0   0E95
+__pintentry                       intentry     0004
+__pmaintext                       maintext     04E5
+__pstrings                        strings      07C2
+__ptext1                          text1        064D
+__ptext10                         text10       07EF
+__ptext11                         text11       0436
+__ptext12                         text12       0EBE
+__ptext13                         text13       0188
+__ptext14                         text14       0577
+__ptext15                         text15       0F31
+__ptext16                         text16       0F4B
+__ptext17                         text17       0E9C
+__ptext18                         text18       0ED7
+__ptext19                         text19       0ECA
+__ptext2                          text2        06B2
+__ptext20                         text20       0F17
+__ptext21                         text21       0E98
+__ptext22                         text22       0750
+__ptext23                         text23       0EF3
+__ptext24                         text24       0FD7
+__ptext25                         text25       0F8A
+__ptext26                         text26       0FAE
+__ptext27                         text27       0F67
+__ptext28                         text28       0372
+__ptext29                         text29       0EAC
+__ptext3                          text3        05E6
+__ptext30                         text30       070E
+__ptext4                          text4        003C
+__ptext5                          text5        0EB5
+__ptext6                          text6        0EE5
+__ptext7                          text7        0288
+__ptext8                          text8        078F
+__ptext9                          text9        0F05
+__size_of_AnalogValue             (abs)        0000
+__size_of_Blink                   (abs)        0000
+__size_of_DarknessCheck           (abs)        0000
+__size_of_DelayDs                 (abs)        0000
+__size_of_FindChannel             (abs)        0000
+__size_of_LightWithSensController (abs)        0000
+__size_of_Mode_0                  (abs)        0000
+__size_of_Mode_1                  (abs)        0000
+__size_of_Mode_2                  (abs)        0000
+__size_of_Mode_4                  (abs)        0000
+__size_of_Mode_5                  (abs)        0000
+__size_of_OperationMode           (abs)        0000
+__size_of_ReadFIFO                (abs)        0000
+__size_of_ReadSPI                 (abs)        0000
+__size_of_ReceivedPacketHandler   (abs)        0000
+__size_of_RegisterRead            (abs)        0000
+__size_of_RegisterSet             (abs)        0000
+__size_of_SetRFMode               (abs)        0000
+__size_of_TimerCounter            (abs)        0000
+__size_of_TransiverInit           (abs)        0000
+__size_of_TransiverReadFIFO       (abs)        0000
+__size_of_TransiverToReceive      (abs)        0000
+__size_of_TransmittPacket         (abs)        0000
+__size_of_WriteFIFO               (abs)        0000
+__size_of_WriteSPI                (abs)        0000
+__size_of_eeprom_read             (abs)        0000
+__size_of_init                    (abs)        0000
+__size_of_main                    (abs)        0000
+__size_of_tc_int                  (abs)        0000
+__size_of_timerFunction           (abs)        0000
+__size_ofi1_OperationMode         (abs)        0000
+__stringbase                      strings      07C7
+__stringtab                       strings      07C2
+_addressDarknessValue             bssBANK0     0064
+_bChannelFound                    bssBANK0     006A
+_bDark                            bssBANK0     006B
+_bTimerComplete                   bssBANK1     00D2
+_bTransiverModeReceive            bssBANK0     006C
+_bValueFromPot                    dataBANK0    006F
+_channelFound                     bssBANK1     00D7
+_eeprom_read                      text25       0F8A
+_init                             text1        064D
+_intBlinkCounter                  bssCOMMON    007C
+_intBlinkCycle                    bssBANK0     0066
+_intClockTimer                    bssBANK1     00C8
+_intHalfSecondCounter             bssBANK1     00DB
+_intMinuteCounter                 bssBANK1     00DD
+_intNumberOfBlinks                dataBANK0    006D
+_intSecondCounter                 bssBANK0     0068
+_main                             maintext     04E5
+_tc_int                           text28       0372
+_timerFunction                    text23       0EF3
+btemp                             (abs)        007E
+clear_ram0                        clrtext      0EA4
+eeprom_read@addr                  cstackBANK0  0021
+end_of_initialization             cinit        0038
+i1OperationMode@bracketStatus     cstackCOMMON 0071
+i1_OperationMode                  text29       0EAC
+interrupt_function                intentry     0004
+intlevel0                         functab      0000
+intlevel1                         functab      0000
+intlevel2                         functab      0000
+intlevel3                         functab      0000
+intlevel4                         functab      0000
+intlevel5                         functab      0000
+reset_vec                         reset_vec    0000
+saved_w                           (abs)        007E
+stackhi                           (abs)        0000
+stacklo                           (abs)        0000
+start                             init         0012
+start_initialization              cinit        0015
+timerFunction@intSetSeconds       cstackBANK0  0022
+timerFunction@intTimerNumber      cstackBANK0  0020
+wtemp0                            (abs)        007E
 
 
 FUNCTION INFORMATION:
@@ -391,9 +597,9 @@ FUNCTION INFORMATION:
  Auto vars:     Size  Location     Type
 		None
  Return value:  Size  Location     Type
-                  2   46[None  ] int 
+                  2   70[None  ] int 
  Registers used:
-		wreg, status,2, status,0, pclath, cstack
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
  Tracked objects:
 		On entry : 
 		On exit  : 
@@ -401,11 +607,21 @@ FUNCTION INFORMATION:
  Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
       Params:         0       0       0       0       0
       Locals:         0       0       0       0       0
-      Temps:          0       0       0       0       0
-      Totals:         0       0       0       0       0
-Total ram usage:        0 bytes
- Hardware stack levels required when called:    3
+      Temps:          0       3       0       0       0
+      Totals:         0       3       0       0       0
+Total ram usage:        3 bytes
+ Hardware stack levels required when called:   10
  This function calls:
+		_Mode_0
+		_Mode_1
+		_Mode_2
+		_Mode_4
+		_Mode_5
+		_OperationMode
+		_TransiverInit
+		_TransiverReadFIFO
+		_TransiverToReceive
+		_TransmittPacket
 		_init
  This function is called by:
 		Startup code after reset
@@ -414,7 +630,7 @@ Total ram usage:        0 bytes
 
  *************** function _init *****************
  Defined at:
-		line 382 in file "functions.c"
+		line 385 in file "functions.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -442,9 +658,864 @@ Total ram usage:        0 bytes
  This function uses a non-reentrant model
 
 
+ *************** function _TransiverToReceive *****************
+ Defined at:
+		line 13 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       2       0       0       0
+      Totals:         0       2       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    7
+ This function calls:
+		_FindChannel
+		_RegisterRead
+		_RegisterSet
+		_SetRFMode
+		_timerFunction
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _TransiverReadFIFO *****************
+ Defined at:
+		line 39 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  j               2   63[BANK0 ] int 
+  ReceivedStri   30   31[BANK0 ] unsigned char [30]
+  i               2   61[BANK0 ] int 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0      34       0       0       0
+      Temps:          0       2       0       0       0
+      Totals:         0      36       0       0       0
+Total ram usage:       36 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    9
+ This function calls:
+		_ReadFIFO
+		_ReceivedPacketHandler
+		_SetRFMode
+		_timerFunction
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _ReceivedPacketHandler *****************
+ Defined at:
+		line 70 in file "functions.c"
+ Parameters:    Size  Location     Type
+  Data            1    wreg     PTR unsigned char 
+		 -> TransiverReadFIFO@ReceivedString(30), 
+ Auto vars:     Size  Location     Type
+  Data            1   28[BANK0 ] PTR unsigned char 
+		 -> TransiverReadFIFO@ReceivedString(30), 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       1       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       2       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    8
+ This function calls:
+		_AnalogValue
+		_DarknessCheck
+		_DelayDs
+		_OperationMode
+		_TransmittPacket
+		_eeprom_read
+ This function is called by:
+		_TransiverReadFIFO
+ This function uses a non-reentrant model
+
+
+ *************** function _OperationMode *****************
+ Defined at:
+		line 913 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  bracketStatu    1    1[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, status,2
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       1       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       2       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_main
+		_ReceivedPacketHandler
+ This function uses a non-reentrant model
+
+
+ *************** function _ReadFIFO *****************
+ Defined at:
+		line 731 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  value           1    4[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       1       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       2       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_ReadSPI
+ This function is called by:
+		_TransiverReadFIFO
+ This function uses a non-reentrant model
+
+
+ *************** function _TransiverInit *****************
+ Defined at:
+		line 496 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       1       0       0       0
+Total ram usage:        1 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    7
+ This function calls:
+		_Blink
+		_FindChannel
+		_RegisterRead
+		_RegisterSet
+		_SetRFMode
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _Blink *****************
+ Defined at:
+		line 644 in file "functions.c"
+ Parameters:    Size  Location     Type
+  n               2    6[BANK0 ] int 
+ Auto vars:     Size  Location     Type
+  i               2    9[BANK0 ] int 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       2       0       0       0
+      Locals:         0       2       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       5       0       0       0
+Total ram usage:        5 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_DelayDs
+ This function is called by:
+		_TransiverInit
+ This function uses a non-reentrant model
+
+
+ *************** function _Mode_5 *****************
+ Defined at:
+		line 286 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       1       0       0       0
+Total ram usage:        1 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    8
+ This function calls:
+		_LightWithSensController
+		_TransmittPacket
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _Mode_4 *****************
+ Defined at:
+		line 274 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       0       0       0       0
+      Totals:         0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    8
+ This function calls:
+		_LightWithSensController
+		_TransmittPacket
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _TransmittPacket *****************
+ Defined at:
+		line 181 in file "functions.c"
+ Parameters:    Size  Location     Type
+  topic           1    wreg     unsigned char 
+  value           1   21[BANK0 ] unsigned char 
+ Auto vars:     Size  Location     Type
+  topic           1   26[BANK0 ] unsigned char 
+  i               2   24[BANK0 ] int 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       1       0       0       0
+      Locals:         0       3       0       0       0
+      Temps:          0       2       0       0       0
+      Totals:         0       6       0       0       0
+Total ram usage:        6 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    7
+ This function calls:
+		_FindChannel
+		_RegisterRead
+		_RegisterSet
+		_SetRFMode
+		_WriteFIFO
+		_timerFunction
+ This function is called by:
+		_main
+		_ReceivedPacketHandler
+		_Mode_4
+		_Mode_5
+ This function uses a non-reentrant model
+
+
+ *************** function _WriteFIFO *****************
+ Defined at:
+		line 758 in file "functions.c"
+ Parameters:    Size  Location     Type
+  Data            1    wreg     unsigned char 
+ Auto vars:     Size  Location     Type
+  Data            1    3[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       1       0       0       0
+      Temps:          0       0       0       0       0
+      Totals:         0       1       0       0       0
+Total ram usage:        1 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_WriteSPI
+ This function is called by:
+		_TransmittPacket
+ This function uses a non-reentrant model
+
+
+ *************** function _FindChannel *****************
+ Defined at:
+		line 541 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  i               2   19[BANK0 ] int 
+  cnt             2   17[BANK0 ] int 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, btemp+1, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       4       0       0       0
+      Temps:          0       3       0       0       0
+      Totals:         0       7       0       0       0
+Total ram usage:        7 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    6
+ This function calls:
+		_RegisterRead
+		_RegisterSet
+		_SetRFMode
+ This function is called by:
+		_TransiverToReceive
+		_TransmittPacket
+		_TransiverInit
+ This function uses a non-reentrant model
+
+
+ *************** function _SetRFMode *****************
+ Defined at:
+		line 596 in file "functions.c"
+ Parameters:    Size  Location     Type
+  mode            1    wreg     unsigned char 
+ Auto vars:     Size  Location     Type
+  mode            1   12[BANK0 ] unsigned char 
+  mcparam0_rea    1   13[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       2       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       3       0       0       0
+Total ram usage:        3 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    5
+ This function calls:
+		_RegisterRead
+		_RegisterSet
+ This function is called by:
+		_TransiverToReceive
+		_TransiverReadFIFO
+		_TransmittPacket
+		_TransiverInit
+		_FindChannel
+ This function uses a non-reentrant model
+
+
+ *************** function _RegisterSet *****************
+ Defined at:
+		line 705 in file "functions.c"
+ Parameters:    Size  Location     Type
+  adress          1    wreg     unsigned char 
+  value           1    7[BANK0 ] unsigned char 
+ Auto vars:     Size  Location     Type
+  adress          1   10[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       1       0       0       0
+      Locals:         0       1       0       0       0
+      Temps:          0       2       0       0       0
+      Totals:         0       4       0       0       0
+Total ram usage:        4 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_WriteSPI
+ This function is called by:
+		_TransiverToReceive
+		_TransmittPacket
+		_TransiverInit
+		_FindChannel
+		_SetRFMode
+ This function uses a non-reentrant model
+
+
+ *************** function _RegisterRead *****************
+ Defined at:
+		line 675 in file "functions.c"
+ Parameters:    Size  Location     Type
+  adress          1    wreg     unsigned char 
+ Auto vars:     Size  Location     Type
+  adress          1    6[BANK0 ] unsigned char 
+  value           1    5[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       2       0       0       0
+      Temps:          0       2       0       0       0
+      Totals:         0       4       0       0       0
+Total ram usage:        4 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_ReadSPI
+		_WriteSPI
+ This function is called by:
+		_TransiverToReceive
+		_TransmittPacket
+		_TransiverInit
+		_FindChannel
+		_SetRFMode
+ This function uses a non-reentrant model
+
+
+ *************** function _ReadSPI *****************
+ Defined at:
+		line 488 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       0       0       0       0
+      Totals:         0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_WriteSPI
+ This function is called by:
+		_RegisterRead
+		_ReadFIFO
+ This function uses a non-reentrant model
+
+
+ *************** function _WriteSPI *****************
+ Defined at:
+		line 476 in file "functions.c"
+ Parameters:    Size  Location     Type
+  databyte        1    wreg     unsigned char 
+ Auto vars:     Size  Location     Type
+  databyte        1    2[BANK0 ] unsigned char 
+  buffer          1    1[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       2       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       3       0       0       0
+Total ram usage:        3 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_ReadSPI
+		_RegisterRead
+		_RegisterSet
+		_WriteFIFO
+ This function uses a non-reentrant model
+
+
+ *************** function _Mode_2 *****************
+ Defined at:
+		line 255 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       0       0       0       0
+      Totals:         0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    6
+ This function calls:
+		_LightWithSensController
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _Mode_1 *****************
+ Defined at:
+		line 241 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       0       0       0       0
+      Totals:         0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    5
+ This function calls:
+		_DarknessCheck
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _Mode_0 *****************
+ Defined at:
+		line 233 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       0       0       0       0
+      Totals:         0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    6
+ This function calls:
+		_LightWithSensController
+ This function is called by:
+		_main
+ This function uses a non-reentrant model
+
+
+ *************** function _LightWithSensController *****************
+ Defined at:
+		line 299 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       0       0       0       0
+      Totals:         0       0       0       0       0
+Total ram usage:        0 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    5
+ This function calls:
+		_DarknessCheck
+		_timerFunction
+ This function is called by:
+		_Mode_0
+		_Mode_2
+		_Mode_4
+		_Mode_5
+ This function uses a non-reentrant model
+
+
+ *************** function _timerFunction *****************
+ Defined at:
+		line 350 in file "functions.c"
+ Parameters:    Size  Location     Type
+  intTimerNumb    2    0[BANK0 ] int 
+  intSetSecond    2    2[BANK0 ] int 
+ Auto vars:     Size  Location     Type
+		None
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, fsr0l, fsr0h, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       4       0       0       0
+      Locals:         0       0       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       5       0       0       0
+Total ram usage:        5 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_TransiverToReceive
+		_TransiverReadFIFO
+		_TransmittPacket
+		_LightWithSensController
+ This function uses a non-reentrant model
+
+
+ *************** function _DarknessCheck *****************
+ Defined at:
+		line 879 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  darknessValu    1    9[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       1       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       2       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    4
+ This function calls:
+		_AnalogValue
+		_eeprom_read
+ This function is called by:
+		_ReceivedPacketHandler
+		_Mode_1
+		_LightWithSensController
+ This function uses a non-reentrant model
+
+
+ *************** function _eeprom_read *****************
+ Defined at:
+		line 6 in file "C:\Program Files (x86)\Microchip\xc8\v1.40\sources\pic\eeread.c"
+ Parameters:    Size  Location     Type
+  addr            1    wreg     unsigned char 
+ Auto vars:     Size  Location     Type
+  addr            1    1[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, status,2, status,0
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       1       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       2       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_ReceivedPacketHandler
+		_DarknessCheck
+ This function uses a non-reentrant model
+
+
+ *************** function _AnalogValue *****************
+ Defined at:
+		line 852 in file "functions.c"
+ Parameters:    Size  Location     Type
+  channel         1    wreg     unsigned char 
+ Auto vars:     Size  Location     Type
+  channel         1    7[BANK0 ] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, status,2, status,0, pclath, cstack
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         0       1       0       0       0
+      Temps:          0       1       0       0       0
+      Totals:         0       2       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    3
+ This function calls:
+		_DelayDs
+ This function is called by:
+		_ReceivedPacketHandler
+		_DarknessCheck
+ This function uses a non-reentrant model
+
+
+ *************** function _DelayDs *****************
+ Defined at:
+		line 467 in file "functions.c"
+ Parameters:    Size  Location     Type
+  cnt             2    0[BANK0 ] int 
+ Auto vars:     Size  Location     Type
+  i               2    4[BANK0 ] int 
+ Return value:  Size  Location     Type
+                  1    wreg      void 
+ Registers used:
+		wreg, status,2
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       2       0       0       0
+      Locals:         0       2       0       0       0
+      Temps:          0       2       0       0       0
+      Totals:         0       6       0       0       0
+Total ram usage:        6 bytes
+ Hardware stack levels used:    1
+ Hardware stack levels required when called:    2
+ This function calls:
+		Nothing
+ This function is called by:
+		_ReceivedPacketHandler
+		_Blink
+		_AnalogValue
+ This function uses a non-reentrant model
+
+
  *************** function _tc_int *****************
  Defined at:
-		line 776 in file "functions.c"
+		line 782 in file "functions.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -466,16 +1537,45 @@ Total ram usage:        7 bytes
  Hardware stack levels used:    1
  Hardware stack levels required when called:    1
  This function calls:
-		_OperationMode
 		_TimerCounter
+		i1_OperationMode
  This function is called by:
 		Interrupt level 1
  This function uses a non-reentrant model
 
 
+ *************** function i1_OperationMode *****************
+ Defined at:
+		line 913 in file "functions.c"
+ Parameters:    Size  Location     Type
+		None
+ Auto vars:     Size  Location     Type
+  OperationMod    1    1[COMMON] unsigned char 
+ Return value:  Size  Location     Type
+                  1    wreg      unsigned char 
+ Registers used:
+		wreg, status,2
+ Tracked objects:
+		On entry : 
+		On exit  : 
+		Unchanged: 
+ Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
+      Params:         0       0       0       0       0
+      Locals:         1       0       0       0       0
+      Temps:          1       0       0       0       0
+      Totals:         2       0       0       0       0
+Total ram usage:        2 bytes
+ Hardware stack levels used:    1
+ This function calls:
+		Nothing
+ This function is called by:
+		_tc_int
+ This function uses a non-reentrant model
+
+
  *************** function _TimerCounter *****************
  Defined at:
-		line 369 in file "functions.c"
+		line 372 in file "functions.c"
  Parameters:    Size  Location     Type
 		None
  Auto vars:     Size  Location     Type
@@ -502,59 +1602,59 @@ Total ram usage:        5 bytes
  This function uses a non-reentrant model
 
 
- *************** function _OperationMode *****************
- Defined at:
-		line 907 in file "functions.c"
- Parameters:    Size  Location     Type
-		None
- Auto vars:     Size  Location     Type
-  bracketStatu    1    1[COMMON] unsigned char 
- Return value:  Size  Location     Type
-                  1    wreg      unsigned char 
- Registers used:
-		wreg, status,2
- Tracked objects:
-		On entry : 
-		On exit  : 
-		Unchanged: 
- Data sizes:     COMMON   BANK0   BANK1   BANK3   BANK2
-      Params:         0       0       0       0       0
-      Locals:         1       0       0       0       0
-      Temps:          1       0       0       0       0
-      Totals:         2       0       0       0       0
-Total ram usage:        2 bytes
- Hardware stack levels used:    1
- This function calls:
-		Nothing
- This function is called by:
-		_tc_int
-		_ReceivedPacketHandler
- This function uses a non-reentrant model
-
-
 
 MODULE INFORMATION
 
 Module		Function		Class		Link	Load	Size
 functions.c
-		_init          		CODE           	00F3	0000	99
-		_tc_int        		CODE           	0033	0000	193
-		_OperationMode 		CODE           	01D1	0000	10
-		_TimerCounter  		CODE           	0155	0000	67
+		_init          		CODE           	064D	0000	102
+		_SetRFMode     		CODE           	0577	0000	112
+		_Mode_0        		CODE           	0E98	0000	5
+		_TransmittPacket		CODE           	0436	0000	176
+		_ReadFIFO      		CODE           	0EE5	0000	15
+		_LightWithSensController		CODE           	0750	0000	64
+		_timerFunction 		CODE           	0EF3	0000	19
+		_DelayDs       		CODE           	0F67	0000	36
+		_TransiverInit 		CODE           	0288	0000	235
+		_AnalogValue   		CODE           	0FAE	0000	42
+		_tc_int        		CODE           	0372	0000	197
+		_OperationMode 		CODE           	0EB5	0000	10
+		_Mode_1        		CODE           	0F17	0000	27
+		_FindChannel   		CODE           	0188	0000	257
+		_ReceivedPacketHandler		CODE           	003C	0000	333
+		_Blink         		CODE           	078F	0000	52
+		_Mode_4        		CODE           	07EF	0000	17
+		_WriteFIFO     		CODE           	0EBE	0000	13
+		_TransiverToReceive		CODE           	06B2	0000	93
+		_TimerCounter  		CODE           	070E	0000	67
+		_TransiverReadFIFO		CODE           	05E6	0000	104
+		_RegisterSet   		CODE           	0F31	0000	27
+		_Mode_2        		CODE           	0ECA	0000	14
+		_RegisterRead  		CODE           	0F4B	0000	29
+		_Mode_5        		CODE           	0F05	0000	19
+		_DarknessCheck 		CODE           	0FD7	0000	42
+		_WriteSPI      		CODE           	0ED7	0000	15
+		_ReadSPI       		CODE           	0E9C	0000	9
 
-functions.c estimated size: 369
+functions.c estimated size: 2131
+
+C:\Program Files (x86)\Microchip\xc8\v1.40\sources\pic\eeread.c
+		_eeprom_read   		CODE           	0F8A	0000	37
+
+C:\Program Files (x86)\Microchip\xc8\v1.40\sources\pic\eeread.c estimated size: 37
 
 shared
-		__stringtab    		STRING         	0197	0000	7
-		__initialization		CODE           	0015	0000	27
-		_ChannelP      		STRING         	019D	0000	14
-		_ChannelR      		STRING         	01AA	0000	14
-		_ChannelS      		STRING         	01B7	0000	14
+		__stringtab    		STRING         	07C2	0000	7
+		__initialization		CODE           	0015	0000	36
+		i1_OperationMode		CODE           	0EAC	0000	10
+		_ChannelP      		STRING         	07C8	0000	14
+		_ChannelR      		STRING         	07D5	0000	14
+		_ChannelS      		STRING         	07E2	0000	14
 
-shared estimated size: 76
+shared estimated size: 95
 
 main.c
-		_main          		CODE           	01C4	0000	14
+		_main          		CODE           	04E5	0000	147
 
-main.c estimated size: 14
+main.c estimated size: 147
 
