@@ -2277,7 +2277,7 @@ void ReceivedPacketHandler(unsigned char Data[]);
 void TransmittPacket(BYTE topic, BYTE value);
 char FindChannel(void);
 
-# 50 "variables.h"
+# 51 "variables.h"
 unsigned char ReceivedData[40];
 int intBlinkCycle;
 int intBlinkCounter;
@@ -2302,11 +2302,43 @@ const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
 BOOL bChannelFound = 0;
 int channelFound;
 
+# 33 "m25p16.h"
+void read_ram_id(unsigned char *mem_ptr);
 
-# 24 "main.c"
+# 41
+unsigned char read_ram_status(void);
+
+# 52
+void ram_bulk_erase(void);
+
+# 65
+void ram_sector_erase(unsigned char sector);
+
+# 78
+void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+
+# 92
+void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+
+# 112
+void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr);
+
+# 121
+void write_ram_status(unsigned char status);
+
+# 130
+void power_up_flash_ram(void);
+
+# 142
+void power_down_flash_ram(void);
+
+
+# 26 "main.c"
 #pragma config DEBUG=OFF, LVP=OFF, FCMEN=OFF, IESO=OFF, BOREN=OFF, CPD=ON, CP=ON, MCLRE=OFF, PWRTE=OFF, WDTE=OFF, FOSC=INTRC_NOCLKOUT
 
 
+unsigned char var1[95];
+unsigned char var2[95];
 
 int main(void)
 {
@@ -2315,7 +2347,7 @@ init();
 
 TransiverInit();
 
-
+# 43
 RB2 = 0;
 _delay((unsigned long)((300)*(4000000/4000.0)));
 RB2 = 1;
@@ -2323,10 +2355,37 @@ _delay((unsigned long)((300)*(4000000/4000.0)));
 
 
 
+
 while(1)
 {
 if(!RB1)
-TransmittPacket(1, 1);
+{
+read_ram_status();
+write_ram_status(read_ram_status() & 0b11100011);
+read_ram_status();
+ram_sector_erase(0);
+
+unsigned char value;
+for(int i = 0; i < 100; i++)
+{
+value = i;
+read_write_flash_ram(0,1,0,0,i,&value);
+
+}
+
+
+read_write_flash_ram(1,20,0,0,0,&var2);
+
+for(int i = 0; i < 1; i++)
+{
+_delay((unsigned long)((100)*(4000000/4000.0)));
+
+}
+
+while(!RB1);
+
+
+}
 
 if(OperationMode() == 0)
 {

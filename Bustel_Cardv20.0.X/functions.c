@@ -4,6 +4,8 @@
 #include "functions.h"
 #include "variables.h"
 #include "bustel_communication_variables.h"
+#include "m25p16.h"
+
 
 
 //*************************************************************************************
@@ -133,7 +135,7 @@ void ReceivedPacketHandler(unsigned char Data[])
 		case PROGVAL:
 			if(Data[2] != 0)
 				break;
-			TransmittPacket(PROGVAL, eeprom_read(addressDarknessValue));
+			TransmittPacket(PROGVAL, eeprom_read(ADDRdarknessValue));
 			break;
 
 		case USEPOT:
@@ -287,7 +289,7 @@ void Mode_5()
 {
 	if(!iButton)
 		{
-			TransmittPacket(BUSSIGNAL, NODE2)
+			TransmittPacket(BUSSIGNAL, NODE2);
 		}
 		LightWithSensController();
 }
@@ -766,7 +768,7 @@ void WriteFIFO(unsigned char Data)
  *
  * Overview:        
  *              This function controlls the interrupt routine generated in the controller
- *
+ *				The interupt occurs every half-second or on the button being pushed
  * PreCondition:    
  *              
  *
@@ -787,6 +789,8 @@ void interrupt tc_int(void){
 		intBlinkCounter = 0;
 
 	}
+
+	//
 	if(TMR1IF ==1){
 		TMR1ON = 0;
 		TMR1H = 0x0B;
@@ -884,7 +888,7 @@ void DarknessCheck(void)
 	if(bValueFromPot == TRUE)
 		darknessValue= AnalogValue(3);
 	else
-		darknessValue=eeprom_read(addressDarknessValue);
+		darknessValue=eeprom_read(ADDRdarknessValue);
 
 	if(AnalogValue(0)>darknessValue)
 		bDark = 1;

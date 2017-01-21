@@ -2277,7 +2277,7 @@ void ReceivedPacketHandler(unsigned char Data[]);
 void TransmittPacket(BYTE topic, BYTE value);
 char FindChannel(void);
 
-# 50 "variables.h"
+# 51 "variables.h"
 unsigned char ReceivedData[40];
 int intBlinkCycle;
 int intBlinkCounter;
@@ -2302,7 +2302,37 @@ const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
 BOOL bChannelFound = 0;
 int channelFound;
 
-# 13 "functions.c"
+# 33 "m25p16.h"
+void read_ram_id(unsigned char *mem_ptr);
+
+# 41
+unsigned char read_ram_status(void);
+
+# 52
+void ram_bulk_erase(void);
+
+# 65
+void ram_sector_erase(unsigned char sector);
+
+# 78
+void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+
+# 92
+void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+
+# 112
+void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr);
+
+# 121
+void write_ram_status(unsigned char status);
+
+# 130
+void power_up_flash_ram(void);
+
+# 142
+void power_down_flash_ram(void);
+
+# 15 "functions.c"
 void TransiverToReceive()
 {
 timerFunction(2, 5);
@@ -2327,7 +2357,7 @@ _delay((unsigned long)((500)*(4000000/4000000.0)));
 bTransiverModeReceive = 1;
 }
 
-# 39
+# 41
 void TransiverReadFIFO()
 {
 unsigned char ReceivedString[30];
@@ -2352,12 +2382,11 @@ SetRFMode(0x00);
 ReceivedPacketHandler(ReceivedString);
 }
 
-# 70
+# 72
 void ReceivedPacketHandler(unsigned char Data[])
 {
 if(Data[0] != 44 || Data[3] != 55)
 return;
-
 
 switch (Data[1])
 {
@@ -2384,6 +2413,7 @@ DelayDs(10);
 RB2 = 1;
 DelayDs(5);
 break;
+
 default:
 break;
 
@@ -2446,7 +2476,7 @@ break;
 }
 }
 
-# 181
+# 183
 void TransmittPacket(BYTE topic, BYTE value)
 {
 timerFunction(4, 5);
@@ -2494,13 +2524,13 @@ _delay((unsigned long)((1)*(4000000/4000.0)));
 
 }
 
-# 233
+# 235
 void Mode_0()
 {
 LightWithSensController();
 }
 
-# 241
+# 243
 void Mode_1()
 {
 
@@ -2512,7 +2542,7 @@ else
 RC2 = 0;
 }
 
-# 255
+# 257
 void Mode_2()
 {
 LightWithSensController();
@@ -2522,13 +2552,13 @@ else
 RC1 = 0;
 }
 
-# 266
+# 268
 void Mode_3()
 {
 
 }
 
-# 274
+# 276
 void Mode_4()
 {
 if(!RB5)
@@ -2538,7 +2568,7 @@ TransmittPacket(2, 1);
 LightWithSensController();
 }
 
-# 286
+# 288
 void Mode_5()
 {
 if(!RB5)
@@ -2548,7 +2578,7 @@ TransmittPacket(2, 2);
 LightWithSensController();
 }
 
-# 299
+# 301
 void LightWithSensController(void)
 {
 
@@ -2581,7 +2611,7 @@ RC2 = 0;
 
 }
 
-# 350
+# 352
 unsigned char timerFunction(int intTimerNumber, int intSetSeconds )
 {
 intClockTimer[intTimerNumber] = intSetSeconds;
@@ -2589,7 +2619,7 @@ bTimerComplete[intTimerNumber] = 0;
 return 1;
 }
 
-# 372
+# 374
 void TimerCounter()
 {
 for (int i = 0; i < 5; i++)
@@ -2741,7 +2771,7 @@ SetRFMode(0x00);
 
 }
 
-# 541
+# 543
 char FindChannel(void)
 {
 int cnt = 0;
@@ -2779,7 +2809,7 @@ return 0;
 
 }
 
-# 596
+# 598
 void SetRFMode(BYTE mode)
 {
 RA4 = 0;
@@ -2810,7 +2840,7 @@ break;
 RA4 = 1;
 }
 
-# 644
+# 646
 void Blink(int n)
 {
 for(int i = 1;i<=n;i++)
@@ -2823,7 +2853,7 @@ DelayDs(6);
 
 }
 
-# 675
+# 677
 unsigned char RegisterRead(unsigned char adress)
 {
 BYTE value;
@@ -2835,7 +2865,7 @@ RA4 = 1;
 return value;
 }
 
-# 705
+# 707
 void RegisterSet(unsigned char adress, unsigned char value)
 {
 RA4 = 0;
@@ -2845,7 +2875,7 @@ WriteSPI(value);
 RA4 = 1;
 }
 
-# 731
+# 733
 unsigned char ReadFIFO(void)
 {
 BYTE value;
@@ -2856,7 +2886,7 @@ return value;
 
 }
 
-# 758
+# 760
 void WriteFIFO(unsigned char Data)
 {
 RA5 = 0;
@@ -2864,7 +2894,7 @@ WriteSPI(Data);
 RA5 = 1;
 }
 
-# 782
+# 784
 void interrupt tc_int(void){
 
 
@@ -2919,7 +2949,7 @@ GIE = 1;
 return;
 }
 
-# 852
+# 854
 unsigned char AnalogValue(unsigned char channel)
 {
 ADCON0bits.CHS = channel;
@@ -2933,7 +2963,7 @@ return ADRESH;
 
 }
 
-# 879
+# 881
 void DarknessCheck(void)
 {
 unsigned char darknessValue;
@@ -2952,7 +2982,7 @@ RC0 = 0;
 
 }
 
-# 913
+# 915
 unsigned char OperationMode(void)
 {
 unsigned char bracketStatus;

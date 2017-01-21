@@ -1,5 +1,166 @@
 
-# 1 "main.c"
+# 1 "m25p16.c"
+
+# 33 "m25p16.h"
+void read_ram_id(unsigned char *mem_ptr);
+
+# 41
+unsigned char read_ram_status(void);
+
+# 52
+void ram_bulk_erase(void);
+
+# 65
+void ram_sector_erase(unsigned char sector);
+
+# 78
+void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+
+# 92
+void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+
+# 112
+void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr);
+
+# 121
+void write_ram_status(unsigned char status);
+
+# 130
+void power_up_flash_ram(void);
+
+# 142
+void power_down_flash_ram(void);
+
+# 39 "GenericTypeDefs.h"
+typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
+typedef unsigned char BYTE;
+typedef unsigned short int WORD;
+typedef unsigned long DWORD;
+
+typedef union _BYTE_VAL
+{
+BYTE Val;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+} bits;
+} BYTE_VAL;
+
+typedef union _WORD_VAL
+{
+WORD Val;
+BYTE v[2];
+struct
+{
+BYTE LB;
+BYTE HB;
+} byte;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+unsigned char b8:1;
+unsigned char b9:1;
+unsigned char b10:1;
+unsigned char b11:1;
+unsigned char b12:1;
+unsigned char b13:1;
+unsigned char b14:1;
+unsigned char b15:1;
+} bits;
+} WORD_VAL;
+
+typedef union _DWORD_VAL
+{
+DWORD Val;
+WORD w[2];
+BYTE v[4];
+struct
+{
+WORD LW;
+WORD HW;
+} word;
+struct
+{
+BYTE LB;
+BYTE HB;
+BYTE UB;
+BYTE MB;
+} byte;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+unsigned char b8:1;
+unsigned char b9:1;
+unsigned char b10:1;
+unsigned char b11:1;
+unsigned char b12:1;
+unsigned char b13:1;
+unsigned char b14:1;
+unsigned char b15:1;
+unsigned char b16:1;
+unsigned char b17:1;
+unsigned char b18:1;
+unsigned char b19:1;
+unsigned char b20:1;
+unsigned char b21:1;
+unsigned char b22:1;
+unsigned char b23:1;
+unsigned char b24:1;
+unsigned char b25:1;
+unsigned char b26:1;
+unsigned char b27:1;
+unsigned char b28:1;
+unsigned char b29:1;
+unsigned char b30:1;
+unsigned char b31:1;
+} bits;
+} DWORD_VAL;
+
+# 51 "variables.h"
+unsigned char ReceivedData[40];
+int intBlinkCycle;
+int intBlinkCounter;
+int intHalfSecondCounter;
+int intSecondCounter;
+int intMinuteCounter;
+BOOL bDark;
+int intDarkCheckIntervall;
+int intClockTimer[5];
+BOOL bTimerComplete[5];
+int intNumberOfBlinks = 600;
+BOOL bTransiverModeReceive = FALSE;
+BOOL bValueFromPot = TRUE;
+int addressDarknessValue = 0;
+
+
+
+const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
+const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
+const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
+
+BOOL bChannelFound = 0;
+int channelFound;
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -2088,156 +2249,6 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 39 "GenericTypeDefs.h"
-typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
-typedef unsigned char BYTE;
-typedef unsigned short int WORD;
-typedef unsigned long DWORD;
-
-typedef union _BYTE_VAL
-{
-BYTE Val;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-} bits;
-} BYTE_VAL;
-
-typedef union _WORD_VAL
-{
-WORD Val;
-BYTE v[2];
-struct
-{
-BYTE LB;
-BYTE HB;
-} byte;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-unsigned char b8:1;
-unsigned char b9:1;
-unsigned char b10:1;
-unsigned char b11:1;
-unsigned char b12:1;
-unsigned char b13:1;
-unsigned char b14:1;
-unsigned char b15:1;
-} bits;
-} WORD_VAL;
-
-typedef union _DWORD_VAL
-{
-DWORD Val;
-WORD w[2];
-BYTE v[4];
-struct
-{
-WORD LW;
-WORD HW;
-} word;
-struct
-{
-BYTE LB;
-BYTE HB;
-BYTE UB;
-BYTE MB;
-} byte;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-unsigned char b8:1;
-unsigned char b9:1;
-unsigned char b10:1;
-unsigned char b11:1;
-unsigned char b12:1;
-unsigned char b13:1;
-unsigned char b14:1;
-unsigned char b15:1;
-unsigned char b16:1;
-unsigned char b17:1;
-unsigned char b18:1;
-unsigned char b19:1;
-unsigned char b20:1;
-unsigned char b21:1;
-unsigned char b22:1;
-unsigned char b23:1;
-unsigned char b24:1;
-unsigned char b25:1;
-unsigned char b26:1;
-unsigned char b27:1;
-unsigned char b28:1;
-unsigned char b29:1;
-unsigned char b30:1;
-unsigned char b31:1;
-} bits;
-} DWORD_VAL;
-
-# 431 "MRF89XA.h"
-void RegisterSet(BYTE address, BYTE value);
-BYTE RegisterRead(BYTE address);
-void Send_Packet(BYTE packetlen);
-void ReceiveFrame(void);
-void WriteFIFO(BYTE);
-BYTE ReadFIFO(void);
-void SetRFMode(BYTE);
-
-# 4 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\__size_t.h"
-typedef unsigned size_t;
-
-# 14 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\string.h"
-extern void * memcpy(void *, const void *, size_t);
-extern void * memmove(void *, const void *, size_t);
-extern void * memset(void *, int, size_t);
-
-# 34
-extern char * strcat(char *, const char *);
-extern char * strcpy(char *, const char *);
-extern char * strncat(char *, const char *, size_t);
-extern char * strncpy(char *, const char *, size_t);
-extern char * strdup(const char *);
-extern char * strtok(char *, const char *);
-
-
-extern int memcmp(const void *, const void *, size_t);
-extern int strcmp(const char *, const char *);
-extern int stricmp(const char *, const char *);
-extern int strncmp(const char *, const char *, size_t);
-extern int strnicmp(const char *, const char *, size_t);
-extern void * memchr(const void *, int, size_t);
-extern size_t strcspn(const char *, const char *);
-extern char * strpbrk(const char *, const char *);
-extern size_t strspn(const char *, const char *);
-extern char * strstr(const char *, const char *);
-extern char * stristr(const char *, const char *);
-extern char * strerror(int);
-extern size_t strlen(const char *);
-extern char * strchr(const char *, int);
-extern char * strichr(const char *, int);
-extern char * strrchr(const char *, int);
-extern char * strrichr(const char *, int);
-
 # 2 "functions.h"
 void init();
 void DelayDs(int);
@@ -2277,50 +2288,156 @@ void ReceivedPacketHandler(unsigned char Data[]);
 void TransmittPacket(BYTE topic, BYTE value);
 char FindChannel(void);
 
-# 50 "variables.h"
-unsigned char ReceivedData[40];
-int intBlinkCycle;
-int intBlinkCounter;
-int intHalfSecondCounter;
-int intSecondCounter;
-int intMinuteCounter;
-BOOL bDark;
-int intDarkCheckIntervall;
-int intClockTimer[5];
-BOOL bTimerComplete[5];
-int intNumberOfBlinks = 600;
-BOOL bTransiverModeReceive = FALSE;
-BOOL bValueFromPot = TRUE;
-int addressDarknessValue = 0;
+# 36 "m25p16.c"
+void read_ram_id(unsigned char* mem_ptr) {
 
+# 46
+RD3 = 0;
+WriteSPI(0x9F);
+mem_ptr[0] = ReadSPI();
+mem_ptr[1] = ReadSPI();
+mem_ptr[2] = ReadSPI();
+RD3 = 1;
 
-
-const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
-const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
-const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
-
-BOOL bChannelFound = 0;
-int channelFound;
-
-
-# 24 "main.c"
-#pragma config DEBUG=OFF, LVP=OFF, FCMEN=OFF, IESO=OFF, BOREN=OFF, CPD=ON, CP=ON, MCLRE=OFF, PWRTE=OFF, WDTE=OFF, FOSC=INTRC_NOCLKOUT
-
-
-
-int main(void)
-{
-
-init();
-
-
-while(1)
-{
-_delay((unsigned long)((200)*(4000000/4000.0)));
-RC1 = 1;
-_delay((unsigned long)((200)*(4000000/4000.0)));
-RC1 = 0;
 }
 
-# 80
+
+
+unsigned char read_ram_status(void) {
+
+unsigned char status;
+
+# 68
+RD3 = 0;
+WriteSPI(0x05);
+status = ReadSPI();
+RD3 = 1;
+return status;
+
 }
+
+
+void ram_bulk_erase(void) {
+
+# 90
+RD3 = 0;
+WriteSPI(0x06);
+RD3 = 1;
+_delay((unsigned long)((1)*(4000000/4000000.0)));
+RD3 = 0;
+WriteSPI(0xC7);
+RD3 = 1;
+while(read_ram_status());
+}
+
+
+void ram_sector_erase(unsigned char sector) {
+
+# 117
+RD3 = 0;
+WriteSPI(0x06);
+RD3 = 1;
+_delay((unsigned long)((1)*(4000000/4000000.0)));
+RD3 = 0;
+WriteSPI(0xD8);
+WriteSPI(sector);
+WriteSPI(0x00);
+WriteSPI(0x00);
+RD3 = 1;
+while(read_ram_status());
+
+}
+
+void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
+read_write_flash_ram(0,256,flash_sector,flash_page,0,mem_ptr);
+}
+void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
+read_write_flash_ram(1,256,flash_sector,flash_page,0,mem_ptr);
+}
+
+
+
+void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr) {
+
+# 155
+unsigned short int i;
+
+# 187
+RD3 = 0;
+if(one_read_zero_write)
+{
+WriteSPI(0x03);
+}
+else
+{
+WriteSPI(0x06);
+RD3 = 1;
+_delay((unsigned long)((1)*(4000000/4000000.0)));
+RD3 = 0;
+WriteSPI(0x02);
+
+}
+
+WriteSPI(flash_sector);
+WriteSPI(flash_page);
+WriteSPI(offset);
+
+for (i=0;i<bytes_to_readwrite;i++)
+{
+if (one_read_zero_write)
+{
+mem_ptr[i] = ReadSPI();
+}
+else
+{
+WriteSPI(mem_ptr[i]);
+}
+}
+
+RD3 = 1;
+
+_delay((unsigned long)((1)*(4000000/4000.0)));
+while (read_ram_status() & 0b00000011) {
+_delay((unsigned long)((1)*(4000000/4000.0)));
+}
+
+
+}
+
+
+
+void write_ram_status(unsigned char status) {
+
+# 245
+RD3 = 0;
+WriteSPI(0x06);
+RD3 = 1;
+_delay((unsigned long)((2)*(4000000/4000000.0)));
+RD3 = 0;
+WriteSPI(0x01);
+WriteSPI(status);
+RD3 = 1;
+_delay((unsigned long)((2)*(4000000/4000000.0)));
+while (read_ram_status() & 0x01);
+
+}
+
+
+void power_up_flash_ram(void) {
+
+# 266
+RD3 = 0;
+WriteSPI(0xAB);
+RD3 = 1;
+_delay((unsigned long)((30)*(4000000/4000000.0)));
+}
+
+
+void power_down_flash_ram(void) {
+
+# 279
+RD3 = 0;
+WriteSPI(0xB9);
+RD3 = 1;
+}
+

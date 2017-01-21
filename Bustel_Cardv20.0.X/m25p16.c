@@ -1,5 +1,7 @@
 #include "m25p16.h"
 #include "variables.h"
+#include <xc.h>
+#include "functions.h"
 
 
 /* Support for M25P16 2Mbyte flash RAM 
@@ -31,7 +33,7 @@ Additionally, RAM_CS must be defined as an output on the appropriate DDR
 */
 
 
-void read_ram_id(uint8_t* mem_ptr) {
+void read_ram_id(unsigned char* mem_ptr) {
 
 /*
 	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
@@ -52,38 +54,20 @@ void read_ram_id(uint8_t* mem_ptr) {
 
 
 
-uint8_t read_ram_status(void) {
+unsigned char read_ram_status(void) {
 
-	uint8_t status;
-/*
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_RDSR);
-	status = recv_spi();
-	RAM_PORT |= 1<<RAM_CS;				// deassert cs 
-	return status;
-*/
-
+	unsigned char status;
 	memCE = 0;
 	WriteSPI(RAM_RDSR);
 	status = ReadSPI();
 	memCE = 1;
+	return status;
 
 }
 
 
 void ram_bulk_erase(void) {
 
-/*
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_WREN);					// write enable instruction 	
-	RAM_PORT |= (1<<RAM_CS);			// deassert cs 
-	_delay_us(1); 
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_BE);					// bulk erase instruction 
-	RAM_PORT |= (1<<RAM_CS);			// deassert cs 
-	while (read_ram_status())
-		;
-*/
 	memCE = 0;
 	WriteSPI(RAM_WREN);
 	memCE = 1;
@@ -95,22 +79,8 @@ void ram_bulk_erase(void) {
 }
 
 
-void ram_sector_erase(uint8_t sector) {
-		
-/*
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_WREN);					// write enable instruction 	
-	RAM_PORT |= (1<<RAM_CS);			// deassert cs 
-	_delay_us(1); 
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_SE);					// sector erase instruction 
-	xmit_spi(sector);					// sector erase instruction 
-	xmit_spi(0x00);						// sector erase instruction 
-	xmit_spi(0x00);						// sector erase instruction 
-	RAM_PORT |= (1<<RAM_CS);			// deassert cs 
-	while (read_ram_status())
-		;
-*/
+void ram_sector_erase(unsigned char sector) {
+
 	memCE = 0;
 	WriteSPI(RAM_WREN);
 	memCE = 1;
@@ -125,16 +95,16 @@ void ram_sector_erase(uint8_t sector) {
 
 }
 
-void write_flash_page(uint8_t flash_sector,uint8_t flash_page,uint8_t* mem_ptr) {
+void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
 	read_write_flash_ram(0,256,flash_sector,flash_page,0,mem_ptr);
 }
-void read_flash_page(uint8_t flash_sector,uint8_t flash_page,uint8_t* mem_ptr) {
+void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
 	read_write_flash_ram(1,256,flash_sector,flash_page,0,mem_ptr);
 }
 
 
 
-void read_write_flash_ram(uint8_t one_read_zero_write,uint16_t bytes_to_readwrite,uint8_t flash_sector,uint8_t flash_page,uint8_t offset,uint8_t* mem_ptr) {
+void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr) {
 
 // NB CAUTION page writes which cross page boundaries will wrap 
 
@@ -149,38 +119,10 @@ void read_write_flash_ram(uint8_t one_read_zero_write,uint16_t bytes_to_readwrit
 // POINTER TO ram address for first byte to transfer 
 
 
-	uint16_t i;
+	unsigned short int i;
 
 // for ram device, enter and leave with SCK low 
 
-/*
-	RAM_PORT &= ~(1<<RAM_CS);				// assert cs 
-	if (one_read_zero_write) {
-		xmit_spi(RAM_READ);
-	} else {
-		xmit_spi(RAM_WREN);				// write enable instruction 
-		RAM_PORT |= (1<<RAM_CS);
-		_delay_us(1);
-		RAM_PORT &= ~(1<<RAM_CS);
-		xmit_spi(RAM_PP);
-	}
-	xmit_spi(flash_sector);
-	xmit_spi(flash_page);
-	xmit_spi(offset);
-	for (i=0;i<bytes_to_readwrite;i++) {
-		if (one_read_zero_write) {
-			mem_ptr[i] = recv_spi();
-		} else {
-			xmit_spi(mem_ptr[i]);
-		}
-	}	
-	RAM_PORT |= (1<<RAM_CS);
-
-	_delay_ms(400);
-	while (read_ram_status()) {
-		_delay_ms(10); 
-	}
-*/
 	memCE = 0;
 	if(one_read_zero_write)
 	{
@@ -193,7 +135,9 @@ void read_write_flash_ram(uint8_t one_read_zero_write,uint16_t bytes_to_readwrit
 		__delay_us(1);
 		memCE = 0;
 		WriteSPI(RAM_PP);
+
 	}
+	
 	WriteSPI(flash_sector);
 	WriteSPI(flash_page);
 	WriteSPI(offset);
@@ -212,9 +156,9 @@ void read_write_flash_ram(uint8_t one_read_zero_write,uint16_t bytes_to_readwrit
 
 	memCE = 1;
 	
-	__delay_ms(400);
-	while (read_ram_status()) {
-		__delay_ms(10); 
+	__delay_us(1);
+	while (read_ram_status() & 0b00000011) {
+		__delay_ms(1); 
 	}
 
 
@@ -222,26 +166,14 @@ void read_write_flash_ram(uint8_t one_read_zero_write,uint16_t bytes_to_readwrit
 
 
 // write to the RAM status byte. 0 in bottom bit position = ready 
-void write_ram_status(uint8_t status) {
+void write_ram_status(unsigned char status) {
 
-/*
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_WREN);					// write enable instruction 	
-	RAM_PORT |= (1<<RAM_CS);			// deassert cs 
-	_delay_us(2); 
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_WRSR);
-	xmit_spi(status);
-	RAM_PORT |= 1<<RAM_CS;				// deassert cs 
-	_delay_us(2);
-	while (read_ram_status() & 0x01) 
-		;	
-*/
+
 	memCE = 0;
 	WriteSPI(RAM_WREN);
-	memCE = 1:;			// deassert cs 
-	_delay_us(2); 
-	memCE = 0;;			// assert cs 
+	memCE = 1;			// deassert cs 
+	__delay_us(2); 
+	memCE = 0;			// assert cs 
 	WriteSPI(RAM_WRSR);
 	WriteSPI(status);
 	memCE = 1;				// deassert cs 
@@ -252,12 +184,7 @@ void write_ram_status(uint8_t status) {
 
 
 void power_up_flash_ram(void) {
-/*
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_RES);
-	RAM_PORT |= 1<<RAM_CS;				// deassert cs 
-	_delay_us(30);
-*/
+
 	memCE = 0;			// assert cs 
 	WriteSPI(RAM_RES);
 	memCE = 1;				// deassert cs 
@@ -266,11 +193,7 @@ void power_up_flash_ram(void) {
 
 
 void power_down_flash_ram(void) {
-/*
-	RAM_PORT &= ~(1<<RAM_CS);			// assert cs 
-	xmit_spi(RAM_DP);
-	RAM_PORT |= 1<<RAM_CS;				// deassert cs 
-*/
+
 	memCE = 0;			// assert cs 
 	WriteSPI(RAM_DP);
 	memCE = 1;				// deassert cs 

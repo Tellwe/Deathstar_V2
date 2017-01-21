@@ -6,7 +6,7 @@
 	RAM_PORT
 	RAM_DDR
 
-
+*/
 /* Register definitions for M25P16 flash ram */
 #ifndef _m25p16_
 #define _m25p16_
@@ -30,7 +30,7 @@
  *	\param		*mem_ptr	    Pointer to location to store values returned.
  *
  */
-void read_ram_id(uint8_t* mem_ptr);
+void read_ram_id(unsigned char *mem_ptr);
  
  
  
@@ -38,7 +38,7 @@ void read_ram_id(uint8_t* mem_ptr);
  *	\return					returns device status byte.
  *
  */ 
-uint8_t read_ram_status(void);
+unsigned char read_ram_status(void);
 
 
 
@@ -62,7 +62,7 @@ void ram_bulk_erase(void);
  *				Note that the erase actually sets all bits to 1. The page program can set bits to 0, but NOT to 1.
  *				Therefore each page should be considered 'write once' between erase cycles.
  */
-void ram_sector_erase(uint8_t sector);
+void ram_sector_erase(unsigned char sector);
 
 
 /** \brief		Write exactly 256 bytes to the selected page of the M26P16 from memory
@@ -75,7 +75,7 @@ void ram_sector_erase(uint8_t sector);
  *
  *				For reads or writes of less than 256 bytes, or non aligned read or writes use the read_write_flash_ram() function instead.
  */
-void write_flash_page(uint8_t flash_sector,uint8_t flash_page,uint8_t* mem_ptr);
+void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
 
 
 
@@ -89,7 +89,7 @@ void write_flash_page(uint8_t flash_sector,uint8_t flash_page,uint8_t* mem_ptr);
  *
  *				For reads or writes of less than 256 bytes, or non aligned read or writes use the read_write_flash_ram() function instead.
  */
-void read_flash_page(uint8_t flash_sector,uint8_t flash_page,uint8_t* mem_ptr);
+void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
 
 
 
@@ -109,7 +109,7 @@ void read_flash_page(uint8_t flash_sector,uint8_t flash_page,uint8_t* mem_ptr);
  *								If offset is non-zero, then be aware that if offset+bytes_to_readwrite > 255, then any write
  *								  will wrap back to the beginning of the page. This is unlikely to be what you want.
  */
-void read_write_flash_ram(uint8_t one_read_zero_write,uint16_t bytes_to_readwrite,uint8_t flash_sector,uint8_t flash_page,uint8_t offset,uint8_t* mem_ptr);
+void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr);
 
 
 
@@ -118,7 +118,7 @@ void read_write_flash_ram(uint8_t one_read_zero_write,uint16_t bytes_to_readwrit
  *
  *				This function blocks until the bottom bit of the status register is clear = device ready.
  */
-void write_ram_status(uint8_t status);
+void write_ram_status(unsigned char status);
 
 
 

@@ -1,16 +1,253 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"56 variables.h
-[c E1644 0 1 .. ]
-[n E1644 _BOOL FALSE TRUE  ]
-[p mainexit ]
-"2 functions.h
-[v _init `(v ~T0 @X0 0 ef ]
-[v F1637 `(v ~T0 @X0 1 tf1`ul ]
+"57 variables.h
+[c E30 0 1 .. ]
+[n E30 _BOOL FALSE TRUE  ]
+"3900 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
+[v _RD3 `Vb ~T0 @X0 0 e@67 ]
+"4 functions.h
+[v _WriteSPI `(v ~T0 @X0 0 ef1`uc ]
+"5
+[v _ReadSPI `(uc ~T0 @X0 0 ef ]
+[v F1780 `(v ~T0 @X0 1 tf1`ul ]
 "152 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic.h
-[v __delay `JF1637 ~T0 @X0 0 e ]
+[v __delay `JF1780 ~T0 @X0 0 e ]
 [p i __delay ]
-"3864 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
-[v _RC1 `Vb ~T0 @X0 0 e@57 ]
+"112 m25p16.h
+[v _read_write_flash_ram `(v ~T0 @X0 0 ef6`uc`us`uc`uc`uc`*uc ]
+[; ;m25p16.h: 33: void read_ram_id(unsigned char *mem_ptr);
+[; ;m25p16.h: 41: unsigned char read_ram_status(void);
+[; ;m25p16.h: 52: void ram_bulk_erase(void);
+[; ;m25p16.h: 65: void ram_sector_erase(unsigned char sector);
+[; ;m25p16.h: 78: void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+[; ;m25p16.h: 92: void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+[; ;m25p16.h: 112: void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr);
+[; ;m25p16.h: 121: void write_ram_status(unsigned char status);
+[; ;m25p16.h: 130: void power_up_flash_ram(void);
+[; ;m25p16.h: 142: void power_down_flash_ram(void);
+[; ;GenericTypeDefs.h: 39: typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
+[; ;GenericTypeDefs.h: 40: typedef unsigned char BYTE;
+[; ;GenericTypeDefs.h: 41: typedef unsigned short int WORD;
+[; ;GenericTypeDefs.h: 42: typedef unsigned long DWORD;
+[; ;GenericTypeDefs.h: 44: typedef union _BYTE_VAL
+[; ;GenericTypeDefs.h: 45: {
+[; ;GenericTypeDefs.h: 46: BYTE Val;
+[; ;GenericTypeDefs.h: 47: struct
+[; ;GenericTypeDefs.h: 48: {
+[; ;GenericTypeDefs.h: 49: unsigned char b0:1;
+[; ;GenericTypeDefs.h: 50: unsigned char b1:1;
+[; ;GenericTypeDefs.h: 51: unsigned char b2:1;
+[; ;GenericTypeDefs.h: 52: unsigned char b3:1;
+[; ;GenericTypeDefs.h: 53: unsigned char b4:1;
+[; ;GenericTypeDefs.h: 54: unsigned char b5:1;
+[; ;GenericTypeDefs.h: 55: unsigned char b6:1;
+[; ;GenericTypeDefs.h: 56: unsigned char b7:1;
+[; ;GenericTypeDefs.h: 57: } bits;
+[; ;GenericTypeDefs.h: 58: } BYTE_VAL;
+[; ;GenericTypeDefs.h: 60: typedef union _WORD_VAL
+[; ;GenericTypeDefs.h: 61: {
+[; ;GenericTypeDefs.h: 62: WORD Val;
+[; ;GenericTypeDefs.h: 63: BYTE v[2];
+[; ;GenericTypeDefs.h: 64: struct
+[; ;GenericTypeDefs.h: 65: {
+[; ;GenericTypeDefs.h: 66: BYTE LB;
+[; ;GenericTypeDefs.h: 67: BYTE HB;
+[; ;GenericTypeDefs.h: 68: } byte;
+[; ;GenericTypeDefs.h: 69: struct
+[; ;GenericTypeDefs.h: 70: {
+[; ;GenericTypeDefs.h: 71: unsigned char b0:1;
+[; ;GenericTypeDefs.h: 72: unsigned char b1:1;
+[; ;GenericTypeDefs.h: 73: unsigned char b2:1;
+[; ;GenericTypeDefs.h: 74: unsigned char b3:1;
+[; ;GenericTypeDefs.h: 75: unsigned char b4:1;
+[; ;GenericTypeDefs.h: 76: unsigned char b5:1;
+[; ;GenericTypeDefs.h: 77: unsigned char b6:1;
+[; ;GenericTypeDefs.h: 78: unsigned char b7:1;
+[; ;GenericTypeDefs.h: 79: unsigned char b8:1;
+[; ;GenericTypeDefs.h: 80: unsigned char b9:1;
+[; ;GenericTypeDefs.h: 81: unsigned char b10:1;
+[; ;GenericTypeDefs.h: 82: unsigned char b11:1;
+[; ;GenericTypeDefs.h: 83: unsigned char b12:1;
+[; ;GenericTypeDefs.h: 84: unsigned char b13:1;
+[; ;GenericTypeDefs.h: 85: unsigned char b14:1;
+[; ;GenericTypeDefs.h: 86: unsigned char b15:1;
+[; ;GenericTypeDefs.h: 87: } bits;
+[; ;GenericTypeDefs.h: 88: } WORD_VAL;
+[; ;GenericTypeDefs.h: 90: typedef union _DWORD_VAL
+[; ;GenericTypeDefs.h: 91: {
+[; ;GenericTypeDefs.h: 92: DWORD Val;
+[; ;GenericTypeDefs.h: 93: WORD w[2];
+[; ;GenericTypeDefs.h: 94: BYTE v[4];
+[; ;GenericTypeDefs.h: 95: struct
+[; ;GenericTypeDefs.h: 96: {
+[; ;GenericTypeDefs.h: 97: WORD LW;
+[; ;GenericTypeDefs.h: 98: WORD HW;
+[; ;GenericTypeDefs.h: 99: } word;
+[; ;GenericTypeDefs.h: 100: struct
+[; ;GenericTypeDefs.h: 101: {
+[; ;GenericTypeDefs.h: 102: BYTE LB;
+[; ;GenericTypeDefs.h: 103: BYTE HB;
+[; ;GenericTypeDefs.h: 104: BYTE UB;
+[; ;GenericTypeDefs.h: 105: BYTE MB;
+[; ;GenericTypeDefs.h: 106: } byte;
+[; ;GenericTypeDefs.h: 107: struct
+[; ;GenericTypeDefs.h: 108: {
+[; ;GenericTypeDefs.h: 109: unsigned char b0:1;
+[; ;GenericTypeDefs.h: 110: unsigned char b1:1;
+[; ;GenericTypeDefs.h: 111: unsigned char b2:1;
+[; ;GenericTypeDefs.h: 112: unsigned char b3:1;
+[; ;GenericTypeDefs.h: 113: unsigned char b4:1;
+[; ;GenericTypeDefs.h: 114: unsigned char b5:1;
+[; ;GenericTypeDefs.h: 115: unsigned char b6:1;
+[; ;GenericTypeDefs.h: 116: unsigned char b7:1;
+[; ;GenericTypeDefs.h: 117: unsigned char b8:1;
+[; ;GenericTypeDefs.h: 118: unsigned char b9:1;
+[; ;GenericTypeDefs.h: 119: unsigned char b10:1;
+[; ;GenericTypeDefs.h: 120: unsigned char b11:1;
+[; ;GenericTypeDefs.h: 121: unsigned char b12:1;
+[; ;GenericTypeDefs.h: 122: unsigned char b13:1;
+[; ;GenericTypeDefs.h: 123: unsigned char b14:1;
+[; ;GenericTypeDefs.h: 124: unsigned char b15:1;
+[; ;GenericTypeDefs.h: 125: unsigned char b16:1;
+[; ;GenericTypeDefs.h: 126: unsigned char b17:1;
+[; ;GenericTypeDefs.h: 127: unsigned char b18:1;
+[; ;GenericTypeDefs.h: 128: unsigned char b19:1;
+[; ;GenericTypeDefs.h: 129: unsigned char b20:1;
+[; ;GenericTypeDefs.h: 130: unsigned char b21:1;
+[; ;GenericTypeDefs.h: 131: unsigned char b22:1;
+[; ;GenericTypeDefs.h: 132: unsigned char b23:1;
+[; ;GenericTypeDefs.h: 133: unsigned char b24:1;
+[; ;GenericTypeDefs.h: 134: unsigned char b25:1;
+[; ;GenericTypeDefs.h: 135: unsigned char b26:1;
+[; ;GenericTypeDefs.h: 136: unsigned char b27:1;
+[; ;GenericTypeDefs.h: 137: unsigned char b28:1;
+[; ;GenericTypeDefs.h: 138: unsigned char b29:1;
+[; ;GenericTypeDefs.h: 139: unsigned char b30:1;
+[; ;GenericTypeDefs.h: 140: unsigned char b31:1;
+[; ;GenericTypeDefs.h: 141: } bits;
+[; ;GenericTypeDefs.h: 142: } DWORD_VAL;
+"51 variables.h
+[v _ReceivedData `uc ~T0 @X0 -> 40 `i e ]
+[; ;variables.h: 51: unsigned char ReceivedData[40];
+"52
+[v _intBlinkCycle `i ~T0 @X0 1 e ]
+[; ;variables.h: 52: int intBlinkCycle;
+"53
+[v _intBlinkCounter `i ~T0 @X0 1 e ]
+[; ;variables.h: 53: int intBlinkCounter;
+"54
+[v _intHalfSecondCounter `i ~T0 @X0 1 e ]
+[; ;variables.h: 54: int intHalfSecondCounter;
+"55
+[v _intSecondCounter `i ~T0 @X0 1 e ]
+[; ;variables.h: 55: int intSecondCounter;
+"56
+[v _intMinuteCounter `i ~T0 @X0 1 e ]
+[; ;variables.h: 56: int intMinuteCounter;
+"57
+[v _bDark `E30 ~T0 @X0 1 e ]
+[; ;variables.h: 57: BOOL bDark;
+"58
+[v _intDarkCheckIntervall `i ~T0 @X0 1 e ]
+[; ;variables.h: 58: int intDarkCheckIntervall;
+"59
+[v _intClockTimer `i ~T0 @X0 -> 5 `i e ]
+[; ;variables.h: 59: int intClockTimer[5];
+"60
+[v _bTimerComplete `E30 ~T0 @X0 -> 5 `i e ]
+[; ;variables.h: 60: BOOL bTimerComplete[5];
+"61
+[v _intNumberOfBlinks `i ~T0 @X0 1 e ]
+[i _intNumberOfBlinks
+-> 600 `i
+]
+[; ;variables.h: 61: int intNumberOfBlinks = 600;
+"62
+[v _bTransiverModeReceive `E30 ~T0 @X0 1 e ]
+[i _bTransiverModeReceive
+. `E30 0
+]
+[; ;variables.h: 62: BOOL bTransiverModeReceive = FALSE;
+"63
+[v _bValueFromPot `E30 ~T0 @X0 1 e ]
+[i _bValueFromPot
+. `E30 1
+]
+[; ;variables.h: 63: BOOL bValueFromPot = TRUE;
+"64
+[v _addressDarknessValue `i ~T0 @X0 1 e ]
+[i _addressDarknessValue
+-> 0 `i
+]
+[; ;variables.h: 64: int addressDarknessValue = 0;
+"68
+[v _ChannelR `Cuc ~T0 @X0 -> 13 `i e ]
+[i _ChannelR
+:U ..
+-> -> 79 `i `uc
+-> -> 89 `i `uc
+-> -> 99 `i `uc
+-> -> 109 `i `uc
+-> -> 119 `i `uc
+-> -> 149 `i `uc
+-> -> 159 `i `uc
+-> -> 159 `i `uc
+-> -> 169 `i `uc
+-> -> 169 `i `uc
+-> -> 69 `i `uc
+-> -> 129 `i `uc
+-> -> 139 `i `uc
+..
+]
+[; ;variables.h: 68: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
+"69
+[v _ChannelP `Cuc ~T0 @X0 -> 13 `i e ]
+[i _ChannelP
+:U ..
+-> -> 63 `i `uc
+-> -> 71 `i `uc
+-> -> 79 `i `uc
+-> -> 87 `i `uc
+-> -> 95 `i `uc
+-> -> 119 `i `uc
+-> -> 126 `i `uc
+-> -> 127 `i `uc
+-> -> 134 `i `uc
+-> -> 135 `i `uc
+-> -> 55 `i `uc
+-> -> 103 `i `uc
+-> -> 111 `i `uc
+..
+]
+[; ;variables.h: 69: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
+"70
+[v _ChannelS `Cuc ~T0 @X0 -> 13 `i e ]
+[i _ChannelS
+:U ..
+-> -> 24 `i `uc
+-> -> 27 `i `uc
+-> -> 30 `i `uc
+-> -> 33 `i `uc
+-> -> 36 `i `uc
+-> -> 45 `i `uc
+-> -> 123 `i `uc
+-> -> 48 `i `uc
+-> -> 126 `i `uc
+-> -> 51 `i `uc
+-> -> 21 `i `uc
+-> -> 39 `i `uc
+-> -> 42 `i `uc
+..
+]
+[; ;variables.h: 70: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
+"72
+[v _bChannelFound `E30 ~T0 @X0 1 e ]
+[i _bChannelFound
+-> -> 0 `i `E30
+]
+[; ;variables.h: 72: BOOL bChannelFound = 0;
+"73
+[v _channelFound `i ~T0 @X0 1 e ]
+[; ;variables.h: 73: int channelFound;
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -1495,141 +1732,6 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 192: extern unsigned char __resetbits;
 [; ;pic.h: 193: extern __bit __powerdown;
 [; ;pic.h: 194: extern __bit __timeout;
-[; ;GenericTypeDefs.h: 39: typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
-[; ;GenericTypeDefs.h: 40: typedef unsigned char BYTE;
-[; ;GenericTypeDefs.h: 41: typedef unsigned short int WORD;
-[; ;GenericTypeDefs.h: 42: typedef unsigned long DWORD;
-[; ;GenericTypeDefs.h: 44: typedef union _BYTE_VAL
-[; ;GenericTypeDefs.h: 45: {
-[; ;GenericTypeDefs.h: 46: BYTE Val;
-[; ;GenericTypeDefs.h: 47: struct
-[; ;GenericTypeDefs.h: 48: {
-[; ;GenericTypeDefs.h: 49: unsigned char b0:1;
-[; ;GenericTypeDefs.h: 50: unsigned char b1:1;
-[; ;GenericTypeDefs.h: 51: unsigned char b2:1;
-[; ;GenericTypeDefs.h: 52: unsigned char b3:1;
-[; ;GenericTypeDefs.h: 53: unsigned char b4:1;
-[; ;GenericTypeDefs.h: 54: unsigned char b5:1;
-[; ;GenericTypeDefs.h: 55: unsigned char b6:1;
-[; ;GenericTypeDefs.h: 56: unsigned char b7:1;
-[; ;GenericTypeDefs.h: 57: } bits;
-[; ;GenericTypeDefs.h: 58: } BYTE_VAL;
-[; ;GenericTypeDefs.h: 60: typedef union _WORD_VAL
-[; ;GenericTypeDefs.h: 61: {
-[; ;GenericTypeDefs.h: 62: WORD Val;
-[; ;GenericTypeDefs.h: 63: BYTE v[2];
-[; ;GenericTypeDefs.h: 64: struct
-[; ;GenericTypeDefs.h: 65: {
-[; ;GenericTypeDefs.h: 66: BYTE LB;
-[; ;GenericTypeDefs.h: 67: BYTE HB;
-[; ;GenericTypeDefs.h: 68: } byte;
-[; ;GenericTypeDefs.h: 69: struct
-[; ;GenericTypeDefs.h: 70: {
-[; ;GenericTypeDefs.h: 71: unsigned char b0:1;
-[; ;GenericTypeDefs.h: 72: unsigned char b1:1;
-[; ;GenericTypeDefs.h: 73: unsigned char b2:1;
-[; ;GenericTypeDefs.h: 74: unsigned char b3:1;
-[; ;GenericTypeDefs.h: 75: unsigned char b4:1;
-[; ;GenericTypeDefs.h: 76: unsigned char b5:1;
-[; ;GenericTypeDefs.h: 77: unsigned char b6:1;
-[; ;GenericTypeDefs.h: 78: unsigned char b7:1;
-[; ;GenericTypeDefs.h: 79: unsigned char b8:1;
-[; ;GenericTypeDefs.h: 80: unsigned char b9:1;
-[; ;GenericTypeDefs.h: 81: unsigned char b10:1;
-[; ;GenericTypeDefs.h: 82: unsigned char b11:1;
-[; ;GenericTypeDefs.h: 83: unsigned char b12:1;
-[; ;GenericTypeDefs.h: 84: unsigned char b13:1;
-[; ;GenericTypeDefs.h: 85: unsigned char b14:1;
-[; ;GenericTypeDefs.h: 86: unsigned char b15:1;
-[; ;GenericTypeDefs.h: 87: } bits;
-[; ;GenericTypeDefs.h: 88: } WORD_VAL;
-[; ;GenericTypeDefs.h: 90: typedef union _DWORD_VAL
-[; ;GenericTypeDefs.h: 91: {
-[; ;GenericTypeDefs.h: 92: DWORD Val;
-[; ;GenericTypeDefs.h: 93: WORD w[2];
-[; ;GenericTypeDefs.h: 94: BYTE v[4];
-[; ;GenericTypeDefs.h: 95: struct
-[; ;GenericTypeDefs.h: 96: {
-[; ;GenericTypeDefs.h: 97: WORD LW;
-[; ;GenericTypeDefs.h: 98: WORD HW;
-[; ;GenericTypeDefs.h: 99: } word;
-[; ;GenericTypeDefs.h: 100: struct
-[; ;GenericTypeDefs.h: 101: {
-[; ;GenericTypeDefs.h: 102: BYTE LB;
-[; ;GenericTypeDefs.h: 103: BYTE HB;
-[; ;GenericTypeDefs.h: 104: BYTE UB;
-[; ;GenericTypeDefs.h: 105: BYTE MB;
-[; ;GenericTypeDefs.h: 106: } byte;
-[; ;GenericTypeDefs.h: 107: struct
-[; ;GenericTypeDefs.h: 108: {
-[; ;GenericTypeDefs.h: 109: unsigned char b0:1;
-[; ;GenericTypeDefs.h: 110: unsigned char b1:1;
-[; ;GenericTypeDefs.h: 111: unsigned char b2:1;
-[; ;GenericTypeDefs.h: 112: unsigned char b3:1;
-[; ;GenericTypeDefs.h: 113: unsigned char b4:1;
-[; ;GenericTypeDefs.h: 114: unsigned char b5:1;
-[; ;GenericTypeDefs.h: 115: unsigned char b6:1;
-[; ;GenericTypeDefs.h: 116: unsigned char b7:1;
-[; ;GenericTypeDefs.h: 117: unsigned char b8:1;
-[; ;GenericTypeDefs.h: 118: unsigned char b9:1;
-[; ;GenericTypeDefs.h: 119: unsigned char b10:1;
-[; ;GenericTypeDefs.h: 120: unsigned char b11:1;
-[; ;GenericTypeDefs.h: 121: unsigned char b12:1;
-[; ;GenericTypeDefs.h: 122: unsigned char b13:1;
-[; ;GenericTypeDefs.h: 123: unsigned char b14:1;
-[; ;GenericTypeDefs.h: 124: unsigned char b15:1;
-[; ;GenericTypeDefs.h: 125: unsigned char b16:1;
-[; ;GenericTypeDefs.h: 126: unsigned char b17:1;
-[; ;GenericTypeDefs.h: 127: unsigned char b18:1;
-[; ;GenericTypeDefs.h: 128: unsigned char b19:1;
-[; ;GenericTypeDefs.h: 129: unsigned char b20:1;
-[; ;GenericTypeDefs.h: 130: unsigned char b21:1;
-[; ;GenericTypeDefs.h: 131: unsigned char b22:1;
-[; ;GenericTypeDefs.h: 132: unsigned char b23:1;
-[; ;GenericTypeDefs.h: 133: unsigned char b24:1;
-[; ;GenericTypeDefs.h: 134: unsigned char b25:1;
-[; ;GenericTypeDefs.h: 135: unsigned char b26:1;
-[; ;GenericTypeDefs.h: 136: unsigned char b27:1;
-[; ;GenericTypeDefs.h: 137: unsigned char b28:1;
-[; ;GenericTypeDefs.h: 138: unsigned char b29:1;
-[; ;GenericTypeDefs.h: 139: unsigned char b30:1;
-[; ;GenericTypeDefs.h: 140: unsigned char b31:1;
-[; ;GenericTypeDefs.h: 141: } bits;
-[; ;GenericTypeDefs.h: 142: } DWORD_VAL;
-[; ;MRF89XA.h: 431: void RegisterSet(BYTE address, BYTE value);
-[; ;MRF89XA.h: 432: BYTE RegisterRead(BYTE address);
-[; ;MRF89XA.h: 433: void Send_Packet(BYTE packetlen);
-[; ;MRF89XA.h: 434: void ReceiveFrame(void);
-[; ;MRF89XA.h: 435: void WriteFIFO(BYTE);
-[; ;MRF89XA.h: 436: BYTE ReadFIFO(void);
-[; ;MRF89XA.h: 437: void SetRFMode(BYTE);
-[; ;__size_t.h: 4: typedef unsigned size_t;
-[; ;string.h: 14: extern void * memcpy(void *, const void *, size_t);
-[; ;string.h: 15: extern void * memmove(void *, const void *, size_t);
-[; ;string.h: 16: extern void * memset(void *, int, size_t);
-[; ;string.h: 34: extern char * strcat(char *, const char *);
-[; ;string.h: 35: extern char * strcpy(char *, const char *);
-[; ;string.h: 36: extern char * strncat(char *, const char *, size_t);
-[; ;string.h: 37: extern char * strncpy(char *, const char *, size_t);
-[; ;string.h: 38: extern char * strdup(const char *);
-[; ;string.h: 39: extern char * strtok(char *, const char *);
-[; ;string.h: 42: extern int memcmp(const void *, const void *, size_t);
-[; ;string.h: 43: extern int strcmp(const char *, const char *);
-[; ;string.h: 44: extern int stricmp(const char *, const char *);
-[; ;string.h: 45: extern int strncmp(const char *, const char *, size_t);
-[; ;string.h: 46: extern int strnicmp(const char *, const char *, size_t);
-[; ;string.h: 47: extern void * memchr(const void *, int, size_t);
-[; ;string.h: 48: extern size_t strcspn(const char *, const char *);
-[; ;string.h: 49: extern char * strpbrk(const char *, const char *);
-[; ;string.h: 50: extern size_t strspn(const char *, const char *);
-[; ;string.h: 51: extern char * strstr(const char *, const char *);
-[; ;string.h: 52: extern char * stristr(const char *, const char *);
-[; ;string.h: 53: extern char * strerror(int);
-[; ;string.h: 54: extern size_t strlen(const char *);
-[; ;string.h: 55: extern char * strchr(const char *, int);
-[; ;string.h: 56: extern char * strichr(const char *, int);
-[; ;string.h: 57: extern char * strrchr(const char *, int);
-[; ;string.h: 58: extern char * strrichr(const char *, int);
 [; ;functions.h: 2: void init();
 [; ;functions.h: 3: void DelayDs(int);
 [; ;functions.h: 4: void WriteSPI(unsigned char);
@@ -1667,178 +1769,400 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;functions.h: 36: void ReceivedPacketHandler(unsigned char Data[]);
 [; ;functions.h: 37: void TransmittPacket(BYTE topic, BYTE value);
 [; ;functions.h: 38: char FindChannel(void);
-"50 variables.h
-[v _ReceivedData `uc ~T0 @X0 -> 40 `i e ]
-[; ;variables.h: 50: unsigned char ReceivedData[40];
-"51
-[v _intBlinkCycle `i ~T0 @X0 1 e ]
-[; ;variables.h: 51: int intBlinkCycle;
-"52
-[v _intBlinkCounter `i ~T0 @X0 1 e ]
-[; ;variables.h: 52: int intBlinkCounter;
-"53
-[v _intHalfSecondCounter `i ~T0 @X0 1 e ]
-[; ;variables.h: 53: int intHalfSecondCounter;
-"54
-[v _intSecondCounter `i ~T0 @X0 1 e ]
-[; ;variables.h: 54: int intSecondCounter;
-"55
-[v _intMinuteCounter `i ~T0 @X0 1 e ]
-[; ;variables.h: 55: int intMinuteCounter;
-"56
-[v _bDark `E1644 ~T0 @X0 1 e ]
-[; ;variables.h: 56: BOOL bDark;
-"57
-[v _intDarkCheckIntervall `i ~T0 @X0 1 e ]
-[; ;variables.h: 57: int intDarkCheckIntervall;
-"58
-[v _intClockTimer `i ~T0 @X0 -> 5 `i e ]
-[; ;variables.h: 58: int intClockTimer[5];
-"59
-[v _bTimerComplete `E1644 ~T0 @X0 -> 5 `i e ]
-[; ;variables.h: 59: BOOL bTimerComplete[5];
-"60
-[v _intNumberOfBlinks `i ~T0 @X0 1 e ]
-[i _intNumberOfBlinks
--> 600 `i
-]
-[; ;variables.h: 60: int intNumberOfBlinks = 600;
-"61
-[v _bTransiverModeReceive `E1644 ~T0 @X0 1 e ]
-[i _bTransiverModeReceive
-. `E1644 0
-]
-[; ;variables.h: 61: BOOL bTransiverModeReceive = FALSE;
-"62
-[v _bValueFromPot `E1644 ~T0 @X0 1 e ]
-[i _bValueFromPot
-. `E1644 1
-]
-[; ;variables.h: 62: BOOL bValueFromPot = TRUE;
-"63
-[v _addressDarknessValue `i ~T0 @X0 1 e ]
-[i _addressDarknessValue
--> 0 `i
-]
-[; ;variables.h: 63: int addressDarknessValue = 0;
-"67
-[v _ChannelR `Cuc ~T0 @X0 -> 13 `i e ]
-[i _ChannelR
-:U ..
--> -> 79 `i `uc
--> -> 89 `i `uc
--> -> 99 `i `uc
--> -> 109 `i `uc
--> -> 119 `i `uc
--> -> 149 `i `uc
--> -> 159 `i `uc
--> -> 159 `i `uc
--> -> 169 `i `uc
--> -> 169 `i `uc
--> -> 69 `i `uc
--> -> 129 `i `uc
--> -> 139 `i `uc
-..
-]
-[; ;variables.h: 67: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
-"68
-[v _ChannelP `Cuc ~T0 @X0 -> 13 `i e ]
-[i _ChannelP
-:U ..
--> -> 63 `i `uc
--> -> 71 `i `uc
--> -> 79 `i `uc
--> -> 87 `i `uc
--> -> 95 `i `uc
--> -> 119 `i `uc
--> -> 126 `i `uc
--> -> 127 `i `uc
--> -> 134 `i `uc
--> -> 135 `i `uc
--> -> 55 `i `uc
--> -> 103 `i `uc
--> -> 111 `i `uc
-..
-]
-[; ;variables.h: 68: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
-"69
-[v _ChannelS `Cuc ~T0 @X0 -> 13 `i e ]
-[i _ChannelS
-:U ..
--> -> 24 `i `uc
--> -> 27 `i `uc
--> -> 30 `i `uc
--> -> 33 `i `uc
--> -> 36 `i `uc
--> -> 45 `i `uc
--> -> 123 `i `uc
--> -> 48 `i `uc
--> -> 126 `i `uc
--> -> 51 `i `uc
--> -> 21 `i `uc
--> -> 39 `i `uc
--> -> 42 `i `uc
-..
-]
-[; ;variables.h: 69: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
-"71
-[v _bChannelFound `E1644 ~T0 @X0 1 e ]
-[i _bChannelFound
--> -> 0 `i `E1644
-]
-[; ;variables.h: 71: BOOL bChannelFound = 0;
-"72
-[v _channelFound `i ~T0 @X0 1 e ]
-[; ;variables.h: 72: int channelFound;
-"24 main.c
-[p x DEBUG=OFF ]
-[p x LVP=OFF ]
-[p x FCMEN=OFF ]
-[p x IESO=OFF ]
-[p x BOREN=OFF ]
-[p x CPD=ON ]
-[p x CP=ON ]
-[p x MCLRE=OFF ]
-[p x PWRTE=OFF ]
-[p x WDTE=OFF ]
-[p x FOSC=INTRC_NOCLKOUT ]
-"28
-[v _main `(i ~T0 @X0 1 ef ]
-"29
+"36 m25p16.c
+[v _read_ram_id `(v ~T0 @X0 1 ef1`*uc ]
 {
-[; ;main.c: 28: int main(void)
-[; ;main.c: 29: {
-[e :U _main ]
+[; ;m25p16.c: 36: void read_ram_id(unsigned char* mem_ptr) {
+[e :U _read_ram_id ]
+[v _mem_ptr `*uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;main.c: 31: init();
-"31
-[e ( _init ..  ]
-[; ;main.c: 34: while(1)
-"34
-[e :U 149 ]
-[; ;main.c: 35: {
-"35
-{
-[; ;main.c: 36: _delay((unsigned long)((200)*(4000000/4000.0)));
-"36
-[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 37: RC1 = 1;
-"37
-[e = _RC1 -> -> 1 `i `b ]
-[; ;main.c: 38: _delay((unsigned long)((200)*(4000000/4000.0)));
-"38
-[e ( __delay (1 -> * -> -> 200 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 39: RC1 = 0;
-"39
-[e = _RC1 -> -> 0 `i `b ]
-"40
-}
-[e :U 148 ]
-"34
-[e $U 149  ]
-[e :U 150 ]
-[; ;main.c: 40: }
-[; ;main.c: 80: }
-"80
+[; ;m25p16.c: 46: RD3 = 0;
+"46
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 47: WriteSPI(0x9F);
+"47
+[e ( _WriteSPI (1 -> -> 159 `i `uc ]
+[; ;m25p16.c: 48: mem_ptr[0] = ReadSPI();
+"48
+[e = *U + _mem_ptr * -> -> 0 `i `x -> -> # *U _mem_ptr `i `x ( _ReadSPI ..  ]
+[; ;m25p16.c: 49: mem_ptr[1] = ReadSPI();
+"49
+[e = *U + _mem_ptr * -> -> 1 `i `x -> -> # *U _mem_ptr `i `x ( _ReadSPI ..  ]
+[; ;m25p16.c: 50: mem_ptr[2] = ReadSPI();
+"50
+[e = *U + _mem_ptr * -> -> 2 `i `x -> -> # *U _mem_ptr `i `x ( _ReadSPI ..  ]
+[; ;m25p16.c: 51: RD3 = 1;
+"51
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 53: }
+"53
 [e :UE 147 ]
+}
+"57
+[v _read_ram_status `(uc ~T0 @X0 1 ef ]
+{
+[; ;m25p16.c: 57: unsigned char read_ram_status(void) {
+[e :U _read_ram_status ]
+[f ]
+"59
+[v _status `uc ~T0 @X0 1 a ]
+[; ;m25p16.c: 59: unsigned char status;
+[; ;m25p16.c: 68: RD3 = 0;
+"68
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 69: WriteSPI(0x05);
+"69
+[e ( _WriteSPI (1 -> -> 5 `i `uc ]
+[; ;m25p16.c: 70: status = ReadSPI();
+"70
+[e = _status ( _ReadSPI ..  ]
+[; ;m25p16.c: 71: RD3 = 1;
+"71
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 72: return status;
+"72
+[e ) _status ]
+[e $UE 148  ]
+[; ;m25p16.c: 74: }
+"74
+[e :UE 148 ]
+}
+"77
+[v _ram_bulk_erase `(v ~T0 @X0 1 ef ]
+{
+[; ;m25p16.c: 77: void ram_bulk_erase(void) {
+[e :U _ram_bulk_erase ]
+[f ]
+[; ;m25p16.c: 90: RD3 = 0;
+"90
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 91: WriteSPI(0x06);
+"91
+[e ( _WriteSPI (1 -> -> 6 `i `uc ]
+[; ;m25p16.c: 92: RD3 = 1;
+"92
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 93: _delay((unsigned long)((1)*(4000000/4000000.0)));
+"93
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;m25p16.c: 94: RD3 = 0;
+"94
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 95: WriteSPI(0xC7);
+"95
+[e ( _WriteSPI (1 -> -> 199 `i `uc ]
+[; ;m25p16.c: 96: RD3 = 1;
+"96
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 97: while(read_ram_status());
+"97
+[e $U 150  ]
+[e :U 151 ]
+[e :U 150 ]
+[e $ != -> ( _read_ram_status ..  `i -> -> -> 0 `i `uc `i 151  ]
+[e :U 152 ]
+[; ;m25p16.c: 98: }
+"98
+[e :UE 149 ]
+}
+"101
+[v _ram_sector_erase `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;m25p16.c: 101: void ram_sector_erase(unsigned char sector) {
+[e :U _ram_sector_erase ]
+[v _sector `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;m25p16.c: 117: RD3 = 0;
+"117
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 118: WriteSPI(0x06);
+"118
+[e ( _WriteSPI (1 -> -> 6 `i `uc ]
+[; ;m25p16.c: 119: RD3 = 1;
+"119
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 120: _delay((unsigned long)((1)*(4000000/4000000.0)));
+"120
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;m25p16.c: 121: RD3 = 0;
+"121
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 122: WriteSPI(0xD8);
+"122
+[e ( _WriteSPI (1 -> -> 216 `i `uc ]
+[; ;m25p16.c: 123: WriteSPI(sector);
+"123
+[e ( _WriteSPI (1 _sector ]
+[; ;m25p16.c: 124: WriteSPI(0x00);
+"124
+[e ( _WriteSPI (1 -> -> 0 `i `uc ]
+[; ;m25p16.c: 125: WriteSPI(0x00);
+"125
+[e ( _WriteSPI (1 -> -> 0 `i `uc ]
+[; ;m25p16.c: 126: RD3 = 1;
+"126
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 127: while(read_ram_status());
+"127
+[e $U 154  ]
+[e :U 155 ]
+[e :U 154 ]
+[e $ != -> ( _read_ram_status ..  `i -> -> -> 0 `i `uc `i 155  ]
+[e :U 156 ]
+[; ;m25p16.c: 129: }
+"129
+[e :UE 153 ]
+}
+"131
+[v _write_flash_page `(v ~T0 @X0 1 ef3`uc`uc`*uc ]
+{
+[; ;m25p16.c: 131: void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
+[e :U _write_flash_page ]
+[v _flash_sector `uc ~T0 @X0 1 r1 ]
+[v _flash_page `uc ~T0 @X0 1 r2 ]
+[v _mem_ptr `*uc ~T0 @X0 1 r3 ]
+[f ]
+[; ;m25p16.c: 132: read_write_flash_ram(0,256,flash_sector,flash_page,0,mem_ptr);
+"132
+[e ( _read_write_flash_ram (4 , , , , , -> -> 0 `i `uc -> -> 256 `i `us _flash_sector _flash_page -> -> 0 `i `uc _mem_ptr ]
+[; ;m25p16.c: 133: }
+"133
+[e :UE 157 ]
+}
+"134
+[v _read_flash_page `(v ~T0 @X0 1 ef3`uc`uc`*uc ]
+{
+[; ;m25p16.c: 134: void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
+[e :U _read_flash_page ]
+[v _flash_sector `uc ~T0 @X0 1 r1 ]
+[v _flash_page `uc ~T0 @X0 1 r2 ]
+[v _mem_ptr `*uc ~T0 @X0 1 r3 ]
+[f ]
+[; ;m25p16.c: 135: read_write_flash_ram(1,256,flash_sector,flash_page,0,mem_ptr);
+"135
+[e ( _read_write_flash_ram (4 , , , , , -> -> 1 `i `uc -> -> 256 `i `us _flash_sector _flash_page -> -> 0 `i `uc _mem_ptr ]
+[; ;m25p16.c: 136: }
+"136
+[e :UE 158 ]
+}
+"140
+[v _read_write_flash_ram `(v ~T0 @X0 1 ef6`uc`us`uc`uc`uc`*uc ]
+{
+[; ;m25p16.c: 140: void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr) {
+[e :U _read_write_flash_ram ]
+[v _one_read_zero_write `uc ~T0 @X0 1 r1 ]
+[v _bytes_to_readwrite `us ~T0 @X0 1 r2 ]
+[v _flash_sector `uc ~T0 @X0 1 r3 ]
+[v _flash_page `uc ~T0 @X0 1 r4 ]
+[v _offset `uc ~T0 @X0 1 r5 ]
+[v _mem_ptr `*uc ~T0 @X0 1 r6 ]
+[f ]
+"155
+[v _i `us ~T0 @X0 1 a ]
+[; ;m25p16.c: 155: unsigned short int i;
+[; ;m25p16.c: 187: RD3 = 0;
+"187
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 188: if(one_read_zero_write)
+"188
+[e $ ! != -> _one_read_zero_write `i -> -> -> 0 `i `uc `i 160  ]
+[; ;m25p16.c: 189: {
+"189
+{
+[; ;m25p16.c: 190: WriteSPI(0x03);
+"190
+[e ( _WriteSPI (1 -> -> 3 `i `uc ]
+"191
+}
+[; ;m25p16.c: 191: }
+[e $U 161  ]
+"192
+[e :U 160 ]
+[; ;m25p16.c: 192: else
+[; ;m25p16.c: 193: {
+"193
+{
+[; ;m25p16.c: 194: WriteSPI(0x06);
+"194
+[e ( _WriteSPI (1 -> -> 6 `i `uc ]
+[; ;m25p16.c: 195: RD3 = 1;
+"195
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 196: _delay((unsigned long)((1)*(4000000/4000000.0)));
+"196
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;m25p16.c: 197: RD3 = 0;
+"197
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 198: WriteSPI(0x02);
+"198
+[e ( _WriteSPI (1 -> -> 2 `i `uc ]
+"200
+}
+[e :U 161 ]
+[; ;m25p16.c: 200: }
+[; ;m25p16.c: 202: WriteSPI(flash_sector);
+"202
+[e ( _WriteSPI (1 _flash_sector ]
+[; ;m25p16.c: 203: WriteSPI(flash_page);
+"203
+[e ( _WriteSPI (1 _flash_page ]
+[; ;m25p16.c: 204: WriteSPI(offset);
+"204
+[e ( _WriteSPI (1 _offset ]
+[; ;m25p16.c: 206: for (i=0;i<bytes_to_readwrite;i++)
+"206
+{
+[e = _i -> -> 0 `i `us ]
+[e $U 165  ]
+"207
+[e :U 162 ]
+[; ;m25p16.c: 207: {
+{
+[; ;m25p16.c: 208: if (one_read_zero_write)
+"208
+[e $ ! != -> _one_read_zero_write `i -> -> -> 0 `i `uc `i 166  ]
+[; ;m25p16.c: 209: {
+"209
+{
+[; ;m25p16.c: 210: mem_ptr[i] = ReadSPI();
+"210
+[e = *U + _mem_ptr * -> _i `ux -> -> # *U _mem_ptr `ui `ux ( _ReadSPI ..  ]
+"211
+}
+[; ;m25p16.c: 211: }
+[e $U 167  ]
+"212
+[e :U 166 ]
+[; ;m25p16.c: 212: else
+[; ;m25p16.c: 213: {
+"213
+{
+[; ;m25p16.c: 214: WriteSPI(mem_ptr[i]);
+"214
+[e ( _WriteSPI (1 *U + _mem_ptr * -> _i `ux -> -> # *U _mem_ptr `ui `ux ]
+"215
+}
+[e :U 167 ]
+"216
+}
+"206
+[e ++ _i -> -> 1 `i `us ]
+[e :U 165 ]
+[e $ < -> _i `ui -> _bytes_to_readwrite `ui 162  ]
+[e :U 163 ]
+"216
+}
+[; ;m25p16.c: 215: }
+[; ;m25p16.c: 216: }
+[; ;m25p16.c: 218: RD3 = 1;
+"218
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 220: _delay((unsigned long)((1)*(4000000/4000.0)));
+"220
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;m25p16.c: 221: while (read_ram_status() & 0b00000011) {
+"221
+[e $U 168  ]
+[e :U 169 ]
+{
+[; ;m25p16.c: 222: _delay((unsigned long)((1)*(4000000/4000.0)));
+"222
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+"223
+}
+[e :U 168 ]
+"221
+[e $ != & -> ( _read_ram_status ..  `i -> 3 `i -> 0 `i 169  ]
+[e :U 170 ]
+[; ;m25p16.c: 223: }
+[; ;m25p16.c: 226: }
+"226
+[e :UE 159 ]
+}
+"230
+[v _write_ram_status `(v ~T0 @X0 1 ef1`uc ]
+{
+[; ;m25p16.c: 230: void write_ram_status(unsigned char status) {
+[e :U _write_ram_status ]
+[v _status `uc ~T0 @X0 1 r1 ]
+[f ]
+[; ;m25p16.c: 245: RD3 = 0;
+"245
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 246: WriteSPI(0x06);
+"246
+[e ( _WriteSPI (1 -> -> 6 `i `uc ]
+[; ;m25p16.c: 247: RD3 = 1;
+"247
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 248: _delay((unsigned long)((2)*(4000000/4000000.0)));
+"248
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;m25p16.c: 249: RD3 = 0;
+"249
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 250: WriteSPI(0x01);
+"250
+[e ( _WriteSPI (1 -> -> 1 `i `uc ]
+[; ;m25p16.c: 251: WriteSPI(status);
+"251
+[e ( _WriteSPI (1 _status ]
+[; ;m25p16.c: 252: RD3 = 1;
+"252
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 253: _delay((unsigned long)((2)*(4000000/4000000.0)));
+"253
+[e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;m25p16.c: 254: while (read_ram_status() & 0x01);
+"254
+[e $U 172  ]
+[e :U 173 ]
+[e :U 172 ]
+[e $ != & -> ( _read_ram_status ..  `i -> 1 `i -> 0 `i 173  ]
+[e :U 174 ]
+[; ;m25p16.c: 256: }
+"256
+[e :UE 171 ]
+}
+"259
+[v _power_up_flash_ram `(v ~T0 @X0 1 ef ]
+{
+[; ;m25p16.c: 259: void power_up_flash_ram(void) {
+[e :U _power_up_flash_ram ]
+[f ]
+[; ;m25p16.c: 266: RD3 = 0;
+"266
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 267: WriteSPI(0xAB);
+"267
+[e ( _WriteSPI (1 -> -> 171 `i `uc ]
+[; ;m25p16.c: 268: RD3 = 1;
+"268
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 269: _delay((unsigned long)((30)*(4000000/4000000.0)));
+"269
+[e ( __delay (1 -> * -> -> 30 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;m25p16.c: 270: }
+"270
+[e :UE 175 ]
+}
+"273
+[v _power_down_flash_ram `(v ~T0 @X0 1 ef ]
+{
+[; ;m25p16.c: 273: void power_down_flash_ram(void) {
+[e :U _power_down_flash_ram ]
+[f ]
+[; ;m25p16.c: 279: RD3 = 0;
+"279
+[e = _RD3 -> -> 0 `i `b ]
+[; ;m25p16.c: 280: WriteSPI(0xB9);
+"280
+[e ( _WriteSPI (1 -> -> 185 `i `uc ]
+[; ;m25p16.c: 281: RD3 = 1;
+"281
+[e = _RD3 -> -> 1 `i `b ]
+[; ;m25p16.c: 282: }
+"282
+[e :UE 176 ]
 }

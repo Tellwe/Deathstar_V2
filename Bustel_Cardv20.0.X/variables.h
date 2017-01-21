@@ -1,3 +1,4 @@
+#include "GenericTypeDefs.h"
 
 #ifndef _variables_
 #define _variables_
@@ -41,9 +42,21 @@
 #define VOLT_SOL		RE2		//AN7	Volt Solarpanel
 #define AMP_SOL			RE0		//AN5	Ampere Solarpanel
 
+#define anChVoltBat		8
+#define anChAmpBat		6
+#define anChVoltSolar	7
+#define anChAmpSolar	5
 
-//Definition needed to be able to use the delay-function from the htc.h
-#define _XTAL_FREQ 4000000 
+#define anChLightSensor	0
+#define anChPot			3
+
+
+//Adresses in the EEPROM
+#define ADDRdarknessValue 	0
+#define ADDRflashVal3		1
+#define ADDRflashVal2		2
+#define ADDRflashVal1		3
+
 
 
 //Global variables
@@ -59,8 +72,7 @@ int intClockTimer[5];				//Timers made by Seb
 BOOL bTimerComplete[5];				//Flag for timer complete by Seb
 int intNumberOfBlinks = 600;		//Number of blinks for a blinkcycle
 BOOL bTransiverModeReceive = FALSE;	//Active state of the transiver for receive
-	BOOL bValueFromPot = TRUE;			//TODO
-int addressDarknessValue = 0;
+BOOL bValueFromPot = TRUE;			//TODO
 
 //Used in function for channel find
 //Values in arrays calculated from matlab for 868,32MHZ
