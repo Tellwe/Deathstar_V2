@@ -1,5 +1,5 @@
 //Functions used
-void init();
+void PICInit();
 void DelayDs(int);
 void WriteSPI(unsigned char);
 unsigned char ReadSPI(void);
@@ -36,3 +36,9 @@ void TransiverReadFIFO();
 void ReceivedPacketHandler(unsigned char Data[]);
 void TransmittPacket(BYTE topic, BYTE value);
 char FindChannel(void);
+unsigned char OperationMode(void);
+void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1);
+void IncreaseMemoryAdress(void);
+void ResetMemoryAdress(void);
+
+

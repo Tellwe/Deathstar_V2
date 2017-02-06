@@ -1,5 +1,5 @@
 Version 3.2 HI-TECH Software Intermediate Code
-"57 variables.h
+"71 variables.h
 [c E30 0 1 .. ]
 [n E30 _BOOL FALSE TRUE  ]
 "3900 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
@@ -8,9 +8,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _WriteSPI `(v ~T0 @X0 0 ef1`uc ]
 "5
 [v _ReadSPI `(uc ~T0 @X0 0 ef ]
-[v F1780 `(v ~T0 @X0 1 tf1`ul ]
+[v F1779 `(v ~T0 @X0 1 tf1`ul ]
 "152 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic.h
-[v __delay `JF1780 ~T0 @X0 0 e ]
+[v __delay `JF1779 ~T0 @X0 0 e ]
 [p i __delay ]
 "112 m25p16.h
 [v _read_write_flash_ram `(v ~T0 @X0 0 ef6`uc`us`uc`uc`uc`*uc ]
@@ -125,61 +125,55 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;GenericTypeDefs.h: 140: unsigned char b31:1;
 [; ;GenericTypeDefs.h: 141: } bits;
 [; ;GenericTypeDefs.h: 142: } DWORD_VAL;
-"51 variables.h
+"65 variables.h
 [v _ReceivedData `uc ~T0 @X0 -> 40 `i e ]
-[; ;variables.h: 51: unsigned char ReceivedData[40];
-"52
+[; ;variables.h: 65: unsigned char ReceivedData[40];
+"66
 [v _intBlinkCycle `i ~T0 @X0 1 e ]
-[; ;variables.h: 52: int intBlinkCycle;
-"53
+[; ;variables.h: 66: int intBlinkCycle;
+"67
 [v _intBlinkCounter `i ~T0 @X0 1 e ]
-[; ;variables.h: 53: int intBlinkCounter;
-"54
+[; ;variables.h: 67: int intBlinkCounter;
+"68
 [v _intHalfSecondCounter `i ~T0 @X0 1 e ]
-[; ;variables.h: 54: int intHalfSecondCounter;
-"55
+[; ;variables.h: 68: int intHalfSecondCounter;
+"69
 [v _intSecondCounter `i ~T0 @X0 1 e ]
-[; ;variables.h: 55: int intSecondCounter;
-"56
+[; ;variables.h: 69: int intSecondCounter;
+"70
 [v _intMinuteCounter `i ~T0 @X0 1 e ]
-[; ;variables.h: 56: int intMinuteCounter;
-"57
+[; ;variables.h: 70: int intMinuteCounter;
+"71
 [v _bDark `E30 ~T0 @X0 1 e ]
-[; ;variables.h: 57: BOOL bDark;
-"58
+[; ;variables.h: 71: BOOL bDark;
+"72
 [v _intDarkCheckIntervall `i ~T0 @X0 1 e ]
-[; ;variables.h: 58: int intDarkCheckIntervall;
-"59
+[; ;variables.h: 72: int intDarkCheckIntervall;
+"73
 [v _intClockTimer `i ~T0 @X0 -> 5 `i e ]
-[; ;variables.h: 59: int intClockTimer[5];
-"60
+[; ;variables.h: 73: int intClockTimer[5];
+"74
 [v _bTimerComplete `E30 ~T0 @X0 -> 5 `i e ]
-[; ;variables.h: 60: BOOL bTimerComplete[5];
-"61
+[; ;variables.h: 74: BOOL bTimerComplete[5];
+"75
 [v _intNumberOfBlinks `i ~T0 @X0 1 e ]
 [i _intNumberOfBlinks
 -> 600 `i
 ]
-[; ;variables.h: 61: int intNumberOfBlinks = 600;
-"62
+[; ;variables.h: 75: int intNumberOfBlinks = 600;
+"76
 [v _bTransiverModeReceive `E30 ~T0 @X0 1 e ]
 [i _bTransiverModeReceive
 . `E30 0
 ]
-[; ;variables.h: 62: BOOL bTransiverModeReceive = FALSE;
-"63
+[; ;variables.h: 76: BOOL bTransiverModeReceive = FALSE;
+"77
 [v _bValueFromPot `E30 ~T0 @X0 1 e ]
 [i _bValueFromPot
 . `E30 1
 ]
-[; ;variables.h: 63: BOOL bValueFromPot = TRUE;
-"64
-[v _addressDarknessValue `i ~T0 @X0 1 e ]
-[i _addressDarknessValue
--> 0 `i
-]
-[; ;variables.h: 64: int addressDarknessValue = 0;
-"68
+[; ;variables.h: 77: BOOL bValueFromPot = TRUE;
+"81
 [v _ChannelR `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelR
 :U ..
@@ -198,8 +192,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 139 `i `uc
 ..
 ]
-[; ;variables.h: 68: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
-"69
+[; ;variables.h: 81: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
+"82
 [v _ChannelP `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelP
 :U ..
@@ -218,8 +212,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 111 `i `uc
 ..
 ]
-[; ;variables.h: 69: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
-"70
+[; ;variables.h: 82: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
+"83
 [v _ChannelS `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelS
 :U ..
@@ -238,16 +232,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 42 `i `uc
 ..
 ]
-[; ;variables.h: 70: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
-"72
+[; ;variables.h: 83: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
+"85
 [v _bChannelFound `E30 ~T0 @X0 1 e ]
 [i _bChannelFound
 -> -> 0 `i `E30
 ]
-[; ;variables.h: 72: BOOL bChannelFound = 0;
-"73
+[; ;variables.h: 85: BOOL bChannelFound = 0;
+"86
 [v _channelFound `i ~T0 @X0 1 e ]
-[; ;variables.h: 73: int channelFound;
+[; ;variables.h: 86: int channelFound;
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -1732,7 +1726,7 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;pic.h: 192: extern unsigned char __resetbits;
 [; ;pic.h: 193: extern __bit __powerdown;
 [; ;pic.h: 194: extern __bit __timeout;
-[; ;functions.h: 2: void init();
+[; ;functions.h: 2: void PICInit();
 [; ;functions.h: 3: void DelayDs(int);
 [; ;functions.h: 4: void WriteSPI(unsigned char);
 [; ;functions.h: 5: unsigned char ReadSPI(void);
@@ -1769,6 +1763,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;functions.h: 36: void ReceivedPacketHandler(unsigned char Data[]);
 [; ;functions.h: 37: void TransmittPacket(BYTE topic, BYTE value);
 [; ;functions.h: 38: char FindChannel(void);
+[; ;functions.h: 39: unsigned char OperationMode(void);
+[; ;functions.h: 40: void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1);
+[; ;functions.h: 41: void IncreaseMemoryAdress(void);
+[; ;functions.h: 42: void ResetMemoryAdress(void);
 "36 m25p16.c
 [v _read_ram_id `(v ~T0 @X0 1 ef1`*uc ]
 {
@@ -1807,148 +1805,148 @@ Version 3.2 HI-TECH Software Intermediate Code
 "59
 [v _status `uc ~T0 @X0 1 a ]
 [; ;m25p16.c: 59: unsigned char status;
-[; ;m25p16.c: 68: RD3 = 0;
-"68
+[; ;m25p16.c: 60: RD3 = 0;
+"60
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 69: WriteSPI(0x05);
-"69
+[; ;m25p16.c: 61: WriteSPI(0x05);
+"61
 [e ( _WriteSPI (1 -> -> 5 `i `uc ]
-[; ;m25p16.c: 70: status = ReadSPI();
-"70
+[; ;m25p16.c: 62: status = ReadSPI();
+"62
 [e = _status ( _ReadSPI ..  ]
-[; ;m25p16.c: 71: RD3 = 1;
-"71
+[; ;m25p16.c: 63: RD3 = 1;
+"63
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 72: return status;
-"72
+[; ;m25p16.c: 64: return status;
+"64
 [e ) _status ]
 [e $UE 148  ]
-[; ;m25p16.c: 74: }
-"74
+[; ;m25p16.c: 66: }
+"66
 [e :UE 148 ]
 }
-"77
+"69
 [v _ram_bulk_erase `(v ~T0 @X0 1 ef ]
 {
-[; ;m25p16.c: 77: void ram_bulk_erase(void) {
+[; ;m25p16.c: 69: void ram_bulk_erase(void) {
 [e :U _ram_bulk_erase ]
 [f ]
-[; ;m25p16.c: 90: RD3 = 0;
-"90
+[; ;m25p16.c: 71: RD3 = 0;
+"71
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 91: WriteSPI(0x06);
-"91
+[; ;m25p16.c: 72: WriteSPI(0x06);
+"72
 [e ( _WriteSPI (1 -> -> 6 `i `uc ]
-[; ;m25p16.c: 92: RD3 = 1;
-"92
+[; ;m25p16.c: 73: RD3 = 1;
+"73
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 93: _delay((unsigned long)((1)*(4000000/4000000.0)));
-"93
+[; ;m25p16.c: 74: _delay((unsigned long)((1)*(4000000/4000000.0)));
+"74
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
-[; ;m25p16.c: 94: RD3 = 0;
-"94
+[; ;m25p16.c: 75: RD3 = 0;
+"75
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 95: WriteSPI(0xC7);
-"95
+[; ;m25p16.c: 76: WriteSPI(0xC7);
+"76
 [e ( _WriteSPI (1 -> -> 199 `i `uc ]
-[; ;m25p16.c: 96: RD3 = 1;
-"96
+[; ;m25p16.c: 77: RD3 = 1;
+"77
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 97: while(read_ram_status());
-"97
+[; ;m25p16.c: 78: while(read_ram_status());
+"78
 [e $U 150  ]
 [e :U 151 ]
 [e :U 150 ]
 [e $ != -> ( _read_ram_status ..  `i -> -> -> 0 `i `uc `i 151  ]
 [e :U 152 ]
-[; ;m25p16.c: 98: }
-"98
+[; ;m25p16.c: 79: }
+"79
 [e :UE 149 ]
 }
-"101
+"82
 [v _ram_sector_erase `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;m25p16.c: 101: void ram_sector_erase(unsigned char sector) {
+[; ;m25p16.c: 82: void ram_sector_erase(unsigned char sector) {
 [e :U _ram_sector_erase ]
 [v _sector `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;m25p16.c: 117: RD3 = 0;
-"117
+[; ;m25p16.c: 84: RD3 = 0;
+"84
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 118: WriteSPI(0x06);
-"118
+[; ;m25p16.c: 85: WriteSPI(0x06);
+"85
 [e ( _WriteSPI (1 -> -> 6 `i `uc ]
-[; ;m25p16.c: 119: RD3 = 1;
-"119
+[; ;m25p16.c: 86: RD3 = 1;
+"86
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 120: _delay((unsigned long)((1)*(4000000/4000000.0)));
-"120
+[; ;m25p16.c: 87: _delay((unsigned long)((1)*(4000000/4000000.0)));
+"87
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
-[; ;m25p16.c: 121: RD3 = 0;
-"121
+[; ;m25p16.c: 88: RD3 = 0;
+"88
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 122: WriteSPI(0xD8);
-"122
+[; ;m25p16.c: 89: WriteSPI(0xD8);
+"89
 [e ( _WriteSPI (1 -> -> 216 `i `uc ]
-[; ;m25p16.c: 123: WriteSPI(sector);
-"123
+[; ;m25p16.c: 90: WriteSPI(sector);
+"90
 [e ( _WriteSPI (1 _sector ]
-[; ;m25p16.c: 124: WriteSPI(0x00);
-"124
+[; ;m25p16.c: 91: WriteSPI(0x00);
+"91
 [e ( _WriteSPI (1 -> -> 0 `i `uc ]
-[; ;m25p16.c: 125: WriteSPI(0x00);
-"125
+[; ;m25p16.c: 92: WriteSPI(0x00);
+"92
 [e ( _WriteSPI (1 -> -> 0 `i `uc ]
-[; ;m25p16.c: 126: RD3 = 1;
-"126
+[; ;m25p16.c: 93: RD3 = 1;
+"93
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 127: while(read_ram_status());
-"127
+[; ;m25p16.c: 94: while(read_ram_status());
+"94
 [e $U 154  ]
 [e :U 155 ]
 [e :U 154 ]
 [e $ != -> ( _read_ram_status ..  `i -> -> -> 0 `i `uc `i 155  ]
 [e :U 156 ]
-[; ;m25p16.c: 129: }
-"129
+[; ;m25p16.c: 96: }
+"96
 [e :UE 153 ]
 }
-"131
+"98
 [v _write_flash_page `(v ~T0 @X0 1 ef3`uc`uc`*uc ]
 {
-[; ;m25p16.c: 131: void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
+[; ;m25p16.c: 98: void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
 [e :U _write_flash_page ]
 [v _flash_sector `uc ~T0 @X0 1 r1 ]
 [v _flash_page `uc ~T0 @X0 1 r2 ]
 [v _mem_ptr `*uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;m25p16.c: 132: read_write_flash_ram(0,256,flash_sector,flash_page,0,mem_ptr);
-"132
+[; ;m25p16.c: 99: read_write_flash_ram(0,256,flash_sector,flash_page,0,mem_ptr);
+"99
 [e ( _read_write_flash_ram (4 , , , , , -> -> 0 `i `uc -> -> 256 `i `us _flash_sector _flash_page -> -> 0 `i `uc _mem_ptr ]
-[; ;m25p16.c: 133: }
-"133
+[; ;m25p16.c: 100: }
+"100
 [e :UE 157 ]
 }
-"134
+"101
 [v _read_flash_page `(v ~T0 @X0 1 ef3`uc`uc`*uc ]
 {
-[; ;m25p16.c: 134: void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
+[; ;m25p16.c: 101: void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
 [e :U _read_flash_page ]
 [v _flash_sector `uc ~T0 @X0 1 r1 ]
 [v _flash_page `uc ~T0 @X0 1 r2 ]
 [v _mem_ptr `*uc ~T0 @X0 1 r3 ]
 [f ]
-[; ;m25p16.c: 135: read_write_flash_ram(1,256,flash_sector,flash_page,0,mem_ptr);
-"135
+[; ;m25p16.c: 102: read_write_flash_ram(1,256,flash_sector,flash_page,0,mem_ptr);
+"102
 [e ( _read_write_flash_ram (4 , , , , , -> -> 1 `i `uc -> -> 256 `i `us _flash_sector _flash_page -> -> 0 `i `uc _mem_ptr ]
-[; ;m25p16.c: 136: }
-"136
+[; ;m25p16.c: 103: }
+"103
 [e :UE 158 ]
 }
-"140
+"107
 [v _read_write_flash_ram `(v ~T0 @X0 1 ef6`uc`us`uc`uc`uc`*uc ]
 {
-[; ;m25p16.c: 140: void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr) {
+[; ;m25p16.c: 107: void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr) {
 [e :U _read_write_flash_ram ]
 [v _one_read_zero_write `uc ~T0 @X0 1 r1 ]
 [v _bytes_to_readwrite `us ~T0 @X0 1 r2 ]
@@ -1957,212 +1955,212 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _offset `uc ~T0 @X0 1 r5 ]
 [v _mem_ptr `*uc ~T0 @X0 1 r6 ]
 [f ]
-"155
+"122
 [v _i `us ~T0 @X0 1 a ]
-[; ;m25p16.c: 155: unsigned short int i;
-[; ;m25p16.c: 187: RD3 = 0;
-"187
+[; ;m25p16.c: 122: unsigned short int i;
+[; ;m25p16.c: 126: RD3 = 0;
+"126
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 188: if(one_read_zero_write)
-"188
+[; ;m25p16.c: 127: if(one_read_zero_write)
+"127
 [e $ ! != -> _one_read_zero_write `i -> -> -> 0 `i `uc `i 160  ]
-[; ;m25p16.c: 189: {
-"189
+[; ;m25p16.c: 128: {
+"128
 {
-[; ;m25p16.c: 190: WriteSPI(0x03);
-"190
+[; ;m25p16.c: 129: WriteSPI(0x03);
+"129
 [e ( _WriteSPI (1 -> -> 3 `i `uc ]
-"191
+"130
 }
-[; ;m25p16.c: 191: }
+[; ;m25p16.c: 130: }
 [e $U 161  ]
-"192
+"131
 [e :U 160 ]
-[; ;m25p16.c: 192: else
-[; ;m25p16.c: 193: {
-"193
+[; ;m25p16.c: 131: else
+[; ;m25p16.c: 132: {
+"132
 {
-[; ;m25p16.c: 194: WriteSPI(0x06);
-"194
+[; ;m25p16.c: 133: WriteSPI(0x06);
+"133
 [e ( _WriteSPI (1 -> -> 6 `i `uc ]
-[; ;m25p16.c: 195: RD3 = 1;
-"195
+[; ;m25p16.c: 134: RD3 = 1;
+"134
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 196: _delay((unsigned long)((1)*(4000000/4000000.0)));
-"196
+[; ;m25p16.c: 135: _delay((unsigned long)((1)*(4000000/4000000.0)));
+"135
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
-[; ;m25p16.c: 197: RD3 = 0;
-"197
+[; ;m25p16.c: 136: RD3 = 0;
+"136
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 198: WriteSPI(0x02);
-"198
+[; ;m25p16.c: 137: WriteSPI(0x02);
+"137
 [e ( _WriteSPI (1 -> -> 2 `i `uc ]
-"200
+"139
 }
 [e :U 161 ]
-[; ;m25p16.c: 200: }
-[; ;m25p16.c: 202: WriteSPI(flash_sector);
-"202
+[; ;m25p16.c: 139: }
+[; ;m25p16.c: 141: WriteSPI(flash_sector);
+"141
 [e ( _WriteSPI (1 _flash_sector ]
-[; ;m25p16.c: 203: WriteSPI(flash_page);
-"203
+[; ;m25p16.c: 142: WriteSPI(flash_page);
+"142
 [e ( _WriteSPI (1 _flash_page ]
-[; ;m25p16.c: 204: WriteSPI(offset);
-"204
+[; ;m25p16.c: 143: WriteSPI(offset);
+"143
 [e ( _WriteSPI (1 _offset ]
-[; ;m25p16.c: 206: for (i=0;i<bytes_to_readwrite;i++)
-"206
+[; ;m25p16.c: 145: for (i=0;i<bytes_to_readwrite;i++)
+"145
 {
 [e = _i -> -> 0 `i `us ]
 [e $U 165  ]
-"207
+"146
 [e :U 162 ]
-[; ;m25p16.c: 207: {
+[; ;m25p16.c: 146: {
 {
-[; ;m25p16.c: 208: if (one_read_zero_write)
-"208
+[; ;m25p16.c: 147: if (one_read_zero_write)
+"147
 [e $ ! != -> _one_read_zero_write `i -> -> -> 0 `i `uc `i 166  ]
-[; ;m25p16.c: 209: {
-"209
+[; ;m25p16.c: 148: {
+"148
 {
-[; ;m25p16.c: 210: mem_ptr[i] = ReadSPI();
-"210
+[; ;m25p16.c: 149: mem_ptr[i] = ReadSPI();
+"149
 [e = *U + _mem_ptr * -> _i `ux -> -> # *U _mem_ptr `ui `ux ( _ReadSPI ..  ]
-"211
+"150
 }
-[; ;m25p16.c: 211: }
+[; ;m25p16.c: 150: }
 [e $U 167  ]
-"212
+"151
 [e :U 166 ]
-[; ;m25p16.c: 212: else
-[; ;m25p16.c: 213: {
-"213
+[; ;m25p16.c: 151: else
+[; ;m25p16.c: 152: {
+"152
 {
-[; ;m25p16.c: 214: WriteSPI(mem_ptr[i]);
-"214
+[; ;m25p16.c: 153: WriteSPI(mem_ptr[i]);
+"153
 [e ( _WriteSPI (1 *U + _mem_ptr * -> _i `ux -> -> # *U _mem_ptr `ui `ux ]
-"215
+"154
 }
 [e :U 167 ]
-"216
+"155
 }
-"206
+"145
 [e ++ _i -> -> 1 `i `us ]
 [e :U 165 ]
 [e $ < -> _i `ui -> _bytes_to_readwrite `ui 162  ]
 [e :U 163 ]
-"216
+"155
 }
-[; ;m25p16.c: 215: }
-[; ;m25p16.c: 216: }
-[; ;m25p16.c: 218: RD3 = 1;
-"218
+[; ;m25p16.c: 154: }
+[; ;m25p16.c: 155: }
+[; ;m25p16.c: 157: RD3 = 1;
+"157
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 220: _delay((unsigned long)((1)*(4000000/4000.0)));
-"220
-[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;m25p16.c: 221: while (read_ram_status() & 0b00000011) {
-"221
+[; ;m25p16.c: 159: _delay((unsigned long)((1)*(4000000/4000000.0)));
+"159
+[e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
+[; ;m25p16.c: 160: while (read_ram_status() & 0b00000011) {
+"160
 [e $U 168  ]
 [e :U 169 ]
 {
-[; ;m25p16.c: 222: _delay((unsigned long)((1)*(4000000/4000.0)));
-"222
+[; ;m25p16.c: 161: _delay((unsigned long)((1)*(4000000/4000.0)));
+"161
 [e ( __delay (1 -> * -> -> 1 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-"223
+"162
 }
 [e :U 168 ]
-"221
+"160
 [e $ != & -> ( _read_ram_status ..  `i -> 3 `i -> 0 `i 169  ]
 [e :U 170 ]
-[; ;m25p16.c: 223: }
-[; ;m25p16.c: 226: }
-"226
+[; ;m25p16.c: 162: }
+[; ;m25p16.c: 165: }
+"165
 [e :UE 159 ]
 }
-"230
+"169
 [v _write_ram_status `(v ~T0 @X0 1 ef1`uc ]
 {
-[; ;m25p16.c: 230: void write_ram_status(unsigned char status) {
+[; ;m25p16.c: 169: void write_ram_status(unsigned char status) {
 [e :U _write_ram_status ]
 [v _status `uc ~T0 @X0 1 r1 ]
 [f ]
-[; ;m25p16.c: 245: RD3 = 0;
-"245
+[; ;m25p16.c: 172: RD3 = 0;
+"172
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 246: WriteSPI(0x06);
-"246
+[; ;m25p16.c: 173: WriteSPI(0x06);
+"173
 [e ( _WriteSPI (1 -> -> 6 `i `uc ]
-[; ;m25p16.c: 247: RD3 = 1;
-"247
+[; ;m25p16.c: 174: RD3 = 1;
+"174
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 248: _delay((unsigned long)((2)*(4000000/4000000.0)));
-"248
+[; ;m25p16.c: 175: _delay((unsigned long)((2)*(4000000/4000000.0)));
+"175
 [e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
-[; ;m25p16.c: 249: RD3 = 0;
-"249
+[; ;m25p16.c: 176: RD3 = 0;
+"176
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 250: WriteSPI(0x01);
-"250
+[; ;m25p16.c: 177: WriteSPI(0x01);
+"177
 [e ( _WriteSPI (1 -> -> 1 `i `uc ]
-[; ;m25p16.c: 251: WriteSPI(status);
-"251
+[; ;m25p16.c: 178: WriteSPI(status);
+"178
 [e ( _WriteSPI (1 _status ]
-[; ;m25p16.c: 252: RD3 = 1;
-"252
+[; ;m25p16.c: 179: RD3 = 1;
+"179
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 253: _delay((unsigned long)((2)*(4000000/4000000.0)));
-"253
+[; ;m25p16.c: 180: _delay((unsigned long)((2)*(4000000/4000000.0)));
+"180
 [e ( __delay (1 -> * -> -> 2 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
-[; ;m25p16.c: 254: while (read_ram_status() & 0x01);
-"254
+[; ;m25p16.c: 181: while (read_ram_status() & 0x01);
+"181
 [e $U 172  ]
 [e :U 173 ]
 [e :U 172 ]
 [e $ != & -> ( _read_ram_status ..  `i -> 1 `i -> 0 `i 173  ]
 [e :U 174 ]
-[; ;m25p16.c: 256: }
-"256
+[; ;m25p16.c: 183: }
+"183
 [e :UE 171 ]
 }
-"259
+"186
 [v _power_up_flash_ram `(v ~T0 @X0 1 ef ]
 {
-[; ;m25p16.c: 259: void power_up_flash_ram(void) {
+[; ;m25p16.c: 186: void power_up_flash_ram(void) {
 [e :U _power_up_flash_ram ]
 [f ]
-[; ;m25p16.c: 266: RD3 = 0;
-"266
+[; ;m25p16.c: 188: RD3 = 0;
+"188
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 267: WriteSPI(0xAB);
-"267
+[; ;m25p16.c: 189: WriteSPI(0xAB);
+"189
 [e ( _WriteSPI (1 -> -> 171 `i `uc ]
-[; ;m25p16.c: 268: RD3 = 1;
-"268
+[; ;m25p16.c: 190: RD3 = 1;
+"190
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 269: _delay((unsigned long)((30)*(4000000/4000000.0)));
-"269
+[; ;m25p16.c: 191: _delay((unsigned long)((30)*(4000000/4000000.0)));
+"191
 [e ( __delay (1 -> * -> -> 30 `i `d / -> -> 4000000 `l `d .4000000.0 `ul ]
-[; ;m25p16.c: 270: }
-"270
+[; ;m25p16.c: 192: }
+"192
 [e :UE 175 ]
 }
-"273
+"195
 [v _power_down_flash_ram `(v ~T0 @X0 1 ef ]
 {
-[; ;m25p16.c: 273: void power_down_flash_ram(void) {
+[; ;m25p16.c: 195: void power_down_flash_ram(void) {
 [e :U _power_down_flash_ram ]
 [f ]
-[; ;m25p16.c: 279: RD3 = 0;
-"279
+[; ;m25p16.c: 197: RD3 = 0;
+"197
 [e = _RD3 -> -> 0 `i `b ]
-[; ;m25p16.c: 280: WriteSPI(0xB9);
-"280
+[; ;m25p16.c: 198: WriteSPI(0xB9);
+"198
 [e ( _WriteSPI (1 -> -> 185 `i `uc ]
-[; ;m25p16.c: 281: RD3 = 1;
-"281
+[; ;m25p16.c: 199: RD3 = 1;
+"199
 [e = _RD3 -> -> 1 `i `b ]
-[; ;m25p16.c: 282: }
-"282
+[; ;m25p16.c: 200: }
+"200
 [e :UE 176 ]
 }

@@ -6,6 +6,7 @@
 #include "bustel_communication_variables.h"
 #include "GenericTypeDefs.h"
 #include "m25p16.h"
+#include "MCP79510.h"
 
 /**********************		Description		*************************************** 					
 
@@ -32,19 +33,38 @@ unsigned char var2[95];
 int main(void)
 { 
 	//Initiation of hardware...
-	init();
+	PICInit();
 
 	TransiverInit();
+
+	ClockInit();
+
+/*	Clear the entire memory.
+	
 	write_ram_status(read_ram_status() & 0b11100011);
 	ram_bulk_erase();
-
-//Initiation Complete
-			
+*/
 	oOnBoardLED = 0;
 	__delay_ms(300);
 	oOnBoardLED = 1;
 	__delay_ms(300);
 
+
+	eeprom_write(ADDRflashVal3,0);
+	eeprom_write(ADDRflashVal2,0);
+	eeprom_write(ADDRflashVal1,0);
+
+
+//Initiation Complete
+	
+	oOnBoardLED = 0;
+	__delay_ms(300);
+	oOnBoardLED = 1;
+	__delay_ms(300);
+
+
+
+//Read adress from EEPROM and assign to internal variabel
 
 
 
@@ -53,24 +73,117 @@ int main(void)
 		if(!iSW1)
 		{
 
-			unsigned char value; 
-			for(int i = 0; i < 100; i++)
-			{
-				value = i;
-				read_write_flash_ram(0,1,0,0,i,&value);
+			unsigned char seconds, minutes, hour, date, month, year;
 
-			}
+			ReadClock(&seconds, &minutes, &hour, &date, &month, &year);
 
-			//TransmittPacket(100, read_ram_status());
-			read_write_flash_ram(1,20,0,0,0,&var2);
+			TransmittPacket(1,seconds);
+			__delay_ms(50);
+			TransmittPacket(2,minutes);
+			__delay_ms(50);
+			TransmittPacket(3,hour);
+			__delay_ms(50);
+			TransmittPacket(4,date);
+			__delay_ms(50);
+			TransmittPacket(5,month);
+			__delay_ms(50);
+			TransmittPacket(6,year);
+
+			__delay_ms(2400);
+
+
+	
+
+
+
+/*
+
+
+//Example of how logging of data could look
+
+			unsigned char value, addr1, addr2, addr3; 
+
+			value = AnalogValue(anChLightSensor);
+			ReadMemoryAdress(&addr3, &addr2, &addr1);
+			read_write_flash_ram(
+				0,
+				1,
+				addr3,
+				addr2,
+				addr1,
+				&value);
+			IncreaseMemoryAdress();	
+			TransmittPacket(1,value);		
+
+			value = AnalogValue(anChPot);
+			ReadMemoryAdress(&addr3, &addr2, &addr1);
+			read_write_flash_ram(
+				0,
+				1,
+				addr3,
+				addr2,
+				addr1,
+				&value);
+			IncreaseMemoryAdress();			
+			TransmittPacket(2,value);		
+
+
+			value = AnalogValue(anChAmpSolar);
+			ReadMemoryAdress(&addr3, &addr2, &addr1);
+			read_write_flash_ram(
+				0,
+				1,
+				addr3,
+				addr2,
+				addr1,
+				&value);
+			IncreaseMemoryAdress();			
+			TransmittPacket(3,value);		
+
+
+			value = AnalogValue(anChVoltSolar);
+			ReadMemoryAdress(&addr3, &addr2, &addr1);
+			read_write_flash_ram(
+				0,
+				1,
+				addr3,
+				addr2,
+				addr1,
+				&value);
+			IncreaseMemoryAdress();			
+			TransmittPacket(4,value);		
+
+
+			value = AnalogValue(anChAmpBat);
+			ReadMemoryAdress(&addr3, &addr2, &addr1);
+			read_write_flash_ram(
+				0,
+				1,
+				addr3,
+				addr2,
+				addr1,
+				&value);
+			IncreaseMemoryAdress();			
+			TransmittPacket(5,value);	
+
+
+			value = AnalogValue(anChVoltBat);
+			ReadMemoryAdress(&addr3, &addr2, &addr1);
+			read_write_flash_ram(
+				0,
+				1,
+				addr3,
+				addr2,
+				addr1,
+				&value);
+			IncreaseMemoryAdress();			
+			TransmittPacket(6,value);	
+
+			*/	
+
+
 			
-			for(int i = 0; i < 1; i++)
-			{
-				__delay_ms(100);
-				//TransmittPacket(i,var2[i]);
-			}
-			
-			while(!iSW1);
+			//while(!iSW1);
 		
 			
 		}

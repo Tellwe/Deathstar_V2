@@ -1,5 +1,139 @@
 
-# 1 "main.c"
+# 1 "MCP79510.c"
+
+# 10 "MCP79510.h"
+void ClockInit();
+void ReadClock(unsigned char *seconds, unsigned char *minutes, unsigned char *hour, unsigned char *date, unsigned char *month, unsigned char *year);
+
+# 39 "GenericTypeDefs.h"
+typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
+typedef unsigned char BYTE;
+typedef unsigned short int WORD;
+typedef unsigned long DWORD;
+
+typedef union _BYTE_VAL
+{
+BYTE Val;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+} bits;
+} BYTE_VAL;
+
+typedef union _WORD_VAL
+{
+WORD Val;
+BYTE v[2];
+struct
+{
+BYTE LB;
+BYTE HB;
+} byte;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+unsigned char b8:1;
+unsigned char b9:1;
+unsigned char b10:1;
+unsigned char b11:1;
+unsigned char b12:1;
+unsigned char b13:1;
+unsigned char b14:1;
+unsigned char b15:1;
+} bits;
+} WORD_VAL;
+
+typedef union _DWORD_VAL
+{
+DWORD Val;
+WORD w[2];
+BYTE v[4];
+struct
+{
+WORD LW;
+WORD HW;
+} word;
+struct
+{
+BYTE LB;
+BYTE HB;
+BYTE UB;
+BYTE MB;
+} byte;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+unsigned char b8:1;
+unsigned char b9:1;
+unsigned char b10:1;
+unsigned char b11:1;
+unsigned char b12:1;
+unsigned char b13:1;
+unsigned char b14:1;
+unsigned char b15:1;
+unsigned char b16:1;
+unsigned char b17:1;
+unsigned char b18:1;
+unsigned char b19:1;
+unsigned char b20:1;
+unsigned char b21:1;
+unsigned char b22:1;
+unsigned char b23:1;
+unsigned char b24:1;
+unsigned char b25:1;
+unsigned char b26:1;
+unsigned char b27:1;
+unsigned char b28:1;
+unsigned char b29:1;
+unsigned char b30:1;
+unsigned char b31:1;
+} bits;
+} DWORD_VAL;
+
+# 65 "variables.h"
+unsigned char ReceivedData[40];
+int intBlinkCycle;
+int intBlinkCounter;
+int intHalfSecondCounter;
+int intSecondCounter;
+int intMinuteCounter;
+BOOL bDark;
+int intDarkCheckIntervall;
+int intClockTimer[5];
+BOOL bTimerComplete[5];
+int intNumberOfBlinks = 600;
+BOOL bTransiverModeReceive = FALSE;
+BOOL bValueFromPot = TRUE;
+
+
+
+const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
+const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
+const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
+
+BOOL bChannelFound = 0;
+int channelFound;
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -2088,156 +2222,6 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
-# 39 "GenericTypeDefs.h"
-typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
-typedef unsigned char BYTE;
-typedef unsigned short int WORD;
-typedef unsigned long DWORD;
-
-typedef union _BYTE_VAL
-{
-BYTE Val;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-} bits;
-} BYTE_VAL;
-
-typedef union _WORD_VAL
-{
-WORD Val;
-BYTE v[2];
-struct
-{
-BYTE LB;
-BYTE HB;
-} byte;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-unsigned char b8:1;
-unsigned char b9:1;
-unsigned char b10:1;
-unsigned char b11:1;
-unsigned char b12:1;
-unsigned char b13:1;
-unsigned char b14:1;
-unsigned char b15:1;
-} bits;
-} WORD_VAL;
-
-typedef union _DWORD_VAL
-{
-DWORD Val;
-WORD w[2];
-BYTE v[4];
-struct
-{
-WORD LW;
-WORD HW;
-} word;
-struct
-{
-BYTE LB;
-BYTE HB;
-BYTE UB;
-BYTE MB;
-} byte;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-unsigned char b8:1;
-unsigned char b9:1;
-unsigned char b10:1;
-unsigned char b11:1;
-unsigned char b12:1;
-unsigned char b13:1;
-unsigned char b14:1;
-unsigned char b15:1;
-unsigned char b16:1;
-unsigned char b17:1;
-unsigned char b18:1;
-unsigned char b19:1;
-unsigned char b20:1;
-unsigned char b21:1;
-unsigned char b22:1;
-unsigned char b23:1;
-unsigned char b24:1;
-unsigned char b25:1;
-unsigned char b26:1;
-unsigned char b27:1;
-unsigned char b28:1;
-unsigned char b29:1;
-unsigned char b30:1;
-unsigned char b31:1;
-} bits;
-} DWORD_VAL;
-
-# 431 "MRF89XA.h"
-void RegisterSet(BYTE address, BYTE value);
-BYTE RegisterRead(BYTE address);
-void Send_Packet(BYTE packetlen);
-void ReceiveFrame(void);
-void WriteFIFO(BYTE);
-BYTE ReadFIFO(void);
-void SetRFMode(BYTE);
-
-# 4 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\__size_t.h"
-typedef unsigned size_t;
-
-# 14 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\string.h"
-extern void * memcpy(void *, const void *, size_t);
-extern void * memmove(void *, const void *, size_t);
-extern void * memset(void *, int, size_t);
-
-# 34
-extern char * strcat(char *, const char *);
-extern char * strcpy(char *, const char *);
-extern char * strncat(char *, const char *, size_t);
-extern char * strncpy(char *, const char *, size_t);
-extern char * strdup(const char *);
-extern char * strtok(char *, const char *);
-
-
-extern int memcmp(const void *, const void *, size_t);
-extern int strcmp(const char *, const char *);
-extern int stricmp(const char *, const char *);
-extern int strncmp(const char *, const char *, size_t);
-extern int strnicmp(const char *, const char *, size_t);
-extern void * memchr(const void *, int, size_t);
-extern size_t strcspn(const char *, const char *);
-extern char * strpbrk(const char *, const char *);
-extern size_t strspn(const char *, const char *);
-extern char * strstr(const char *, const char *);
-extern char * stristr(const char *, const char *);
-extern char * strerror(int);
-extern size_t strlen(const char *);
-extern char * strchr(const char *, int);
-extern char * strichr(const char *, int);
-extern char * strrchr(const char *, int);
-extern char * strrichr(const char *, int);
-
 # 2 "functions.h"
 void PICInit();
 void DelayDs(int);
@@ -2281,158 +2265,92 @@ void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var
 void IncreaseMemoryAdress(void);
 void ResetMemoryAdress(void);
 
-# 65 "variables.h"
-unsigned char ReceivedData[40];
-int intBlinkCycle;
-int intBlinkCounter;
-int intHalfSecondCounter;
-int intSecondCounter;
-int intMinuteCounter;
-BOOL bDark;
-int intDarkCheckIntervall;
-int intClockTimer[5];
-BOOL bTimerComplete[5];
-int intNumberOfBlinks = 600;
-BOOL bTransiverModeReceive = FALSE;
-BOOL bValueFromPot = TRUE;
-
-
-
-const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
-const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
-const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
-
-BOOL bChannelFound = 0;
-int channelFound;
-
-# 33 "m25p16.h"
-void read_ram_id(unsigned char *mem_ptr);
-
-# 41
-unsigned char read_ram_status(void);
-
-# 52
-void ram_bulk_erase(void);
-
-# 65
-void ram_sector_erase(unsigned char sector);
-
-# 78
-void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
-
-# 92
-void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
-
-# 112
-void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr);
-
-# 121
-void write_ram_status(unsigned char status);
-
-# 130
-void power_up_flash_ram(void);
-
-# 142
-void power_down_flash_ram(void);
-
-# 10 "MCP79510.h"
-void ClockInit();
-void ReadClock(unsigned char *seconds, unsigned char *minutes, unsigned char *hour, unsigned char *date, unsigned char *month, unsigned char *year);
-
-
-# 27 "main.c"
-#pragma config DEBUG=OFF, LVP=OFF, FCMEN=OFF, IESO=OFF, BOREN=OFF, CPD=ON, CP=ON, MCLRE=OFF, PWRTE=OFF, WDTE=OFF, FOSC=INTRC_NOCLKOUT
-
-
-unsigned char var1[95];
-unsigned char var2[95];
-
-int main(void)
+# 6 "MCP79510.c"
+void ClockInit()
 {
+RD4 = 0;
+WriteSPI(0x12);
+WriteSPI(0x01);
+WriteSPI(0x00);
+RD4 = 1;
+_delay((unsigned long)((40)*(4000000/4000000.0)));
+RD4 = 0;
+WriteSPI(0x12);
+WriteSPI(0x02);
+WriteSPI(0x00);
+RD4 = 1;
+_delay((unsigned long)((40)*(4000000/4000000.0)));
+RD4 = 0;
+WriteSPI(0x12);
+WriteSPI(0x08);
+WriteSPI(0x00);
+RD4 = 1;
+_delay((unsigned long)((40)*(4000000/4000000.0)));
+RD4 = 0;
+WriteSPI(0x12);
+WriteSPI(0x01);
+WriteSPI(0x80);
+RD4 = 1;
 
-PICInit();
-
-TransiverInit();
-
-ClockInit();
-
-# 47
-RB1 = 0;
-_delay((unsigned long)((300)*(4000000/4000.0)));
-RB1 = 1;
-_delay((unsigned long)((300)*(4000000/4000.0)));
-
-
-eeprom_write(1,0);
-eeprom_write(2,0);
-eeprom_write(3,0);
-
-
-
-
-RB1 = 0;
-_delay((unsigned long)((300)*(4000000/4000.0)));
-RB1 = 1;
-_delay((unsigned long)((300)*(4000000/4000.0)));
-
-# 71
 while(1)
 {
-if(!RB0)
+
+RD4 = 0;
+WriteSPI(0x13);
+WriteSPI(0x04);
+if((ReadSPI() & 0b00100000) != 0)
 {
+RD4 = 1;
+break;
 
-unsigned char seconds, minutes, hour, date, month, year;
-
-ReadClock(&seconds, &minutes, &hour, &date, &month, &year);
-
-TransmittPacket(1,seconds);
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(2,minutes);
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(3,hour);
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(4,date);
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(5,month);
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(6,year);
-
-_delay((unsigned long)((2400)*(4000000/4000.0)));
-
-# 189
 }
 
-if(OperationMode() == 0)
+}
+
+}
+void ReadClock(unsigned char* seconds, unsigned char* minutes, unsigned char* hour, unsigned char* date, unsigned char* month, unsigned char *year)
 {
-Mode_0();
+unsigned char sec10, min10, hour10, date10, month10, year10, sec1, min1, hour1, date1, month1, year1;
+
+RD4 = 0;
+
+WriteSPI(0x13);
+WriteSPI(0x01);
+
+sec1 = ReadSPI() & 0x7F;
+min1 = ReadSPI() & 0x7F;
+hour1 = ReadSPI() & 0x3F;
+date1 = ReadSPI();
+date1 = ReadSPI() & 0x3F;
+month1 = ReadSPI() & 0x1F;
+year1 = ReadSPI();
+
+RD4 = 1;
+
+
+sec10 = (sec1 & 0x70) >> 4;
+sec1 = sec1 & 0x0F;
+*seconds = sec1 + sec10 * 10;
+
+min10 = (min1 & 0x70) >> 4;
+min1 = min1 & 0x0F;
+*minutes = min1 + min10 * 10;
+
+hour10 = (hour1 & 0x30) >> 4;
+hour1 = hour1 & 0x0F;
+*hour = hour1 + hour10 * 10;
+
+date10 = (date1 & 0x30) >> 4;
+date1 = date1 & 0x0F;
+*date = date1 + date10 * 10;
+
+month10 = (month1 & 0x10) >> 4;
+month1 = month1 & 0x0F;
+*month = month1 + month10 * 10;
+
+year10 = (year1 & 0xF0) >> 4;
+year1 = year1 & 0x0F;
+*year = year1 + year10 * 10;
+
 }
-if(OperationMode() == 1)
-{
-Mode_1();
-}
 
-if(OperationMode() == 2)
-{
-Mode_2();
-}
-
-if(OperationMode() == 4)
-{
-Mode_4();
-}
-
-if(OperationMode() == 5)
-{
-Mode_5();
-}
-
-
-
-if(!bTransiverModeReceive)
-TransiverToReceive();
-if(RB4 && bTransiverModeReceive)
-TransiverReadFIFO();
-
-}
-
-}

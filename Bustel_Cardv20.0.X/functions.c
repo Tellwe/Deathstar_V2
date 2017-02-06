@@ -5,6 +5,7 @@
 #include "variables.h"
 #include "bustel_communication_variables.h"
 #include "m25p16.h"
+#include "MCP79510.h"
 
 
 
@@ -384,8 +385,9 @@ void TimerCounter()
 //**************************************************************************************
 // Initiation dof the PIC Microconoller
 //**************************************************************************************
-void init()
+void PICInit()
 {
+
 	// set up oscillator control register
     OSCCONbits.IRCF2 = 1; //set OSCCON IRCF bits to select OSC frequency=4Mhz
     OSCCONbits.IRCF1 = 1; //set OSCCON IRCF bits to select OSC frequency=4Mhz
@@ -400,7 +402,7 @@ void init()
 	PORTE = 0x00;
 
 	TRISA = 0b00001011; //RA0 and RA1 inputs, RA2, RA4 and RA5 DI on transmitter
-	TRISB = 0b00110010; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
+	TRISB = 0b00111101; //RB3/AN9 Voltage Battery. RB5, RB1 inputs, RB3 and RB4 connected to transiver 
 	TRISC = 0b00010000; //RC4 connected to transiver
 	TRISD = 0b00000111; //RD0, RD1, RD2 for the brackets
 	TRISE = 0b00000111; //RE1, RE2, RE3 connected to amp and volt measurements
@@ -412,11 +414,11 @@ void init()
 	ANSELbits.ANS5 = 1;	//RE0 = analog input
 	ANSELbits.ANS6 = 1;	//RE1 = analog input
 	ANSELbits.ANS7 = 1;	//RE2 = analog input
-	ANSELHbits.ANS9 = 1;	//RB3 = analog input
+	ANSELHbits.ANS8 = 1;	//RB2 = analog input
 
 	OPTION_REGbits.nRBPU = 0; //For enabling of pull-ups
-	WPUBbits.WPUB1 = 1; //Weak pull-up enabled RB0
-	while(!RB1);		//Wait for the input to stabilize
+	WPUBbits.WPUB0 = 1; //Weak pull-up enabled RB0
+	while(!RB0);		//Wait for the input to stabilize
 	WPUBbits.WPUB5 = 1; //Weak pull-up enabled RB5
 	while(!RB5);		//Wait for the input to stabilize
 
@@ -431,8 +433,8 @@ void init()
 	//Initial values to the SPI Nodes
 	trCSDATA = 1; //initial value of CSDATA
 	trCSCON = 1; //initial value of CSCON
-	clCS = 1;	//Initial value of clCS
-	memCE = 1;	//Initial value of memCE
+	csClock = 1;	//Initial value of csClock
+	csMem = 1;	//Initial value of csMem
 
 	oOnBoardLED = 1;
 
@@ -442,7 +444,7 @@ void init()
 	INTCONbits.RBIE = 1;	//Enable interrupt when change on PORTB
 	INTCONbits.PEIE = 1;	//Enable peripheal interrupts
 	PIE1bits.TMR1IE = 1;	//Enable overflow interrupt TMR1
-//	INTCONbits.GIE = 1;  	//Enable all unmasked interrupts
+	INTCONbits.GIE = 1;  	//Enable all unmasked interrupts
 	IOCBbits.IOCB5 = 1;		//Enable interrupt on change for input RB5
 
 	//Configuration of timers
@@ -920,5 +922,92 @@ unsigned char OperationMode(void)
 	bracketStatus = ((~PORTB) & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
 
 	return 6; //bracketStatus;
+}
+/*********************************************************************
+ * 
+ *
+ * Overview:        
+ *              
+ *				
+ *
+ * PreCondition:    
+ *              
+ * Input:       
+ *             
+ * Output:      
+ *				
+ *
+ * Side Effects:    
+ *             
+ ********************************************************************/
+void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1)
+{
+	var3 = eeprom_read(ADDRflashVal3);
+	var2 = eeprom_read(ADDRflashVal2);
+	var1 = eeprom_read(ADDRflashVal1);
+
+
+}
+/*********************************************************************
+ * 
+ *
+ * Overview:        
+ *              
+ *				
+ *
+ * PreCondition:    
+ *              
+ * Input:       
+ *             
+ * Output:      
+ *				
+ *
+ * Side Effects:    
+ *             
+ ********************************************************************/
+void IncreaseMemoryAdress(void)
+{
+	unsigned char var1, var2, var3;
+	var1 = eeprom_read(ADDRflashVal1);
+	var1++;
+	eeprom_write(ADDRflashVal1,var1);
+	if(var1 == 0)
+	{
+		var2 = eeprom_read(ADDRflashVal2);
+		var2++;
+		eeprom_write(ADDRflashVal2,var2);
+		if(var2 == 0)
+		{
+			var3 = eeprom_read(ADDRflashVal3);
+			var3++;
+			if(var3 > 0x1F)
+				var3 = 0x1F;
+
+			eeprom_write(ADDRflashVal3, var3);
+		}
+	}
+}
+/*********************************************************************
+ * 
+ *
+ * Overview:        
+ *              
+ *				
+ *
+ * PreCondition:    
+ *              
+ * Input:       
+ *             
+ * Output:      
+ *				
+ *
+ * Side Effects:    
+ *             
+ ********************************************************************/
+void ResetMemoryAdress(void)
+{
+	eeprom_write(ADDRflashVal1,0);
+	eeprom_write(ADDRflashVal2,0);
+	eeprom_write(ADDRflashVal3,0);
 }
 

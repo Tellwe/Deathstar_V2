@@ -11,12 +11,12 @@
 #define iBracket1 		RD0
 #define iBracket2 		RD1
 #define iBracket3 		RD2
-#define iSW1			RB1	//RB0 according to electrical scheme		
+#define iSW1			RB0	
 //Outputs
-#define oAnalogInputsON	RC0	//DOES NOT EXIST
+#define oAnalogInputsON	RC0	
 #define oLEDBlink 		RC1
 #define oLEDLight 		RC2
-#define oOnBoardLED		RB2 //RB1 according to electrical scheme
+#define oOnBoardLED		RB1 
 
 //SPI connections
 #define trSDO 			RC5 	//DO
@@ -26,18 +26,18 @@
 //Connections to the transiver (MRF89XAM8A)
 #define trRESET 		RA2 	//DO
 #define trCSCON 		RA4 	//DO
-#define trIRQ0 			RD0 	//DI Should be RB3 but because of wrong HW solderd to RD0 
+#define trIRQ0 			RB3 	//DI 
 #define trIRQ1 			RB4 	//DI
 #define trCSDATA 		RA5 	//DO
 
 //Connections to Real time clock (MCP79510-I/MS)
-#define clCS			RD4		//Chip select clock
+#define csClock			RD4		//Chip select clock
 
 //Connections to flash memory (M25P16-VMN6P)
-#define memCE			RD3		//chip select memory
+#define csMem			RD3		//chip select memory
 
 //Analog inputs for measurements
-#define VOLT_BATT		RB3		//AN8	Voltage Battery //RB2 according to electrical scheme
+#define VOLT_BATT		RB2		//AN8	Voltage Battery //RB2 according to electrical scheme
 #define AMP_BATT		RE1		//AN6	Ampere Battery
 #define VOLT_SOL		RE2		//AN7	Volt Solarpanel
 #define AMP_SOL			RE0		//AN5	Ampere Solarpanel
@@ -57,6 +57,8 @@
 #define ADDRflashVal2		2
 #define ADDRflashVal1		3
 
+
+#define _XTAL_FREQ 4000000
 
 
 //Global variables

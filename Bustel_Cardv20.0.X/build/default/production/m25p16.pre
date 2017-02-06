@@ -137,7 +137,7 @@ unsigned char b31:1;
 } bits;
 } DWORD_VAL;
 
-# 51 "variables.h"
+# 65 "variables.h"
 unsigned char ReceivedData[40];
 int intBlinkCycle;
 int intBlinkCounter;
@@ -151,7 +151,6 @@ BOOL bTimerComplete[5];
 int intNumberOfBlinks = 600;
 BOOL bTransiverModeReceive = FALSE;
 BOOL bValueFromPot = TRUE;
-int addressDarknessValue = 0;
 
 
 
@@ -2250,7 +2249,7 @@ extern __bit __powerdown;
 extern __bit __timeout;
 
 # 2 "functions.h"
-void init();
+void PICInit();
 void DelayDs(int);
 void WriteSPI(unsigned char);
 unsigned char ReadSPI(void);
@@ -2287,6 +2286,10 @@ void TransiverReadFIFO();
 void ReceivedPacketHandler(unsigned char Data[]);
 void TransmittPacket(BYTE topic, BYTE value);
 char FindChannel(void);
+unsigned char OperationMode(void);
+void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1);
+void IncreaseMemoryAdress(void);
+void ResetMemoryAdress(void);
 
 # 36 "m25p16.c"
 void read_ram_id(unsigned char* mem_ptr) {
@@ -2306,8 +2309,6 @@ RD3 = 1;
 unsigned char read_ram_status(void) {
 
 unsigned char status;
-
-# 68
 RD3 = 0;
 WriteSPI(0x05);
 status = ReadSPI();
@@ -2319,7 +2320,6 @@ return status;
 
 void ram_bulk_erase(void) {
 
-# 90
 RD3 = 0;
 WriteSPI(0x06);
 RD3 = 1;
@@ -2333,7 +2333,6 @@ while(read_ram_status());
 
 void ram_sector_erase(unsigned char sector) {
 
-# 117
 RD3 = 0;
 WriteSPI(0x06);
 RD3 = 1;
@@ -2359,10 +2358,11 @@ read_write_flash_ram(1,256,flash_sector,flash_page,0,mem_ptr);
 
 void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr) {
 
-# 155
+# 122
 unsigned short int i;
 
-# 187
+
+
 RD3 = 0;
 if(one_read_zero_write)
 {
@@ -2396,7 +2396,7 @@ WriteSPI(mem_ptr[i]);
 
 RD3 = 1;
 
-_delay((unsigned long)((1)*(4000000/4000.0)));
+_delay((unsigned long)((1)*(4000000/4000000.0)));
 while (read_ram_status() & 0b00000011) {
 _delay((unsigned long)((1)*(4000000/4000.0)));
 }
@@ -2408,7 +2408,7 @@ _delay((unsigned long)((1)*(4000000/4000.0)));
 
 void write_ram_status(unsigned char status) {
 
-# 245
+
 RD3 = 0;
 WriteSPI(0x06);
 RD3 = 1;
@@ -2425,7 +2425,6 @@ while (read_ram_status() & 0x01);
 
 void power_up_flash_ram(void) {
 
-# 266
 RD3 = 0;
 WriteSPI(0xAB);
 RD3 = 1;
@@ -2435,7 +2434,6 @@ _delay((unsigned long)((30)*(4000000/4000000.0)));
 
 void power_down_flash_ram(void) {
 
-# 279
 RD3 = 0;
 WriteSPI(0xB9);
 RD3 = 1;

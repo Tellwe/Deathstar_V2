@@ -43,12 +43,12 @@ void read_ram_id(unsigned char* mem_ptr) {
 	mem_ptr[2] = recv_spi();
 	RAM_PORT |= 1<<RAM_CS;				// deassert cs 
 */
-	memCE = 0;
+	csMem = 0;
 	WriteSPI(RAM_RDID);
 	mem_ptr[0] = ReadSPI();
 	mem_ptr[1] = ReadSPI();
 	mem_ptr[2] = ReadSPI();
-	memCE = 1;
+	csMem = 1;
 
 }
 
@@ -57,10 +57,10 @@ void read_ram_id(unsigned char* mem_ptr) {
 unsigned char read_ram_status(void) {
 
 	unsigned char status;
-	memCE = 0;
+	csMem = 0;
 	WriteSPI(RAM_RDSR);
 	status = ReadSPI();
-	memCE = 1;
+	csMem = 1;
 	return status;
 
 }
@@ -68,29 +68,29 @@ unsigned char read_ram_status(void) {
 
 void ram_bulk_erase(void) {
 
-	memCE = 0;
+	csMem = 0;
 	WriteSPI(RAM_WREN);
-	memCE = 1;
+	csMem = 1;
 	__delay_us(1);
-	memCE = 0;
+	csMem = 0;
 	WriteSPI(RAM_BE);
-	memCE = 1;
+	csMem = 1;
 	while(read_ram_status());
 }
 
 
 void ram_sector_erase(unsigned char sector) {
 
-	memCE = 0;
+	csMem = 0;
 	WriteSPI(RAM_WREN);
-	memCE = 1;
+	csMem = 1;
 	__delay_us(1);
-	memCE = 0;
+	csMem = 0;
 	WriteSPI(RAM_SE);
 	WriteSPI(sector);
 	WriteSPI(0x00);
 	WriteSPI(0x00);
-	memCE = 1;
+	csMem = 1;
 	while(read_ram_status());
 
 }
@@ -123,7 +123,7 @@ void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int b
 
 // for ram device, enter and leave with SCK low 
 
-	memCE = 0;
+	csMem = 0;
 	if(one_read_zero_write)
 	{
 		WriteSPI(RAM_READ);
@@ -131,9 +131,9 @@ void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int b
 	else
 	{
 		WriteSPI(RAM_WREN);
-		memCE = 1;
+		csMem = 1;
 		__delay_us(1);
-		memCE = 0;
+		csMem = 0;
 		WriteSPI(RAM_PP);
 
 	}
@@ -154,7 +154,7 @@ void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int b
 		}
 	}	
 
-	memCE = 1;
+	csMem = 1;
 	
 	__delay_us(1);
 	while (read_ram_status() & 0b00000011) {
@@ -169,14 +169,14 @@ void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int b
 void write_ram_status(unsigned char status) {
 
 
-	memCE = 0;
+	csMem = 0;
 	WriteSPI(RAM_WREN);
-	memCE = 1;			// deassert cs 
+	csMem = 1;			// deassert cs 
 	__delay_us(2); 
-	memCE = 0;			// assert cs 
+	csMem = 0;			// assert cs 
 	WriteSPI(RAM_WRSR);
 	WriteSPI(status);
-	memCE = 1;				// deassert cs 
+	csMem = 1;				// deassert cs 
 	__delay_us(2);
 	while (read_ram_status() & 0x01);	
 
@@ -185,17 +185,17 @@ void write_ram_status(unsigned char status) {
 
 void power_up_flash_ram(void) {
 
-	memCE = 0;			// assert cs 
+	csMem = 0;			// assert cs 
 	WriteSPI(RAM_RES);
-	memCE = 1;				// deassert cs 
+	csMem = 1;				// deassert cs 
 	__delay_us(30);
 }
 
 
 void power_down_flash_ram(void) {
 
-	memCE = 0;			// assert cs 
+	csMem = 0;			// assert cs 
 	WriteSPI(RAM_DP);
-	memCE = 1;				// deassert cs 
+	csMem = 1;				// deassert cs 
 }
 
