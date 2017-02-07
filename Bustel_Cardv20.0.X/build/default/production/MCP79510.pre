@@ -2264,6 +2264,8 @@ unsigned char OperationMode(void);
 void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1);
 void IncreaseMemoryAdress(void);
 void ResetMemoryAdress(void);
+void SendMemoryData();
+void saveDataToFlash();
 
 # 6 "MCP79510.c"
 void ClockInit()
@@ -2292,21 +2294,22 @@ WriteSPI(0x01);
 WriteSPI(0x80);
 RD4 = 1;
 
-while(1)
+char cnt = 0;
+while(cnt < 100)
 {
-
 RD4 = 0;
 WriteSPI(0x13);
 WriteSPI(0x04);
 if((ReadSPI() & 0b00100000) != 0)
 {
-RD4 = 1;
 break;
 
 }
+cnt++;
+
 
 }
-
+RD4 = 1;
 }
 void ReadClock(unsigned char* seconds, unsigned char* minutes, unsigned char* hour, unsigned char* date, unsigned char* month, unsigned char *year)
 {

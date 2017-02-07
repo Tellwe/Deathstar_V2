@@ -13,7 +13,7 @@
 #define iBracket3 		RD2
 #define iSW1			RB0	
 //Outputs
-#define oAnalogInputsON	RC0	
+#define oAnalogInputsOFF	RC0	
 #define oLEDBlink 		RC1
 #define oLEDLight 		RC2
 #define oOnBoardLED		RB1 

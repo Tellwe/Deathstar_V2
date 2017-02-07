@@ -29,21 +29,22 @@ void ClockInit()
 	WriteSPI(0x80);
 	csClock = 1;
 
-	while(1)
+	char cnt = 0;
+	while(cnt < 100)
 	{
-		//TODO: FIX POTENTIAL ENDLESS LOOP!!!!
 		csClock = 0;
 		WriteSPI(0x13);
 		WriteSPI(0x04);
 		if((ReadSPI() & 0b00100000) != 0)
 		{
-			csClock = 1;
 			break;
 		
 		}
+		cnt++;
+
 		
 	}		
-
+	csClock = 1;
 }
 void ReadClock(unsigned char* seconds, unsigned char* minutes, unsigned char* hour, unsigned char* date, unsigned char* month, unsigned char *year)
 {

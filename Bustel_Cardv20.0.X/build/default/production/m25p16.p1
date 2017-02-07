@@ -1767,6 +1767,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;functions.h: 40: void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1);
 [; ;functions.h: 41: void IncreaseMemoryAdress(void);
 [; ;functions.h: 42: void ResetMemoryAdress(void);
+[; ;functions.h: 43: void SendMemoryData();
+[; ;functions.h: 44: void saveDataToFlash();
 "36 m25p16.c
 [v _read_ram_id `(v ~T0 @X0 1 ef1`*uc ]
 {

@@ -158,6 +158,17 @@ void ReceivedPacketHandler(unsigned char Data[])
 				TransmittPacket(DARKCALC, NOTDARK);
 			break;
 
+		case CLEARMEMORY:
+			write_ram_status(read_ram_status() & 0b11100011);
+			ram_bulk_erase();
+			ResetMemoryAdress();
+			TransmittPacket(CLEARMEMORY, DONE);
+			break;
+
+		case READMEMORY:
+			SendMemoryData();
+			TransmittPacket(READMEMORY, DONE);
+
 		default:
 			break;
 	}
@@ -828,6 +839,7 @@ void interrupt tc_int(void){
 		if(intMinuteCounter >= 60)
 		{
 			intMinuteCounter = 0;
+			saveDataToFlash();
 		}
 
 		//Start Timer again
@@ -885,10 +897,10 @@ unsigned char AnalogValue(unsigned char channel)
 void DarknessCheck(void)
 {
 	unsigned char darknessValue;
-	oAnalogInputsON = 0;
+	oAnalogInputsOFF = 0;
 	// determine whether we use valuie from pic or potentiometer.
 	if(bValueFromPot == TRUE)
-		darknessValue= AnalogValue(3);
+		darknessValue= AnalogValue(anChPot);
 	else
 		darknessValue=eeprom_read(ADDRdarknessValue);
 
@@ -896,7 +908,7 @@ void DarknessCheck(void)
 		bDark = 1;
 	else
 		bDark = 0;
-	oAnalogInputsON = 0; 
+	oAnalogInputsOFF = 1; 
 		
 }
 /*********************************************************************
@@ -942,9 +954,9 @@ unsigned char OperationMode(void)
  ********************************************************************/
 void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1)
 {
-	var3 = eeprom_read(ADDRflashVal3);
-	var2 = eeprom_read(ADDRflashVal2);
-	var1 = eeprom_read(ADDRflashVal1);
+	*var3 = eeprom_read(ADDRflashVal3);
+	*var2 = eeprom_read(ADDRflashVal2);
+	*var1 = eeprom_read(ADDRflashVal1);
 
 
 }
@@ -1010,4 +1022,116 @@ void ResetMemoryAdress(void)
 	eeprom_write(ADDRflashVal2,0);
 	eeprom_write(ADDRflashVal3,0);
 }
+/*********************************************************************
+ * 
+ *
+ * Overview:        
+ *              
+ *				
+ *
+ * PreCondition:    
+ *              
+ * Input:       
+ *             
+ * Output:      
+ *				
+ *
+ * Side Effects:    
+ *             
+ ********************************************************************/
+void saveDataToFlash()
+{
+	unsigned char value, addr1, addr2, addr3; 
 
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+
+	value = AnalogValue(anChLightSensor);
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();	
+	
+	value = AnalogValue(anChPot);
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();			
+
+	value = AnalogValue(anChAmpSolar);
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();			
+
+	value = AnalogValue(anChVoltSolar);
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();			
+
+
+	value = AnalogValue(anChAmpBat);
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();			
+
+
+	value = AnalogValue(anChVoltBat);
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();			
+
+}
+/*********************************************************************
+ * 
+ *
+ * Overview:        
+ *              
+ *				
+ *
+ * PreCondition:    
+ *              
+ * Input:       
+ *             
+ * Output:      
+ *				
+ *
+ * Side Effects:    
+ *             
+ ********************************************************************/
+void SendMemoryData()
+{
+
+}

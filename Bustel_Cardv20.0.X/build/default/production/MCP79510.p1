@@ -1757,6 +1757,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;functions.h: 40: void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1);
 [; ;functions.h: 41: void IncreaseMemoryAdress(void);
 [; ;functions.h: 42: void ResetMemoryAdress(void);
+[; ;functions.h: 43: void SendMemoryData();
+[; ;functions.h: 44: void saveDataToFlash();
 "6 MCP79510.c
 [v _ClockInit `(v ~T0 @X0 1 ef ]
 "7
@@ -1834,11 +1836,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MCP79510.c: 30: RD4 = 1;
 "30
 [e = _RD4 -> -> 1 `i `b ]
-[; ;MCP79510.c: 32: while(1)
 "32
-[e :U 149 ]
-[; ;MCP79510.c: 33: {
+[v _cnt `uc ~T0 @X0 1 a ]
+[; ;MCP79510.c: 32: char cnt = 0;
+[e = _cnt -> -> 0 `i `uc ]
+[; ;MCP79510.c: 33: while(cnt < 100)
 "33
+[e $U 148  ]
+[e :U 149 ]
+[; ;MCP79510.c: 34: {
+"34
 {
 [; ;MCP79510.c: 35: RD4 = 0;
 "35
@@ -1855,44 +1862,47 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;MCP79510.c: 39: {
 "39
 {
-[; ;MCP79510.c: 40: RD4 = 1;
+[; ;MCP79510.c: 40: break;
 "40
-[e = _RD4 -> -> 1 `i `b ]
-[; ;MCP79510.c: 41: break;
-"41
 [e $U 150  ]
-"43
+"42
 }
 [e :U 151 ]
-"45
+[; ;MCP79510.c: 42: }
+[; ;MCP79510.c: 43: cnt++;
+"43
+[e ++ _cnt -> -> 1 `i `uc ]
+"46
 }
 [e :U 148 ]
-"32
-[e $U 149  ]
+"33
+[e $ < -> _cnt `i -> 100 `i 149  ]
 [e :U 150 ]
-[; ;MCP79510.c: 43: }
-[; ;MCP79510.c: 45: }
-[; ;MCP79510.c: 47: }
+[; ;MCP79510.c: 46: }
+[; ;MCP79510.c: 47: RD4 = 1;
 "47
+[e = _RD4 -> -> 1 `i `b ]
+[; ;MCP79510.c: 48: }
+"48
 [e :UE 147 ]
 }
-"48
-[v _ReadClock `(v ~T0 @X0 1 ef6`*uc`*uc`*uc`*uc`*uc`*uc ]
 "49
+[v _ReadClock `(v ~T0 @X0 1 ef6`*uc`*uc`*uc`*uc`*uc`*uc ]
+"50
 {
-[; ;MCP79510.c: 48: void ReadClock(unsigned char* seconds, unsigned char* minutes, unsigned char* hour, unsigned char* date, unsigned char* month, unsigned char *year)
-[; ;MCP79510.c: 49: {
+[; ;MCP79510.c: 49: void ReadClock(unsigned char* seconds, unsigned char* minutes, unsigned char* hour, unsigned char* date, unsigned char* month, unsigned char *year)
+[; ;MCP79510.c: 50: {
 [e :U _ReadClock ]
-"48
+"49
 [v _seconds `*uc ~T0 @X0 1 r1 ]
 [v _minutes `*uc ~T0 @X0 1 r2 ]
 [v _hour `*uc ~T0 @X0 1 r3 ]
 [v _date `*uc ~T0 @X0 1 r4 ]
 [v _month `*uc ~T0 @X0 1 r5 ]
 [v _year `*uc ~T0 @X0 1 r6 ]
-"49
-[f ]
 "50
+[f ]
+"51
 [v _sec10 `uc ~T0 @X0 1 a ]
 [v _min10 `uc ~T0 @X0 1 a ]
 [v _hour10 `uc ~T0 @X0 1 a ]
@@ -1905,95 +1915,95 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _date1 `uc ~T0 @X0 1 a ]
 [v _month1 `uc ~T0 @X0 1 a ]
 [v _year1 `uc ~T0 @X0 1 a ]
-[; ;MCP79510.c: 50: unsigned char sec10, min10, hour10, date10, month10, year10, sec1, min1, hour1, date1, month1, year1;
-[; ;MCP79510.c: 52: RD4 = 0;
-"52
+[; ;MCP79510.c: 51: unsigned char sec10, min10, hour10, date10, month10, year10, sec1, min1, hour1, date1, month1, year1;
+[; ;MCP79510.c: 53: RD4 = 0;
+"53
 [e = _RD4 -> -> 0 `i `b ]
-[; ;MCP79510.c: 54: WriteSPI(0x13);
-"54
-[e ( _WriteSPI (1 -> -> 19 `i `uc ]
-[; ;MCP79510.c: 55: WriteSPI(0x01);
+[; ;MCP79510.c: 55: WriteSPI(0x13);
 "55
+[e ( _WriteSPI (1 -> -> 19 `i `uc ]
+[; ;MCP79510.c: 56: WriteSPI(0x01);
+"56
 [e ( _WriteSPI (1 -> -> 1 `i `uc ]
-[; ;MCP79510.c: 57: sec1 = ReadSPI() & 0x7F;
-"57
-[e = _sec1 -> & -> ( _ReadSPI ..  `i -> 127 `i `uc ]
-[; ;MCP79510.c: 58: min1 = ReadSPI() & 0x7F;
+[; ;MCP79510.c: 58: sec1 = ReadSPI() & 0x7F;
 "58
-[e = _min1 -> & -> ( _ReadSPI ..  `i -> 127 `i `uc ]
-[; ;MCP79510.c: 59: hour1 = ReadSPI() & 0x3F;
+[e = _sec1 -> & -> ( _ReadSPI ..  `i -> 127 `i `uc ]
+[; ;MCP79510.c: 59: min1 = ReadSPI() & 0x7F;
 "59
-[e = _hour1 -> & -> ( _ReadSPI ..  `i -> 63 `i `uc ]
-[; ;MCP79510.c: 60: date1 = ReadSPI();
+[e = _min1 -> & -> ( _ReadSPI ..  `i -> 127 `i `uc ]
+[; ;MCP79510.c: 60: hour1 = ReadSPI() & 0x3F;
 "60
-[e = _date1 ( _ReadSPI ..  ]
-[; ;MCP79510.c: 61: date1 = ReadSPI() & 0x3F;
+[e = _hour1 -> & -> ( _ReadSPI ..  `i -> 63 `i `uc ]
+[; ;MCP79510.c: 61: date1 = ReadSPI();
 "61
-[e = _date1 -> & -> ( _ReadSPI ..  `i -> 63 `i `uc ]
-[; ;MCP79510.c: 62: month1 = ReadSPI() & 0x1F;
+[e = _date1 ( _ReadSPI ..  ]
+[; ;MCP79510.c: 62: date1 = ReadSPI() & 0x3F;
 "62
-[e = _month1 -> & -> ( _ReadSPI ..  `i -> 31 `i `uc ]
-[; ;MCP79510.c: 63: year1 = ReadSPI();
+[e = _date1 -> & -> ( _ReadSPI ..  `i -> 63 `i `uc ]
+[; ;MCP79510.c: 63: month1 = ReadSPI() & 0x1F;
 "63
+[e = _month1 -> & -> ( _ReadSPI ..  `i -> 31 `i `uc ]
+[; ;MCP79510.c: 64: year1 = ReadSPI();
+"64
 [e = _year1 ( _ReadSPI ..  ]
-[; ;MCP79510.c: 65: RD4 = 1;
-"65
+[; ;MCP79510.c: 66: RD4 = 1;
+"66
 [e = _RD4 -> -> 1 `i `b ]
-[; ;MCP79510.c: 68: sec10 = (sec1 & 0x70) >> 4;
-"68
-[e = _sec10 -> >> & -> _sec1 `i -> 112 `i -> 4 `i `uc ]
-[; ;MCP79510.c: 69: sec1 = sec1 & 0x0F;
+[; ;MCP79510.c: 69: sec10 = (sec1 & 0x70) >> 4;
 "69
-[e = _sec1 -> & -> _sec1 `i -> 15 `i `uc ]
-[; ;MCP79510.c: 70: *seconds = sec1 + sec10 * 10;
+[e = _sec10 -> >> & -> _sec1 `i -> 112 `i -> 4 `i `uc ]
+[; ;MCP79510.c: 70: sec1 = sec1 & 0x0F;
 "70
+[e = _sec1 -> & -> _sec1 `i -> 15 `i `uc ]
+[; ;MCP79510.c: 71: *seconds = sec1 + sec10 * 10;
+"71
 [e = *U _seconds -> + -> _sec1 `i * -> _sec10 `i -> 10 `i `uc ]
-[; ;MCP79510.c: 72: min10 = (min1 & 0x70) >> 4;
-"72
-[e = _min10 -> >> & -> _min1 `i -> 112 `i -> 4 `i `uc ]
-[; ;MCP79510.c: 73: min1 = min1 & 0x0F;
+[; ;MCP79510.c: 73: min10 = (min1 & 0x70) >> 4;
 "73
-[e = _min1 -> & -> _min1 `i -> 15 `i `uc ]
-[; ;MCP79510.c: 74: *minutes = min1 + min10 * 10;
+[e = _min10 -> >> & -> _min1 `i -> 112 `i -> 4 `i `uc ]
+[; ;MCP79510.c: 74: min1 = min1 & 0x0F;
 "74
+[e = _min1 -> & -> _min1 `i -> 15 `i `uc ]
+[; ;MCP79510.c: 75: *minutes = min1 + min10 * 10;
+"75
 [e = *U _minutes -> + -> _min1 `i * -> _min10 `i -> 10 `i `uc ]
-[; ;MCP79510.c: 76: hour10 = (hour1 & 0x30) >> 4;
-"76
-[e = _hour10 -> >> & -> _hour1 `i -> 48 `i -> 4 `i `uc ]
-[; ;MCP79510.c: 77: hour1 = hour1 & 0x0F;
+[; ;MCP79510.c: 77: hour10 = (hour1 & 0x30) >> 4;
 "77
-[e = _hour1 -> & -> _hour1 `i -> 15 `i `uc ]
-[; ;MCP79510.c: 78: *hour = hour1 + hour10 * 10;
+[e = _hour10 -> >> & -> _hour1 `i -> 48 `i -> 4 `i `uc ]
+[; ;MCP79510.c: 78: hour1 = hour1 & 0x0F;
 "78
+[e = _hour1 -> & -> _hour1 `i -> 15 `i `uc ]
+[; ;MCP79510.c: 79: *hour = hour1 + hour10 * 10;
+"79
 [e = *U _hour -> + -> _hour1 `i * -> _hour10 `i -> 10 `i `uc ]
-[; ;MCP79510.c: 80: date10 = (date1 & 0x30) >> 4;
-"80
-[e = _date10 -> >> & -> _date1 `i -> 48 `i -> 4 `i `uc ]
-[; ;MCP79510.c: 81: date1 = date1 & 0x0F;
+[; ;MCP79510.c: 81: date10 = (date1 & 0x30) >> 4;
 "81
-[e = _date1 -> & -> _date1 `i -> 15 `i `uc ]
-[; ;MCP79510.c: 82: *date = date1 + date10 * 10;
+[e = _date10 -> >> & -> _date1 `i -> 48 `i -> 4 `i `uc ]
+[; ;MCP79510.c: 82: date1 = date1 & 0x0F;
 "82
+[e = _date1 -> & -> _date1 `i -> 15 `i `uc ]
+[; ;MCP79510.c: 83: *date = date1 + date10 * 10;
+"83
 [e = *U _date -> + -> _date1 `i * -> _date10 `i -> 10 `i `uc ]
-[; ;MCP79510.c: 84: month10 = (month1 & 0x10) >> 4;
-"84
-[e = _month10 -> >> & -> _month1 `i -> 16 `i -> 4 `i `uc ]
-[; ;MCP79510.c: 85: month1 = month1 & 0x0F;
+[; ;MCP79510.c: 85: month10 = (month1 & 0x10) >> 4;
 "85
-[e = _month1 -> & -> _month1 `i -> 15 `i `uc ]
-[; ;MCP79510.c: 86: *month = month1 + month10 * 10;
+[e = _month10 -> >> & -> _month1 `i -> 16 `i -> 4 `i `uc ]
+[; ;MCP79510.c: 86: month1 = month1 & 0x0F;
 "86
+[e = _month1 -> & -> _month1 `i -> 15 `i `uc ]
+[; ;MCP79510.c: 87: *month = month1 + month10 * 10;
+"87
 [e = *U _month -> + -> _month1 `i * -> _month10 `i -> 10 `i `uc ]
-[; ;MCP79510.c: 88: year10 = (year1 & 0xF0) >> 4;
-"88
-[e = _year10 -> >> & -> _year1 `i -> 240 `i -> 4 `i `uc ]
-[; ;MCP79510.c: 89: year1 = year1 & 0x0F;
+[; ;MCP79510.c: 89: year10 = (year1 & 0xF0) >> 4;
 "89
-[e = _year1 -> & -> _year1 `i -> 15 `i `uc ]
-[; ;MCP79510.c: 90: *year = year1 + year10 * 10;
+[e = _year10 -> >> & -> _year1 `i -> 240 `i -> 4 `i `uc ]
+[; ;MCP79510.c: 90: year1 = year1 & 0x0F;
 "90
+[e = _year1 -> & -> _year1 `i -> 15 `i `uc ]
+[; ;MCP79510.c: 91: *year = year1 + year10 * 10;
+"91
 [e = *U _year -> + -> _year1 `i * -> _year10 `i -> 10 `i `uc ]
-[; ;MCP79510.c: 92: }
-"92
+[; ;MCP79510.c: 93: }
+"93
 [e :UE 152 ]
 }

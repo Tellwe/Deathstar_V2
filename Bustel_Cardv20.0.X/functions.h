@@ -40,5 +40,7 @@ unsigned char OperationMode(void);
 void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1);
 void IncreaseMemoryAdress(void);
 void ResetMemoryAdress(void);
+void SendMemoryData();
+void saveDataToFlash();
 
 

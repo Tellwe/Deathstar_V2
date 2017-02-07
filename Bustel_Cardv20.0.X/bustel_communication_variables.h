@@ -18,6 +18,8 @@ File containing all the variables used for communication between bustel-units bu
 #define PROGVAL			5
 #define USEPOT			6
 #define DARKCALC		7
+#define READMEMORY		8
+#define CLEARMEMORY		9
 
 
 //Values
@@ -33,6 +35,8 @@ File containing all the variables used for communication between bustel-units bu
 #define YES				1
 #define DARK 			1
 #define NOTDARK			2
+#define DONE			1
+#define NOTDONE			0
 
 
 #endif
