@@ -2355,6 +2355,13 @@ TransiverInit();
 ClockInit();
 
 
+
+write_ram_status(read_ram_status() & 0b11100011);
+ram_bulk_erase();
+ResetMemoryAdress();
+
+
+
 RB1 = 0;
 _delay((unsigned long)((300)*(4000000/4000.0)));
 RB1 = 1;
@@ -2364,21 +2371,12 @@ while(1)
 {
 if(!RB0)
 {
+SendMemoryData();
 
-RC0 = 0;
-TransmittPacket(1,AnalogValue(3));
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(2,AnalogValue(8));
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(3,AnalogValue(6));
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(4,AnalogValue(7));
-_delay((unsigned long)((50)*(4000000/4000.0)));
-TransmittPacket(5,AnalogValue(5));
-_delay((unsigned long)((2400)*(4000000/4000.0)));
-RC0 = 1;
+# 76
+while(!RB0);
 
-# 79
+
 }
 
 if(OperationMode() == 0)

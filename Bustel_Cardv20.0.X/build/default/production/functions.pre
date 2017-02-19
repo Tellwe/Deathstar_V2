@@ -2489,14 +2489,13 @@ break;
 
 case 8:
 SendMemoryData();
-TransmittPacket(8, 1);
 
 default:
 break;
 }
 }
 
-# 195
+# 194
 void TransmittPacket(BYTE topic, BYTE value)
 {
 timerFunction(4, 5);
@@ -2540,17 +2539,17 @@ break;
 }
 _delay((unsigned long)((10)*(4000000/4000000.0)));
 SetRFMode(0x00);
-_delay((unsigned long)((1)*(4000000/4000.0)));
+_delay((unsigned long)((50)*(4000000/4000.0)));
 
 }
 
-# 247
+# 246
 void Mode_0()
 {
 LightWithSensController();
 }
 
-# 255
+# 254
 void Mode_1()
 {
 
@@ -2562,7 +2561,7 @@ else
 RC2 = 0;
 }
 
-# 269
+# 268
 void Mode_2()
 {
 LightWithSensController();
@@ -2572,13 +2571,13 @@ else
 RC1 = 0;
 }
 
-# 280
+# 279
 void Mode_3()
 {
 
 }
 
-# 288
+# 287
 void Mode_4()
 {
 if(!RB5)
@@ -2588,7 +2587,7 @@ TransmittPacket(2, 1);
 LightWithSensController();
 }
 
-# 300
+# 299
 void Mode_5()
 {
 if(!RB5)
@@ -2598,7 +2597,7 @@ TransmittPacket(2, 2);
 LightWithSensController();
 }
 
-# 313
+# 312
 void LightWithSensController(void)
 {
 
@@ -2631,7 +2630,7 @@ RC2 = 0;
 
 }
 
-# 364
+# 363
 unsigned char timerFunction(int intTimerNumber, int intSetSeconds )
 {
 intClockTimer[intTimerNumber] = intSetSeconds;
@@ -2639,7 +2638,7 @@ bTimerComplete[intTimerNumber] = 0;
 return 1;
 }
 
-# 386
+# 385
 void TimerCounter()
 {
 for (int i = 0; i < 5; i++)
@@ -2792,7 +2791,7 @@ SetRFMode(0x00);
 
 }
 
-# 556
+# 555
 char FindChannel(void)
 {
 int cnt = 0;
@@ -2830,7 +2829,7 @@ return 0;
 
 }
 
-# 611
+# 610
 void SetRFMode(BYTE mode)
 {
 RA4 = 0;
@@ -2861,7 +2860,7 @@ break;
 RA4 = 1;
 }
 
-# 659
+# 658
 void Blink(int n)
 {
 for(int i = 1;i<=n;i++)
@@ -2874,7 +2873,7 @@ DelayDs(6);
 
 }
 
-# 690
+# 689
 unsigned char RegisterRead(unsigned char adress)
 {
 BYTE value;
@@ -2886,7 +2885,7 @@ RA4 = 1;
 return value;
 }
 
-# 720
+# 719
 void RegisterSet(unsigned char adress, unsigned char value)
 {
 RA4 = 0;
@@ -2896,7 +2895,7 @@ WriteSPI(value);
 RA4 = 1;
 }
 
-# 746
+# 745
 unsigned char ReadFIFO(void)
 {
 BYTE value;
@@ -2907,7 +2906,7 @@ return value;
 
 }
 
-# 773
+# 772
 void WriteFIFO(unsigned char Data)
 {
 RA5 = 0;
@@ -2915,7 +2914,7 @@ WriteSPI(Data);
 RA5 = 1;
 }
 
-# 797
+# 796
 void interrupt tc_int(void){
 
 
@@ -2934,10 +2933,10 @@ TMR1L = 0xDB;
 if((intBlinkCycle == 1)&&(intBlinkCounter<intNumberOfBlinks*2)){
 intBlinkCounter++;
 
-if(RC1 == 0)
-RC1 = 1;
-else if(RC1 == 1)
-RC1 = 0;
+if(RB1 == 0)
+RB1 = 1;
+else if(RB1 == 1)
+RB1 = 0;
 }
 
 else if((intBlinkCycle == 1)&&(intBlinkCounter >=intNumberOfBlinks*2)){
@@ -2952,16 +2951,18 @@ if(intHalfSecondCounter>=2)
 intHalfSecondCounter = 0;
 intSecondCounter++;
 TimerCounter();
+
 }
 if(intSecondCounter >=60)
 {
 intSecondCounter = 0;
 intMinuteCounter++;
+saveDataToFlash();
+
 }
 if(intMinuteCounter >= 60)
 {
 intMinuteCounter = 0;
-saveDataToFlash();
 }
 
 
@@ -2973,7 +2974,7 @@ GIE = 1;
 return;
 }
 
-# 870
+# 871
 unsigned char AnalogValue(unsigned char channel)
 {
 ADCON0bits.CHS = channel;
@@ -2987,7 +2988,7 @@ return ADRESH;
 
 }
 
-# 897
+# 898
 void DarknessCheck(void)
 {
 unsigned char darknessValue;
@@ -3006,7 +3007,7 @@ RC0 = 1;
 
 }
 
-# 931
+# 932
 unsigned char OperationMode(void)
 {
 unsigned char bracketStatus;
@@ -3015,7 +3016,7 @@ bracketStatus = ((~PORTB) & 0b00000111) ;
 return 6;
 }
 
-# 955
+# 956
 void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1)
 {
 *var3 = eeprom_read(1);
@@ -3025,7 +3026,7 @@ void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var
 
 }
 
-# 980
+# 981
 void IncreaseMemoryAdress(void)
 {
 unsigned char var1, var2, var3;
@@ -3049,7 +3050,7 @@ eeprom_write(1, var3);
 }
 }
 
-# 1019
+# 1020
 void ResetMemoryAdress(void)
 {
 eeprom_write(3,0);
@@ -3057,12 +3058,57 @@ eeprom_write(2,0);
 eeprom_write(1,0);
 }
 
-# 1042
+# 1043
 void saveDataToFlash()
 {
-unsigned char value, addr1, addr2, addr3;
+unsigned char value, addr1, addr2, addr3, seconds, minutes, hours, date, month, year;
 
+ReadClock(&seconds, &minutes, &hours, &date, &month, &year);
+
+value = year;
 ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = month;
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = date;
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = hours;
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
 
 value = AnalogValue(0);
 ReadMemoryAdress(&addr3, &addr2, &addr1);
@@ -3134,8 +3180,37 @@ IncreaseMemoryAdress();
 
 }
 
-# 1134
+# 1180
 void SendMemoryData()
 {
+unsigned long address, finalAddress = 0;
+unsigned char addr3, addr2, addr1, value;
+
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+
+finalAddress = (finalAddress << 8) | addr3;
+finalAddress = (finalAddress << 8) | addr2;
+finalAddress = (finalAddress << 8) | addr1;
+
+for(address = 0; address < finalAddress; address++)
+{
+
+addr1 = address & 0x00FF;
+addr2 = address >> 8 & 0x00FF;
+addr3 = address >> 16 & 0x00FF;
+
+
+read_write_flash_ram(
+1,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+
+TransmittPacket(10, value);
+}
+TransmittPacket(8, 1);
+
 
 }

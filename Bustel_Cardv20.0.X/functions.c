@@ -167,7 +167,6 @@ void ReceivedPacketHandler(unsigned char Data[])
 
 		case READMEMORY:
 			SendMemoryData();
-			TransmittPacket(READMEMORY, DONE);
 
 		default:
 			break;
@@ -235,7 +234,7 @@ void TransmittPacket(BYTE topic, BYTE value)
 		}
 		__delay_us(10);
 		SetRFMode(RF_SLEEP);
-		__delay_ms(1);
+		__delay_ms(50);
 
 }
 //Separate functions for each of the operation modes, for the functionallity connected to the mode.
@@ -812,10 +811,10 @@ void interrupt tc_int(void){
 		if((intBlinkCycle == 1)&&(intBlinkCounter<intNumberOfBlinks*2)){
 			intBlinkCounter++;
 			
-			if(oLEDBlink == 0)
-				oLEDBlink = 1;
-			else if(oLEDBlink == 1)
-				oLEDBlink = 0;
+			if(oOnBoardLED == 0)
+				oOnBoardLED = 1;
+			else if(oOnBoardLED == 1)
+				oOnBoardLED = 0;
 		}
 		
 		else if((intBlinkCycle == 1)&&(intBlinkCounter >=intNumberOfBlinks*2)){
@@ -830,16 +829,18 @@ void interrupt tc_int(void){
 			intHalfSecondCounter = 0;
 			intSecondCounter++;
 			TimerCounter();
+
 		}
 		if(intSecondCounter >=60)
 		{
 			intSecondCounter = 0;
 			intMinuteCounter++;
+			saveDataToFlash();
+
 		}
 		if(intMinuteCounter >= 60)
 		{
 			intMinuteCounter = 0;
-			saveDataToFlash();
 		}
 
 		//Start Timer again
@@ -1041,9 +1042,54 @@ void ResetMemoryAdress(void)
  ********************************************************************/
 void saveDataToFlash()
 {
-	unsigned char value, addr1, addr2, addr3; 
+	unsigned char value, addr1, addr2, addr3, seconds, minutes, hours, date, month, year;
 
+	ReadClock(&seconds, &minutes, &hours, &date, &month, &year);
+
+	value = year;
 	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();	
+
+	value = month;
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();	
+
+	value = date;
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();	
+
+	value = hours;
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	read_write_flash_ram(
+		0,
+		1,
+		addr3,
+		addr2,
+		addr1,
+		&value);
+	IncreaseMemoryAdress();	
+
 
 	value = AnalogValue(anChLightSensor);
 	ReadMemoryAdress(&addr3, &addr2, &addr1);
@@ -1133,5 +1179,34 @@ void saveDataToFlash()
  ********************************************************************/
 void SendMemoryData()
 {
+	unsigned long address, finalAddress = 0;
+	unsigned char addr3, addr2, addr1, value;
+
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+
+	finalAddress = (finalAddress << 8) | addr3;
+	finalAddress = (finalAddress << 8) | addr2;
+	finalAddress = (finalAddress << 8) | addr1;
+
+	for(address = 0; address < finalAddress; address++)
+	{
+
+		addr1 = address & 0x00FF;
+		addr2 = address >> 8 & 0x00FF;
+		addr3 = address >> 16 & 0x00FF;
+
+
+		read_write_flash_ram(
+			1,
+			1,
+			addr3,
+			addr2,
+			addr1,
+			&value);
+		
+		TransmittPacket(MEMVAL, value);
+	}
+	TransmittPacket(READMEMORY, DONE);
+
 
 }

@@ -35,6 +35,13 @@ int main(void)
 	TransiverInit();
 	ClockInit();
 
+/*
+
+	write_ram_status(read_ram_status() & 0b11100011);
+	ram_bulk_erase();
+	ResetMemoryAdress();
+*/
+
 	//Initiation Complete
 	oOnBoardLED = 0;
 	__delay_ms(300);
@@ -45,6 +52,11 @@ int main(void)
 	{
 		if(!iSW1)
 		{
+			SendMemoryData();
+
+
+
+			/*
 
 			oAnalogInputsOFF = 0;
 			TransmittPacket(1,AnalogValue(anChPot));
@@ -58,22 +70,10 @@ int main(void)
 			TransmittPacket(5,AnalogValue(anChAmpSolar));
 			__delay_ms(2400);
 			oAnalogInputsOFF = 1;
-
-	
-
-
-
-/*
-
-
-//Example of how logging of data could look
-
 			
-			*/	
-
-
-			
-			//while(!iSW1);
+			*/
+		
+			while(!iSW1);
 		
 			
 		}

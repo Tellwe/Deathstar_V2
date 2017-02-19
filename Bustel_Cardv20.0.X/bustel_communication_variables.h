@@ -20,6 +20,7 @@ File containing all the variables used for communication between bustel-units bu
 #define DARKCALC		7
 #define READMEMORY		8
 #define CLEARMEMORY		9
+#define MEMVAL			10
 
 
 //Values

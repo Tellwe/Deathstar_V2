@@ -9,6 +9,14 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _TransiverInit `(v ~T0 @X0 0 ef ]
 "10 MCP79510.h
 [v _ClockInit `(v ~T0 @X0 0 ef ]
+"121 m25p16.h
+[v _write_ram_status `(v ~T0 @X0 0 ef1`uc ]
+"41
+[v _read_ram_status `(uc ~T0 @X0 0 ef ]
+"52
+[v _ram_bulk_erase `(v ~T0 @X0 0 ef ]
+"42 functions.h
+[v _ResetMemoryAdress `(v ~T0 @X0 0 ef ]
 "3844 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
 [v _RB1 `Vb ~T0 @X0 0 e@49 ]
 [v F1637 `(v ~T0 @X0 1 tf1`ul ]
@@ -17,12 +25,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [p i __delay ]
 "3842 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic16f887.h
 [v _RB0 `Vb ~T0 @X0 0 e@48 ]
-"3862
-[v _RC0 `Vb ~T0 @X0 0 e@56 ]
-"37 functions.h
-[v _TransmittPacket `(v ~T0 @X0 0 ef2`uc`uc ]
-"21
-[v _AnalogValue `(uc ~T0 @X0 0 ef1`uc ]
+"43 functions.h
+[v _SendMemoryData `(v ~T0 @X0 0 ef ]
 "23
 [v _OperationMode `(uc ~T0 @X0 0 ef ]
 "26
@@ -1861,73 +1865,56 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 36: ClockInit();
 "36
 [e ( _ClockInit ..  ]
-[; ;main.c: 39: RB1 = 0;
-"39
-[e = _RB1 -> -> 0 `i `b ]
-[; ;main.c: 40: _delay((unsigned long)((300)*(4000000/4000.0)));
+[; ;main.c: 40: write_ram_status(read_ram_status() & 0b11100011);
 "40
-[e ( __delay (1 -> * -> -> 300 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 41: RB1 = 1;
+[e ( _write_ram_status (1 -> & -> ( _read_ram_status ..  `i -> 227 `i `uc ]
+[; ;main.c: 41: ram_bulk_erase();
 "41
-[e = _RB1 -> -> 1 `i `b ]
-[; ;main.c: 42: _delay((unsigned long)((300)*(4000000/4000.0)));
+[e ( _ram_bulk_erase ..  ]
+[; ;main.c: 42: ResetMemoryAdress();
 "42
-[e ( __delay (1 -> * -> -> 300 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 44: while(1)
-"44
-[e :U 149 ]
-[; ;main.c: 45: {
-"45
-{
-[; ;main.c: 46: if(!RB0)
+[e ( _ResetMemoryAdress ..  ]
+[; ;main.c: 46: RB1 = 0;
 "46
-[e $ ! ! _RB0 151  ]
-[; ;main.c: 47: {
+[e = _RB1 -> -> 0 `i `b ]
+[; ;main.c: 47: _delay((unsigned long)((300)*(4000000/4000.0)));
 "47
-{
-[; ;main.c: 49: RC0 = 0;
+[e ( __delay (1 -> * -> -> 300 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;main.c: 48: RB1 = 1;
+"48
+[e = _RB1 -> -> 1 `i `b ]
+[; ;main.c: 49: _delay((unsigned long)((300)*(4000000/4000.0)));
 "49
-[e = _RC0 -> -> 0 `i `b ]
-[; ;main.c: 50: TransmittPacket(1,AnalogValue(3));
-"50
-[e ( _TransmittPacket (2 , -> -> 1 `i `uc ( _AnalogValue (1 -> -> 3 `i `uc ]
-[; ;main.c: 51: _delay((unsigned long)((50)*(4000000/4000.0)));
+[e ( __delay (1 -> * -> -> 300 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
+[; ;main.c: 51: while(1)
 "51
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 52: TransmittPacket(2,AnalogValue(8));
+[e :U 149 ]
+[; ;main.c: 52: {
 "52
-[e ( _TransmittPacket (2 , -> -> 2 `i `uc ( _AnalogValue (1 -> -> 8 `i `uc ]
-[; ;main.c: 53: _delay((unsigned long)((50)*(4000000/4000.0)));
+{
+[; ;main.c: 53: if(!RB0)
 "53
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 54: TransmittPacket(3,AnalogValue(6));
+[e $ ! ! _RB0 151  ]
+[; ;main.c: 54: {
 "54
-[e ( _TransmittPacket (2 , -> -> 3 `i `uc ( _AnalogValue (1 -> -> 6 `i `uc ]
-[; ;main.c: 55: _delay((unsigned long)((50)*(4000000/4000.0)));
+{
+[; ;main.c: 55: SendMemoryData();
 "55
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 56: TransmittPacket(4,AnalogValue(7));
-"56
-[e ( _TransmittPacket (2 , -> -> 4 `i `uc ( _AnalogValue (1 -> -> 7 `i `uc ]
-[; ;main.c: 57: _delay((unsigned long)((50)*(4000000/4000.0)));
-"57
-[e ( __delay (1 -> * -> -> 50 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 58: TransmittPacket(5,AnalogValue(5));
-"58
-[e ( _TransmittPacket (2 , -> -> 5 `i `uc ( _AnalogValue (1 -> -> 5 `i `uc ]
-[; ;main.c: 59: _delay((unsigned long)((2400)*(4000000/4000.0)));
-"59
-[e ( __delay (1 -> * -> -> 2400 `i `d / -> -> 4000000 `l `d .4000.0 `ul ]
-[; ;main.c: 60: RC0 = 1;
-"60
-[e = _RC0 -> -> 1 `i `b ]
+[e ( _SendMemoryData ..  ]
+[; ;main.c: 76: while(!RB0);
+"76
+[e $U 152  ]
+[e :U 153 ]
+[e :U 152 ]
+[e $ ! _RB0 153  ]
+[e :U 154 ]
 "79
 }
 [e :U 151 ]
 [; ;main.c: 79: }
 [; ;main.c: 81: if(OperationMode() == 0)
 "81
-[e $ ! == -> ( _OperationMode ..  `i -> 0 `i 152  ]
+[e $ ! == -> ( _OperationMode ..  `i -> 0 `i 155  ]
 [; ;main.c: 82: {
 "82
 {
@@ -1936,11 +1923,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mode_0 ..  ]
 "84
 }
-[e :U 152 ]
+[e :U 155 ]
 [; ;main.c: 84: }
 [; ;main.c: 85: if(OperationMode() == 1)
 "85
-[e $ ! == -> ( _OperationMode ..  `i -> 1 `i 153  ]
+[e $ ! == -> ( _OperationMode ..  `i -> 1 `i 156  ]
 [; ;main.c: 86: {
 "86
 {
@@ -1949,11 +1936,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mode_1 ..  ]
 "88
 }
-[e :U 153 ]
+[e :U 156 ]
 [; ;main.c: 88: }
 [; ;main.c: 90: if(OperationMode() == 2)
 "90
-[e $ ! == -> ( _OperationMode ..  `i -> 2 `i 154  ]
+[e $ ! == -> ( _OperationMode ..  `i -> 2 `i 157  ]
 [; ;main.c: 91: {
 "91
 {
@@ -1962,11 +1949,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mode_2 ..  ]
 "93
 }
-[e :U 154 ]
+[e :U 157 ]
 [; ;main.c: 93: }
 [; ;main.c: 95: if(OperationMode() == 4)
 "95
-[e $ ! == -> ( _OperationMode ..  `i -> 4 `i 155  ]
+[e $ ! == -> ( _OperationMode ..  `i -> 4 `i 158  ]
 [; ;main.c: 96: {
 "96
 {
@@ -1975,11 +1962,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mode_4 ..  ]
 "98
 }
-[e :U 155 ]
+[e :U 158 ]
 [; ;main.c: 98: }
 [; ;main.c: 100: if(OperationMode() == 5)
 "100
-[e $ ! == -> ( _OperationMode ..  `i -> 5 `i 156  ]
+[e $ ! == -> ( _OperationMode ..  `i -> 5 `i 159  ]
 [; ;main.c: 101: {
 "101
 {
@@ -1988,26 +1975,26 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e ( _Mode_5 ..  ]
 "103
 }
-[e :U 156 ]
+[e :U 159 ]
 [; ;main.c: 103: }
 [; ;main.c: 107: if(!bTransiverModeReceive)
 "107
-[e $ ! ! != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1644 `i 157  ]
+[e $ ! ! != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1644 `i 160  ]
 [; ;main.c: 108: TransiverToReceive();
 "108
 [e ( _TransiverToReceive ..  ]
-[e :U 157 ]
+[e :U 160 ]
 [; ;main.c: 109: if(RB4 && bTransiverModeReceive)
 "109
-[e $ ! && _RB4 != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1644 `i 158  ]
+[e $ ! && _RB4 != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1644 `i 161  ]
 [; ;main.c: 110: TransiverReadFIFO();
 "110
 [e ( _TransiverReadFIFO ..  ]
-[e :U 158 ]
+[e :U 161 ]
 "112
 }
 [e :U 148 ]
-"44
+"51
 [e $U 149  ]
 [e :U 150 ]
 [; ;main.c: 112: }
