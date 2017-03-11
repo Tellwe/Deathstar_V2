@@ -35,12 +35,6 @@ int main(void)
 	TransiverInit();
 	ClockInit();
 
-/*
-
-	write_ram_status(read_ram_status() & 0b11100011);
-	ram_bulk_erase();
-	ResetMemoryAdress();
-*/
 
 	//Initiation Complete
 	oOnBoardLED = 0;
@@ -53,26 +47,6 @@ int main(void)
 		if(!iSW1)
 		{
 			SendMemoryData();
-
-
-
-			/*
-
-			oAnalogInputsOFF = 0;
-			TransmittPacket(1,AnalogValue(anChPot));
-			__delay_ms(50);
-			TransmittPacket(2,AnalogValue(anChVoltBat));
-			__delay_ms(50);
-			TransmittPacket(3,AnalogValue(anChAmpBat));
-			__delay_ms(50);
-			TransmittPacket(4,AnalogValue(anChVoltSolar));
-			__delay_ms(50);
-			TransmittPacket(5,AnalogValue(anChAmpSolar));
-			__delay_ms(2400);
-			oAnalogInputsOFF = 1;
-			
-			*/
-		
 			while(!iSW1);
 		
 			

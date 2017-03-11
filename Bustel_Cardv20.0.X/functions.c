@@ -74,6 +74,12 @@ void ReceivedPacketHandler(unsigned char Data[])
 {
 	if(Data[0] != STARTCHAR || Data[3] != ENDCHAR) //Check if the packet is complete and correct
 		return;
+	
+	oOnBoardLED = 0;
+	DelayDs(10);
+	oOnBoardLED = 1;
+	DelayDs(5);
+	
 
 	switch (Data[1])
 	{
@@ -934,7 +940,7 @@ unsigned char OperationMode(void)
 	unsigned char bracketStatus;
 	bracketStatus = ((~PORTB) & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
 
-	return 6; //bracketStatus;
+	return bracketStatus;
 }
 /*********************************************************************
  * 
