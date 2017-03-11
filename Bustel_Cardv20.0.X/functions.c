@@ -72,15 +72,26 @@ void TransiverReadFIFO()
 
 void ReceivedPacketHandler(unsigned char Data[])
 {
+	//Backward compatibility for the old transmitters
+	//Check data to se what command that has been sent 
+	if((strstr(Data, "N1BLINK")) && (OperationMode() == 6))					//Requsted node == 1
+	{
+		intBlinkCycle = 1;
+		intBlinkCounter = 0;
+		DelayDs(100);			//Delay between succesfull recived commands
+	}
+	else if((strstr(Data, "N2BLINK")) && (OperationMode() == 7))				//Requested node == 2
+	{
+		intBlinkCycle = 1;
+		intBlinkCounter = 0;
+		DelayDs(100);			//Delay between succesfull recived commands
+	}
+
+	//End of backward compatibility
+
 	if(Data[0] != STARTCHAR || Data[3] != ENDCHAR) //Check if the packet is complete and correct
 		return;
 	
-	oOnBoardLED = 0;
-	DelayDs(10);
-	oOnBoardLED = 1;
-	DelayDs(5);
-	
-
 	switch (Data[1])
 	{
 		case FLASH:
@@ -141,17 +152,26 @@ void ReceivedPacketHandler(unsigned char Data[])
 
 		case PROGVAL:
 			if(Data[2] != 0)
+			{
+				eeprom_write(ADDRdarknessValue, Data[2]);
 				break;
+			}
 			TransmittPacket(PROGVAL, eeprom_read(ADDRdarknessValue));
 			break;
 
 		case USEPOT:
-			if(Data[2] != 0)
-				break;
-			if(bValueFromPot == TRUE)
-				TransmittPacket(USEPOT, YES);
-			else
-				TransmittPacket(USEPOT, NO);
+			if(Data[2] == 0)
+			{
+				if(bValueFromPot == TRUE)
+					TransmittPacket(USEPOT, YES);
+				else
+					TransmittPacket(USEPOT, NO);
+			}
+			else if(Data[2] == YES)
+				bValueFromPot = TRUE;
+			else if(Data[2] == NO)
+				bValueFromPot = FALSE;
+
 			break;
 
 		case DARKCALC:
