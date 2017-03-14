@@ -21,6 +21,7 @@ File containing all the variables used for communication between bustel-units bu
 #define READMEMORY		8
 #define CLEARMEMORY		9
 #define MEMVAL			10
+#define PACKETSIZE		11
 
 
 //Values
