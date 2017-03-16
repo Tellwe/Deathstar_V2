@@ -72,15 +72,26 @@ void TransiverReadFIFO()
 
 void ReceivedPacketHandler(unsigned char Data[])
 {
+	//Backward compatibility for the old transmitters
+	//Check data to se what command that has been sent 
+	if((strstr(Data, "N1BLINK")) && (OperationMode() == 6))					//Requsted node == 1
+	{
+		intBlinkCycle = 1;
+		intBlinkCounter = 0;
+		DelayDs(100);			//Delay between succesfull recived commands
+	}
+	else if((strstr(Data, "N2BLINK")) && (OperationMode() == 7))				//Requested node == 2
+	{
+		intBlinkCycle = 1;
+		intBlinkCounter = 0;
+		DelayDs(100);			//Delay between succesfull recived commands
+	}
+
+	//End of backward compatibility
+
 	if(Data[0] != STARTCHAR || Data[3] != ENDCHAR) //Check if the packet is complete and correct
 		return;
 	
-	oOnBoardLED = 0;
-	DelayDs(10);
-	oOnBoardLED = 1;
-	DelayDs(5);
-	
-
 	switch (Data[1])
 	{
 		case FLASH:
@@ -141,17 +152,26 @@ void ReceivedPacketHandler(unsigned char Data[])
 
 		case PROGVAL:
 			if(Data[2] != 0)
+			{
+				eeprom_write(ADDRdarknessValue, Data[2]);
 				break;
+			}
 			TransmittPacket(PROGVAL, eeprom_read(ADDRdarknessValue));
 			break;
 
 		case USEPOT:
-			if(Data[2] != 0)
-				break;
-			if(bValueFromPot == TRUE)
-				TransmittPacket(USEPOT, YES);
-			else
-				TransmittPacket(USEPOT, NO);
+			if(Data[2] == 0)
+			{
+				if(bValueFromPot == TRUE)
+					TransmittPacket(USEPOT, YES);
+				else
+					TransmittPacket(USEPOT, NO);
+			}
+			else if(Data[2] == YES)
+				bValueFromPot = TRUE;
+			else if(Data[2] == NO)
+				bValueFromPot = FALSE;
+
 			break;
 
 		case DARKCALC:
@@ -173,6 +193,7 @@ void ReceivedPacketHandler(unsigned char Data[])
 
 		case READMEMORY:
 			SendMemoryData();
+			break;
 
 		default:
 			break;
@@ -817,10 +838,10 @@ void interrupt tc_int(void){
 		if((intBlinkCycle == 1)&&(intBlinkCounter<intNumberOfBlinks*2)){
 			intBlinkCounter++;
 			
-			if(oOnBoardLED == 0)
-				oOnBoardLED = 1;
-			else if(oOnBoardLED == 1)
-				oOnBoardLED = 0;
+			if(oLEDBlink == 0)
+				oLEDBlink = 1;
+			else if(oLEDBlink == 1)
+				oLEDBlink = 0;
 		}
 		
 		else if((intBlinkCycle == 1)&&(intBlinkCounter >=intNumberOfBlinks*2)){
@@ -836,6 +857,10 @@ void interrupt tc_int(void){
 			intSecondCounter++;
 			TimerCounter();
 
+			if(oOnBoardLED)
+				oOnBoardLED = 0;
+			else if(!oOnBoardLED)
+				oOnBoardLED = 1;
 		}
 		if(intSecondCounter >=60)
 		{
@@ -876,6 +901,7 @@ return;
 
 unsigned char AnalogValue(unsigned char channel)
 {
+	oAnalogInputsOFF = 0;
 	ADCON0bits.CHS = channel;
 	ADCON0bits.ADON = 1;
 	DelayDs(1);
@@ -883,6 +909,8 @@ unsigned char AnalogValue(unsigned char channel)
 	DelayDs(1);
 	while(ADCON0bits.GO);
 	ADCON0bits.ADON = 0;
+	oAnalogInputsOFF = 1;
+	
 	return ADRESH;
 
 }
@@ -904,7 +932,7 @@ unsigned char AnalogValue(unsigned char channel)
 void DarknessCheck(void)
 {
 	unsigned char darknessValue;
-	oAnalogInputsOFF = 0;
+	
 	// determine whether we use valuie from pic or potentiometer.
 	if(bValueFromPot == TRUE)
 		darknessValue= AnalogValue(anChPot);
@@ -915,7 +943,6 @@ void DarknessCheck(void)
 		bDark = 1;
 	else
 		bDark = 0;
-	oAnalogInputsOFF = 1; 
 		
 }
 /*********************************************************************
@@ -1194,7 +1221,7 @@ void SendMemoryData()
 	finalAddress = (finalAddress << 8) | addr2;
 	finalAddress = (finalAddress << 8) | addr1;
 
-	for(address = 0; address < finalAddress; address++)
+	for(address = 0; address < 200; address++)
 	{
 
 		addr1 = address & 0x00FF;

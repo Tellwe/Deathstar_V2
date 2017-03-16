@@ -1,3 +1,4 @@
+
 #include <xc.h>
 #include "MRF89XA.h"
 #include <string.h>
@@ -9,17 +10,6 @@
 #include "MCP79510.h"
 
 /**********************		Description		*************************************** 					
-
-
-
-
-
-
-
-
-
-
-
 ***********************************************************************************/
 //Configline for initial configuration of registers in the PIC
 
@@ -46,7 +36,17 @@ int main(void)
 	{
 		if(!iSW1)
 		{
-			SendMemoryData();
+			oOnBoardLED = 0;
+			__delay_ms(300);
+			oOnBoardLED = 1;
+			__delay_ms(300);
+			write_ram_status(read_ram_status() & 0b11100011);
+			ram_bulk_erase();
+			ResetMemoryAdress();
+			oOnBoardLED = 0;
+			__delay_ms(300);
+			oOnBoardLED = 1;
+			__delay_ms(300);
 			while(!iSW1);
 		
 			
