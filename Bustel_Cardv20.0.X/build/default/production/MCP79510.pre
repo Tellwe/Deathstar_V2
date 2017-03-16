@@ -125,6 +125,7 @@ BOOL bTimerComplete[5];
 int intNumberOfBlinks = 600;
 BOOL bTransiverModeReceive = FALSE;
 BOOL bValueFromPot = TRUE;
+BOOL bSaveDataToFlash = FALSE;
 
 
 

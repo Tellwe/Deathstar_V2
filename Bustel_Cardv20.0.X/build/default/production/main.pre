@@ -2297,6 +2297,7 @@ BOOL bTimerComplete[5];
 int intNumberOfBlinks = 600;
 BOOL bTransiverModeReceive = FALSE;
 BOOL bValueFromPot = TRUE;
+BOOL bSaveDataToFlash = FALSE;
 
 
 
@@ -2390,6 +2391,7 @@ if(OperationMode() == 1)
 Mode_1();
 }
 
+
 if(OperationMode() == 2)
 {
 Mode_2();
@@ -2411,6 +2413,12 @@ if(!bTransiverModeReceive)
 TransiverToReceive();
 if(RB4 && bTransiverModeReceive)
 TransiverReadFIFO();
+
+if(bSaveDataToFlash)
+{
+saveDataToFlash();
+bSaveDataToFlash = FALSE;
+}
 
 }
 

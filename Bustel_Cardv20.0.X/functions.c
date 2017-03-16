@@ -186,13 +186,16 @@ void ReceivedPacketHandler(unsigned char Data[])
 
 		case CLEARMEMORY:
 			write_ram_status(read_ram_status() & 0b11100011);
-			ram_bulk_erase();
 			ResetMemoryAdress();
+			ram_bulk_erase();
 			TransmittPacket(CLEARMEMORY, DONE);
 			break;
 
 		case READMEMORY:
-			SendMemoryData();
+			if(!bSaveDataToFlash)  //if save is in progress the memory is allocated for saving
+				SendMemoryData();
+			else
+				TransmittPacket(READMEMORY, NOTDONE);
 			break;
 
 		default:
@@ -857,16 +860,12 @@ void interrupt tc_int(void){
 			intSecondCounter++;
 			TimerCounter();
 
-			if(oOnBoardLED)
-				oOnBoardLED = 0;
-			else if(!oOnBoardLED)
-				oOnBoardLED = 1;
 		}
 		if(intSecondCounter >=60)
 		{
 			intSecondCounter = 0;
 			intMinuteCounter++;
-			saveDataToFlash();
+			bSaveDataToFlash = TRUE;
 
 		}
 		if(intMinuteCounter >= 60)
@@ -1221,7 +1220,7 @@ void SendMemoryData()
 	finalAddress = (finalAddress << 8) | addr2;
 	finalAddress = (finalAddress << 8) | addr1;
 
-	for(address = 0; address < 200; address++)
+	for(address = 0; address < finalAddress; address++)
 	{
 
 		addr1 = address & 0x00FF;

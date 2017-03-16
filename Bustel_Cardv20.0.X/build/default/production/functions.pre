@@ -2297,6 +2297,7 @@ BOOL bTimerComplete[5];
 int intNumberOfBlinks = 600;
 BOOL bTransiverModeReceive = FALSE;
 BOOL bValueFromPot = TRUE;
+BOOL bSaveDataToFlash = FALSE;
 
 
 
@@ -2514,7 +2515,10 @@ TransmittPacket(9, 1);
 break;
 
 case 8:
+if(!bSaveDataToFlash)
 SendMemoryData();
+else
+TransmittPacket(8, 0);
 break;
 
 default:
@@ -2522,7 +2526,7 @@ break;
 }
 }
 
-# 221
+# 224
 void TransmittPacket(BYTE topic, BYTE value)
 {
 timerFunction(4, 5);
@@ -2570,13 +2574,13 @@ _delay((unsigned long)((50)*(4000000/4000.0)));
 
 }
 
-# 273
+# 276
 void Mode_0()
 {
 LightWithSensController();
 }
 
-# 281
+# 284
 void Mode_1()
 {
 
@@ -2588,7 +2592,7 @@ else
 RC2 = 0;
 }
 
-# 295
+# 298
 void Mode_2()
 {
 LightWithSensController();
@@ -2598,13 +2602,13 @@ else
 RC1 = 0;
 }
 
-# 306
+# 309
 void Mode_3()
 {
 
 }
 
-# 314
+# 317
 void Mode_4()
 {
 if(!RB5)
@@ -2614,7 +2618,7 @@ TransmittPacket(2, 1);
 LightWithSensController();
 }
 
-# 326
+# 329
 void Mode_5()
 {
 if(!RB5)
@@ -2624,7 +2628,7 @@ TransmittPacket(2, 2);
 LightWithSensController();
 }
 
-# 339
+# 342
 void LightWithSensController(void)
 {
 
@@ -2657,7 +2661,7 @@ RC2 = 0;
 
 }
 
-# 390
+# 393
 unsigned char timerFunction(int intTimerNumber, int intSetSeconds )
 {
 intClockTimer[intTimerNumber] = intSetSeconds;
@@ -2665,7 +2669,7 @@ bTimerComplete[intTimerNumber] = 0;
 return 1;
 }
 
-# 412
+# 415
 void TimerCounter()
 {
 for (int i = 0; i < 5; i++)
@@ -2818,7 +2822,7 @@ SetRFMode(0x00);
 
 }
 
-# 582
+# 585
 char FindChannel(void)
 {
 int cnt = 0;
@@ -2856,7 +2860,7 @@ return 0;
 
 }
 
-# 637
+# 640
 void SetRFMode(BYTE mode)
 {
 RA4 = 0;
@@ -2887,7 +2891,7 @@ break;
 RA4 = 1;
 }
 
-# 685
+# 688
 void Blink(int n)
 {
 for(int i = 1;i<=n;i++)
@@ -2900,7 +2904,7 @@ DelayDs(6);
 
 }
 
-# 716
+# 719
 unsigned char RegisterRead(unsigned char adress)
 {
 BYTE value;
@@ -2912,7 +2916,7 @@ RA4 = 1;
 return value;
 }
 
-# 746
+# 749
 void RegisterSet(unsigned char adress, unsigned char value)
 {
 RA4 = 0;
@@ -2922,7 +2926,7 @@ WriteSPI(value);
 RA4 = 1;
 }
 
-# 772
+# 775
 unsigned char ReadFIFO(void)
 {
 BYTE value;
@@ -2933,7 +2937,7 @@ return value;
 
 }
 
-# 799
+# 802
 void WriteFIFO(unsigned char Data)
 {
 RA5 = 0;
@@ -2941,7 +2945,7 @@ WriteSPI(Data);
 RA5 = 1;
 }
 
-# 823
+# 826
 void interrupt tc_int(void){
 
 
@@ -2979,16 +2983,12 @@ intHalfSecondCounter = 0;
 intSecondCounter++;
 TimerCounter();
 
-if(RB1)
-RB1 = 0;
-else if(!RB1)
-RB1 = 1;
 }
 if(intSecondCounter >=60)
 {
 intSecondCounter = 0;
 intMinuteCounter++;
-saveDataToFlash();
+bSaveDataToFlash = TRUE;
 
 }
 if(intMinuteCounter >= 60)
@@ -3005,7 +3005,7 @@ GIE = 1;
 return;
 }
 
-# 902
+# 901
 unsigned char AnalogValue(unsigned char channel)
 {
 RC0 = 0;
@@ -3022,7 +3022,7 @@ return ADRESH;
 
 }
 
-# 932
+# 931
 void DarknessCheck(void)
 {
 unsigned char darknessValue;
@@ -3040,7 +3040,7 @@ bDark = 0;
 
 }
 
-# 965
+# 964
 unsigned char OperationMode(void)
 {
 unsigned char bracketStatus;
@@ -3049,7 +3049,7 @@ bracketStatus = ((~PORTB) & 0b00000111) ;
 return bracketStatus;
 }
 
-# 989
+# 988
 void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1)
 {
 *var3 = eeprom_read(1);
@@ -3059,7 +3059,7 @@ void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var
 
 }
 
-# 1014
+# 1013
 void IncreaseMemoryAdress(void)
 {
 unsigned char var1, var2, var3;
@@ -3083,7 +3083,7 @@ eeprom_write(1, var3);
 }
 }
 
-# 1053
+# 1052
 void ResetMemoryAdress(void)
 {
 eeprom_write(3,0);
@@ -3091,7 +3091,7 @@ eeprom_write(2,0);
 eeprom_write(1,0);
 }
 
-# 1076
+# 1075
 void saveDataToFlash()
 {
 unsigned char value, addr1, addr2, addr3, seconds, minutes, hours, date, month, year;
@@ -3213,7 +3213,7 @@ IncreaseMemoryAdress();
 
 }
 
-# 1213
+# 1212
 void SendMemoryData()
 {
 unsigned long address, finalAddress = 0;
@@ -3225,7 +3225,7 @@ finalAddress = (finalAddress << 8) | addr3;
 finalAddress = (finalAddress << 8) | addr2;
 finalAddress = (finalAddress << 8) | addr1;
 
-for(address = 0; address < 200; address++)
+for(address = 0; address < finalAddress; address++)
 {
 
 addr1 = address & 0x00FF;

@@ -75,6 +75,7 @@ BOOL bTimerComplete[5];				//Flag for timer complete by Seb
 int intNumberOfBlinks = 600;		//Number of blinks for a blinkcycle
 BOOL bTransiverModeReceive = FALSE;	//Active state of the transiver for receive
 BOOL bValueFromPot = TRUE;			//TODO
+BOOL bSaveDataToFlash = FALSE;		//Variable to tell the main loop to save data to the flash and to make sure that memory handling does not crash between reading and writing
 
 //Used in function for channel find
 //Values in arrays calculated from matlab for 868,32MHZ

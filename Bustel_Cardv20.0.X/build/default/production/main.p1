@@ -43,6 +43,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _RB4 `Vb ~T0 @X0 0 e@52 ]
 "35 functions.h
 [v _TransiverReadFIFO `(v ~T0 @X0 0 ef ]
+"44
+[v _saveDataToFlash `(v ~T0 @X0 0 ef ]
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -1754,7 +1756,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 . `E1643 1
 ]
 [; ;variables.h: 77: BOOL bValueFromPot = TRUE;
-"81
+"78
+[v _bSaveDataToFlash `E1643 ~T0 @X0 1 e ]
+[i _bSaveDataToFlash
+. `E1643 0
+]
+[; ;variables.h: 78: BOOL bSaveDataToFlash = FALSE;
+"82
 [v _ChannelR `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelR
 :U ..
@@ -1773,8 +1781,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 139 `i `uc
 ..
 ]
-[; ;variables.h: 81: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
-"82
+[; ;variables.h: 82: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
+"83
 [v _ChannelP `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelP
 :U ..
@@ -1793,8 +1801,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 111 `i `uc
 ..
 ]
-[; ;variables.h: 82: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
-"83
+[; ;variables.h: 83: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
+"84
 [v _ChannelS `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelS
 :U ..
@@ -1813,16 +1821,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 42 `i `uc
 ..
 ]
-[; ;variables.h: 83: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
-"85
+[; ;variables.h: 84: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
+"86
 [v _bChannelFound `E1643 ~T0 @X0 1 e ]
 [i _bChannelFound
 -> -> 0 `i `E1643
 ]
-[; ;variables.h: 85: BOOL bChannelFound = 0;
-"86
+[; ;variables.h: 86: BOOL bChannelFound = 0;
+"87
 [v _channelFound `i ~T0 @X0 1 e ]
-[; ;variables.h: 86: int channelFound;
+[; ;variables.h: 87: int channelFound;
 [; ;m25p16.h: 33: void read_ram_id(unsigned char *mem_ptr);
 [; ;m25p16.h: 41: unsigned char read_ram_status(void);
 [; ;m25p16.h: 52: void ram_bulk_erase(void);
@@ -1958,67 +1966,83 @@ Version 3.2 HI-TECH Software Intermediate Code
 }
 [e :U 157 ]
 [; ;main.c: 62: }
-[; ;main.c: 64: if(OperationMode() == 2)
-"64
-[e $ ! == -> ( _OperationMode ..  `i -> 2 `i 158  ]
-[; ;main.c: 65: {
+[; ;main.c: 65: if(OperationMode() == 2)
 "65
-{
-[; ;main.c: 66: Mode_2();
+[e $ ! == -> ( _OperationMode ..  `i -> 2 `i 158  ]
+[; ;main.c: 66: {
 "66
-[e ( _Mode_2 ..  ]
+{
+[; ;main.c: 67: Mode_2();
 "67
+[e ( _Mode_2 ..  ]
+"68
 }
 [e :U 158 ]
-[; ;main.c: 67: }
-[; ;main.c: 69: if(OperationMode() == 4)
-"69
-[e $ ! == -> ( _OperationMode ..  `i -> 4 `i 159  ]
-[; ;main.c: 70: {
+[; ;main.c: 68: }
+[; ;main.c: 70: if(OperationMode() == 4)
 "70
-{
-[; ;main.c: 71: Mode_4();
+[e $ ! == -> ( _OperationMode ..  `i -> 4 `i 159  ]
+[; ;main.c: 71: {
 "71
-[e ( _Mode_4 ..  ]
+{
+[; ;main.c: 72: Mode_4();
 "72
+[e ( _Mode_4 ..  ]
+"73
 }
 [e :U 159 ]
-[; ;main.c: 72: }
-[; ;main.c: 74: if(OperationMode() == 5)
-"74
-[e $ ! == -> ( _OperationMode ..  `i -> 5 `i 160  ]
-[; ;main.c: 75: {
+[; ;main.c: 73: }
+[; ;main.c: 75: if(OperationMode() == 5)
 "75
-{
-[; ;main.c: 76: Mode_5();
+[e $ ! == -> ( _OperationMode ..  `i -> 5 `i 160  ]
+[; ;main.c: 76: {
 "76
-[e ( _Mode_5 ..  ]
+{
+[; ;main.c: 77: Mode_5();
 "77
+[e ( _Mode_5 ..  ]
+"78
 }
 [e :U 160 ]
-[; ;main.c: 77: }
-[; ;main.c: 81: if(!bTransiverModeReceive)
-"81
-[e $ ! ! != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1643 `i 161  ]
-[; ;main.c: 82: TransiverToReceive();
+[; ;main.c: 78: }
+[; ;main.c: 82: if(!bTransiverModeReceive)
 "82
+[e $ ! ! != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1643 `i 161  ]
+[; ;main.c: 83: TransiverToReceive();
+"83
 [e ( _TransiverToReceive ..  ]
 [e :U 161 ]
-[; ;main.c: 83: if(RB4 && bTransiverModeReceive)
-"83
-[e $ ! && _RB4 != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1643 `i 162  ]
-[; ;main.c: 84: TransiverReadFIFO();
+[; ;main.c: 84: if(RB4 && bTransiverModeReceive)
 "84
+[e $ ! && _RB4 != -> _bTransiverModeReceive `i -> -> -> 0 `i `E1643 `i 162  ]
+[; ;main.c: 85: TransiverReadFIFO();
+"85
 [e ( _TransiverReadFIFO ..  ]
 [e :U 162 ]
-"86
+[; ;main.c: 87: if(bSaveDataToFlash)
+"87
+[e $ ! != -> _bSaveDataToFlash `i -> -> -> 0 `i `E1643 `i 163  ]
+[; ;main.c: 88: {
+"88
+{
+[; ;main.c: 89: saveDataToFlash();
+"89
+[e ( _saveDataToFlash ..  ]
+[; ;main.c: 90: bSaveDataToFlash = FALSE;
+"90
+[e = _bSaveDataToFlash . `E1643 0 ]
+"91
+}
+[e :U 163 ]
+"93
 }
 [e :U 149 ]
 "35
 [e $U 150  ]
 [e :U 151 ]
-[; ;main.c: 86: }
-[; ;main.c: 88: }
-"88
+[; ;main.c: 91: }
+[; ;main.c: 93: }
+[; ;main.c: 95: }
+"95
 [e :UE 148 ]
 }
