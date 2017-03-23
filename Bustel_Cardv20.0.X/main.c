@@ -36,7 +36,7 @@ int main(void)
 	{
 		if(!iSW1)
 		{
-			oOnBoardLED = 0;
+			/*oOnBoardLED = 0;
 			__delay_ms(300);
 			oOnBoardLED = 1;
 			__delay_ms(300);
@@ -48,7 +48,9 @@ int main(void)
 			oOnBoardLED = 1;
 			__delay_ms(300);
 			while(!iSW1);
-		
+		*/
+//			bSaveDataToFlash = TRUE;
+			while(!iSW1);
 			
 		}
 
@@ -86,6 +88,7 @@ int main(void)
 
 		if(bSaveDataToFlash)
 		{
+			oLEDLight = 1;
 			saveDataToFlash();
 			bSaveDataToFlash = FALSE; //Important to set to false otherwise the main program will get stuck
 		}		

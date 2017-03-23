@@ -865,12 +865,12 @@ void interrupt tc_int(void){
 		{
 			intSecondCounter = 0;
 			intMinuteCounter++;
-			bSaveDataToFlash = TRUE;
-
+			
 		}
 		if(intMinuteCounter >= 60)
 		{
 			intMinuteCounter = 0;
+			bSaveDataToFlash = TRUE;
 		}
 
 		//Start Timer again
