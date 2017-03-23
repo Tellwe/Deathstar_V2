@@ -1219,14 +1219,23 @@ void SendMemoryData()
 	finalAddress = (finalAddress << 8) | addr3;
 	finalAddress = (finalAddress << 8) | addr2;
 	finalAddress = (finalAddress << 8) | addr1;
-
+	TransmittPacket(READMEMORY,BEGIN);
 	for(address = 0; address < finalAddress; address++)
-	{
+	{	
+		
 
 		addr1 = address & 0x00FF;
 		addr2 = address >> 8 & 0x00FF;
 		addr3 = address >> 16 & 0x00FF;
-
+		
+		if(address ==0)
+			TransmittPacket(STARTMEMPACK, YES);
+		else if((address % 10) ==0)
+		{
+			TransmittPacket(ENDMEMPACK, YES);
+			TransmittPacket(STARTMEMPACK,YES);
+		}
+		
 
 		read_write_flash_ram(
 			1,
@@ -1237,6 +1246,8 @@ void SendMemoryData()
 			&value);
 		
 		TransmittPacket(MEMVAL, value);
+		
+
 	}
 	TransmittPacket(READMEMORY, DONE);
 

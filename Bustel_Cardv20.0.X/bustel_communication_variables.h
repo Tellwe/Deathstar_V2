@@ -10,6 +10,7 @@ File containing all the variables used for communication between bustel-units bu
 #define STARTCHAR		44
 #define ENDCHAR			55
 
+
 //Topics
 #define FLASH			1
 #define	BUSSIGNAL		2
@@ -21,6 +22,8 @@ File containing all the variables used for communication between bustel-units bu
 #define READMEMORY		8
 #define CLEARMEMORY		9
 #define MEMVAL			10
+#define STARTMEMPACK 	11
+#define ENDMEMPACK		12
 
 
 //Values
@@ -37,6 +40,7 @@ File containing all the variables used for communication between bustel-units bu
 #define DARK 			1
 #define NOTDARK			2
 #define DONE			1
+#define BEGIN			3
 #define NOTDONE			0
 
 

@@ -21,11 +21,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _write_ram_status `(v ~T0 @X0 0 ef1`uc ]
 "41
 [v _read_ram_status `(uc ~T0 @X0 0 ef ]
-"52
-[v _ram_bulk_erase `(v ~T0 @X0 0 ef ]
 "42 functions.h
 [v _ResetMemoryAdress `(v ~T0 @X0 0 ef ]
-"23
+"52 m25p16.h
+[v _ram_bulk_erase `(v ~T0 @X0 0 ef ]
+"23 functions.h
 [v _OperationMode `(uc ~T0 @X0 0 ef ]
 "26
 [v _Mode_0 `(v ~T0 @X0 0 ef ]
@@ -1911,12 +1911,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;main.c: 43: write_ram_status(read_ram_status() & 0b11100011);
 "43
 [e ( _write_ram_status (1 -> & -> ( _read_ram_status ..  `i -> 227 `i `uc ]
-[; ;main.c: 44: ram_bulk_erase();
+[; ;main.c: 44: ResetMemoryAdress();
 "44
-[e ( _ram_bulk_erase ..  ]
-[; ;main.c: 45: ResetMemoryAdress();
-"45
 [e ( _ResetMemoryAdress ..  ]
+[; ;main.c: 45: ram_bulk_erase();
+"45
+[e ( _ram_bulk_erase ..  ]
 [; ;main.c: 46: RB1 = 0;
 "46
 [e = _RB1 -> -> 0 `i `b ]

@@ -48,11 +48,11 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _write_ram_status `(v ~T0 @X0 0 ef1`uc ]
 "41
 [v _read_ram_status `(uc ~T0 @X0 0 ef ]
-"52
-[v _ram_bulk_erase `(v ~T0 @X0 0 ef ]
 "42 functions.h
 [v _ResetMemoryAdress `(v ~T0 @X0 0 ef ]
-"43
+"52 m25p16.h
+[v _ram_bulk_erase `(v ~T0 @X0 0 ef ]
+"43 functions.h
 [v _SendMemoryData `(v ~T0 @X0 0 ef ]
 "435 MRF89XA.h
 [v _WriteFIFO `(v ~T0 @X0 0 ef1`uc ]
@@ -2566,12 +2566,12 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;functions.c: 188: write_ram_status(read_ram_status() & 0b11100011);
 "188
 [e ( _write_ram_status (1 -> & -> ( _read_ram_status ..  `i -> 227 `i `uc ]
-[; ;functions.c: 189: ram_bulk_erase();
+[; ;functions.c: 189: ResetMemoryAdress();
 "189
-[e ( _ram_bulk_erase ..  ]
-[; ;functions.c: 190: ResetMemoryAdress();
-"190
 [e ( _ResetMemoryAdress ..  ]
+[; ;functions.c: 190: ram_bulk_erase();
+"190
+[e ( _ram_bulk_erase ..  ]
 [; ;functions.c: 191: TransmittPacket(9, 1);
 "191
 [e ( _TransmittPacket (2 , -> -> 9 `i `uc -> -> 1 `i `uc ]
@@ -4382,6 +4382,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;functions.c: 1221: finalAddress = (finalAddress << 8) | addr1;
 "1221
 [e = _finalAddress | << _finalAddress -> 8 `i -> _addr1 `ul ]
+[; ;functions.c: 1222: TransmittPacket(8,3);
+"1222
+[e ( _TransmittPacket (2 , -> -> 8 `i `uc -> -> 3 `i `uc ]
 [; ;functions.c: 1223: for(address = 0; address < finalAddress; address++)
 "1223
 {
@@ -4391,42 +4394,68 @@ Version 3.2 HI-TECH Software Intermediate Code
 [e :U 309 ]
 [; ;functions.c: 1224: {
 {
-[; ;functions.c: 1226: addr1 = address & 0x00FF;
-"1226
-[e = _addr1 -> & _address -> -> -> 255 `i `l `ul `uc ]
-[; ;functions.c: 1227: addr2 = address >> 8 & 0x00FF;
+[; ;functions.c: 1227: addr1 = address & 0x00FF;
 "1227
-[e = _addr2 -> & >> _address -> 8 `i -> -> -> 255 `i `l `ul `uc ]
-[; ;functions.c: 1228: addr3 = address >> 16 & 0x00FF;
+[e = _addr1 -> & _address -> -> -> 255 `i `l `ul `uc ]
+[; ;functions.c: 1228: addr2 = address >> 8 & 0x00FF;
 "1228
+[e = _addr2 -> & >> _address -> 8 `i -> -> -> 255 `i `l `ul `uc ]
+[; ;functions.c: 1229: addr3 = address >> 16 & 0x00FF;
+"1229
 [e = _addr3 -> & >> _address -> 16 `i -> -> -> 255 `i `l `ul `uc ]
-[; ;functions.c: 1231: read_write_flash_ram(
-[; ;functions.c: 1232: 1,
-[; ;functions.c: 1233: 1,
-[; ;functions.c: 1234: addr3,
-[; ;functions.c: 1235: addr2,
-[; ;functions.c: 1236: addr1,
-[; ;functions.c: 1237: &value);
+[; ;functions.c: 1231: if(address ==0)
+"1231
+[e $ ! == _address -> -> -> 0 `i `l `ul 313  ]
+[; ;functions.c: 1232: TransmittPacket(11, 1);
+"1232
+[e ( _TransmittPacket (2 , -> -> 11 `i `uc -> -> 1 `i `uc ]
+[e $U 314  ]
+"1233
+[e :U 313 ]
+[; ;functions.c: 1233: else if((address % 10) ==0)
+[e $ ! == % _address -> -> -> 10 `i `l `ul -> -> -> 0 `i `l `ul 315  ]
+[; ;functions.c: 1234: {
+"1234
+{
+[; ;functions.c: 1235: TransmittPacket(12, 1);
+"1235
+[e ( _TransmittPacket (2 , -> -> 12 `i `uc -> -> 1 `i `uc ]
+[; ;functions.c: 1236: TransmittPacket(11,1);
+"1236
+[e ( _TransmittPacket (2 , -> -> 11 `i `uc -> -> 1 `i `uc ]
 "1237
-[e ( _read_write_flash_ram (4 , , , , , -> -> 1 `i `uc -> -> 1 `i `us _addr3 _addr2 _addr1 &U _value ]
-[; ;functions.c: 1239: TransmittPacket(10, value);
-"1239
-[e ( _TransmittPacket (2 , -> -> 10 `i `uc _value ]
+}
+[e :U 315 ]
 "1240
+[e :U 314 ]
+[; ;functions.c: 1237: }
+[; ;functions.c: 1240: read_write_flash_ram(
+[; ;functions.c: 1241: 1,
+[; ;functions.c: 1242: 1,
+[; ;functions.c: 1243: addr3,
+[; ;functions.c: 1244: addr2,
+[; ;functions.c: 1245: addr1,
+[; ;functions.c: 1246: &value);
+"1246
+[e ( _read_write_flash_ram (4 , , , , , -> -> 1 `i `uc -> -> 1 `i `us _addr3 _addr2 _addr1 &U _value ]
+[; ;functions.c: 1248: TransmittPacket(10, value);
+"1248
+[e ( _TransmittPacket (2 , -> -> 10 `i `uc _value ]
+"1251
 }
 "1223
 [e ++ _address -> -> -> 1 `i `l `ul ]
 [e :U 312 ]
 [e $ < _address _finalAddress 309  ]
 [e :U 310 ]
-"1240
+"1251
 }
-[; ;functions.c: 1240: }
-[; ;functions.c: 1241: TransmittPacket(8, 1);
-"1241
+[; ;functions.c: 1251: }
+[; ;functions.c: 1252: TransmittPacket(8, 1);
+"1252
 [e ( _TransmittPacket (2 , -> -> 8 `i `uc -> -> 1 `i `uc ]
-[; ;functions.c: 1244: }
-"1244
+[; ;functions.c: 1255: }
+"1255
 [e :UE 308 ]
 }
 [a 2C 78 50 66 76 73 78 75 0 ]

@@ -2509,8 +2509,8 @@ break;
 
 case 9:
 write_ram_status(read_ram_status() & 0b11100011);
-ram_bulk_erase();
 ResetMemoryAdress();
+ram_bulk_erase();
 TransmittPacket(9, 1);
 break;
 
@@ -3224,13 +3224,22 @@ ReadMemoryAdress(&addr3, &addr2, &addr1);
 finalAddress = (finalAddress << 8) | addr3;
 finalAddress = (finalAddress << 8) | addr2;
 finalAddress = (finalAddress << 8) | addr1;
-
+TransmittPacket(8,3);
 for(address = 0; address < finalAddress; address++)
 {
+
 
 addr1 = address & 0x00FF;
 addr2 = address >> 8 & 0x00FF;
 addr3 = address >> 16 & 0x00FF;
+
+if(address ==0)
+TransmittPacket(11, 1);
+else if((address % 10) ==0)
+{
+TransmittPacket(12, 1);
+TransmittPacket(11,1);
+}
 
 
 read_write_flash_ram(
@@ -3242,6 +3251,8 @@ addr1,
 &value);
 
 TransmittPacket(10, value);
+
+
 }
 TransmittPacket(8, 1);
 

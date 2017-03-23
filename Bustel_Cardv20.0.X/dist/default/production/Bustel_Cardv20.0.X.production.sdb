@@ -24,6 +24,8 @@ TRUE 1
 [v ___ftpack __ftpack `(f  1 e 3 0 ]
 "86 C:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\ftadd.c
 [v ___ftadd __ftadd `(f  1 e 3 0 ]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
 "4 C:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\strchr.c
 [v _strchr strchr `(*.4uc  1 e 1 0 ]
 "4 C:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\strlen.c
@@ -625,14 +627,14 @@ TRUE 1
 [v _SendMemoryData SendMemoryData `(v  1 e 1 0 ]
 {
 "1214
-[v SendMemoryData@finalAddress finalAddress `ul  1 a 4 43 ]
-[v SendMemoryData@address address `ul  1 a 4 39 ]
+[v SendMemoryData@address address `ul  1 a 4 43 ]
+[v SendMemoryData@finalAddress finalAddress `ul  1 a 4 39 ]
 "1215
 [v SendMemoryData@addr1 addr1 `uc  1 a 1 38 ]
 [v SendMemoryData@addr2 addr2 `uc  1 a 1 37 ]
 [v SendMemoryData@addr3 addr3 `uc  1 a 1 36 ]
 [v SendMemoryData@value value `uc  1 a 1 35 ]
-"1244
+"1255
 } 0
 "107 C:\Users\gustav\Documents\Sorted\Git\Deathstar_V2\Bustel_Cardv20.0.X\m25p16.c
 [v _read_write_flash_ram read_write_flash_ram `(v  1 e 1 0 ]
@@ -657,6 +659,16 @@ TRUE 1
 "59
 [v read_ram_status@status status `uc  1 a 1 4 ]
 "66
+} 0
+"6 C:\Program Files (x86)\Microchip\xc8\v1.38\sources\common\llmod.c
+[v ___llmod __llmod `(ul  1 e 4 0 ]
+{
+"11
+[v ___llmod@counter counter `uc  1 a 1 9 ]
+"6
+[v ___llmod@divisor divisor `ul  1 p 4 0 ]
+[v ___llmod@dividend dividend `ul  1 p 4 4 ]
+"26
 } 0
 "988 C:\Users\gustav\Documents\Sorted\Git\Deathstar_V2\Bustel_Cardv20.0.X\functions.c
 [v _ReadMemoryAdress ReadMemoryAdress `(v  1 e 1 0 ]
