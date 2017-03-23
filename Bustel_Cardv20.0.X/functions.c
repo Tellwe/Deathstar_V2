@@ -1010,27 +1010,51 @@ void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var
  * Side Effects:    
  *             
  ********************************************************************/
+void WriteMemoryAdress(unsigned char var3,unsigned char var2,unsigned char var1)
+{
+	eeprom_write(ADDRflashVal3, var3);
+	eeprom_write(ADDRflashVal2, var2);
+	eeprom_write(ADDRflashVal1, var1);
+
+
+}
+/*********************************************************************
+ * 
+ *
+ * Overview:        
+ *              
+ *				
+ *
+ * PreCondition:    
+ *              
+ * Input:       
+ *             
+ * Output:      
+ *				
+ *
+ * Side Effects:    
+ *             
+ ********************************************************************/
 void IncreaseMemoryAdress(void)
 {
-	unsigned char var1, var2, var3;
-	var1 = eeprom_read(ADDRflashVal1);
-	var1++;
-	eeprom_write(ADDRflashVal1,var1);
-	if(var1 == 0)
-	{
-		var2 = eeprom_read(ADDRflashVal2);
-		var2++;
-		eeprom_write(ADDRflashVal2,var2);
-		if(var2 == 0)
-		{
-			var3 = eeprom_read(ADDRflashVal3);
-			var3++;
-			if(var3 > 0x1F)
-				var3 = 0x1F;
+	unsigned char addr1, addr2, addr3;
+	unsigned long address = 0;
+	
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	address = addr3;
+	address = (address << 8) + addr2;
+	address = (address << 8) + addr1;
 
-			eeprom_write(ADDRflashVal3, var3);
-		}
-	}
+	if(address++ >= 0x1FFFFF)
+		address = 0x1FFFFF;
+
+	addr1 = address & 0xFF;
+	addr2 = (address >> 8) & 0xFF;
+	addr3 = (address >> 16) & 0xFF;
+
+	WriteMemoryAdress(addr3, addr2, addr1);
+
+
 }
 /*********************************************************************
  * 
@@ -1216,17 +1240,21 @@ void SendMemoryData()
 
 	ReadMemoryAdress(&addr3, &addr2, &addr1);
 
-	finalAddress = (finalAddress << 8) | addr3;
-	finalAddress = (finalAddress << 8) | addr2;
-	finalAddress = (finalAddress << 8) | addr1;
+
+
+	finalAddress = addr3;
+	finalAddress = (finalAddress << 8) + addr2;
+	finalAddress = (finalAddress << 8) + addr1;
+
 	TransmittPacket(READMEMORY,BEGIN);
+
 	for(address = 0; address < finalAddress; address++)
 	{	
 		
 
-		addr1 = address & 0x00FF;
-		addr2 = address >> 8 & 0x00FF;
-		addr3 = address >> 16 & 0x00FF;
+		addr1 = address & 0xFF;
+		addr2 = (address >> 8) & 0xFF;
+		addr3 = (address >> 16) & 0xFF;
 		
 		if(address ==0)
 			TransmittPacket(STARTMEMPACK, YES);
