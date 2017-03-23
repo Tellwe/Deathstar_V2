@@ -129,12 +129,21 @@ void ReceivedPacketHandler(unsigned char Data[])
 				intBlinkCycle = 1;
 				intBlinkCounter = 0;
 				DelayDs(100);			//Delay between succesfull recived commands
+				TransmittPacket(BUSSIGNAL, BLINKSTARTED);
 			}
 			if(Data[2] == NODE2 && OperationMode() == 7)
 			{
 				intBlinkCycle = 1;
 				intBlinkCounter = 0;
 				DelayDs(100);			//Delay between succesfull recived commands
+				TransmittPacket(BUSSIGNAL, BLINKSTARTED);
+			}
+			if(Data[2] == BLINKSTARTED && (OperationMode() == 4 || OperationMode() == 5))
+			{
+				intBlinkCycle = 1;
+				intBlinkCounter = 0;
+				DelayDs(100);			//Delay between succesfull recived commands
+					
 			}
 			break;
 
@@ -303,6 +312,7 @@ void Mode_2()
 	else
 		oLEDBlink = 0;
 }
+
 /****************Mode description**********************
 Not used
 *******************************************************/
@@ -964,7 +974,7 @@ void DarknessCheck(void)
 unsigned char OperationMode(void)
 {
 	unsigned char bracketStatus;
-	bracketStatus = ((~PORTB) & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
+	bracketStatus = (PORTD & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
 
 	return bracketStatus;
 }

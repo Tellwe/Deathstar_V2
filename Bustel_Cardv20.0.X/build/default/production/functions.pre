@@ -2453,12 +2453,21 @@ if(Data[2] == 1 && OperationMode() == 6)
 intBlinkCycle = 1;
 intBlinkCounter = 0;
 DelayDs(100);
+TransmittPacket(2, 10);
 }
 if(Data[2] == 2 && OperationMode() == 7)
 {
 intBlinkCycle = 1;
 intBlinkCounter = 0;
 DelayDs(100);
+TransmittPacket(2, 10);
+}
+if(Data[2] == 10 && (OperationMode() == 4 || OperationMode() == 5))
+{
+intBlinkCycle = 1;
+intBlinkCounter = 0;
+DelayDs(100);
+
 }
 break;
 
@@ -2527,7 +2536,7 @@ break;
 }
 }
 
-# 224
+# 233
 void TransmittPacket(BYTE topic, BYTE value)
 {
 timerFunction(4, 5);
@@ -2575,13 +2584,13 @@ _delay((unsigned long)((50)*(4000000/4000.0)));
 
 }
 
-# 276
+# 285
 void Mode_0()
 {
 LightWithSensController();
 }
 
-# 284
+# 293
 void Mode_1()
 {
 
@@ -2593,7 +2602,7 @@ else
 RC2 = 0;
 }
 
-# 298
+# 307
 void Mode_2()
 {
 LightWithSensController();
@@ -2603,13 +2612,13 @@ else
 RC1 = 0;
 }
 
-# 309
+# 319
 void Mode_3()
 {
 
 }
 
-# 317
+# 327
 void Mode_4()
 {
 if(!RB5)
@@ -2619,7 +2628,7 @@ TransmittPacket(2, 1);
 LightWithSensController();
 }
 
-# 329
+# 339
 void Mode_5()
 {
 if(!RB5)
@@ -2629,7 +2638,7 @@ TransmittPacket(2, 2);
 LightWithSensController();
 }
 
-# 342
+# 352
 void LightWithSensController(void)
 {
 
@@ -2662,7 +2671,7 @@ RC2 = 0;
 
 }
 
-# 393
+# 403
 unsigned char timerFunction(int intTimerNumber, int intSetSeconds )
 {
 intClockTimer[intTimerNumber] = intSetSeconds;
@@ -2670,7 +2679,7 @@ bTimerComplete[intTimerNumber] = 0;
 return 1;
 }
 
-# 415
+# 425
 void TimerCounter()
 {
 for (int i = 0; i < 5; i++)
@@ -2823,7 +2832,7 @@ SetRFMode(0x00);
 
 }
 
-# 585
+# 595
 char FindChannel(void)
 {
 int cnt = 0;
@@ -2861,7 +2870,7 @@ return 0;
 
 }
 
-# 640
+# 650
 void SetRFMode(BYTE mode)
 {
 RA4 = 0;
@@ -2892,7 +2901,7 @@ break;
 RA4 = 1;
 }
 
-# 688
+# 698
 void Blink(int n)
 {
 for(int i = 1;i<=n;i++)
@@ -2905,7 +2914,7 @@ DelayDs(6);
 
 }
 
-# 719
+# 729
 unsigned char RegisterRead(unsigned char adress)
 {
 BYTE value;
@@ -2917,7 +2926,7 @@ RA4 = 1;
 return value;
 }
 
-# 749
+# 759
 void RegisterSet(unsigned char adress, unsigned char value)
 {
 RA4 = 0;
@@ -2927,7 +2936,7 @@ WriteSPI(value);
 RA4 = 1;
 }
 
-# 775
+# 785
 unsigned char ReadFIFO(void)
 {
 BYTE value;
@@ -2938,7 +2947,7 @@ return value;
 
 }
 
-# 802
+# 812
 void WriteFIFO(unsigned char Data)
 {
 RA5 = 0;
@@ -2946,7 +2955,7 @@ WriteSPI(Data);
 RA5 = 1;
 }
 
-# 826
+# 836
 void interrupt tc_int(void){
 
 
@@ -3006,7 +3015,7 @@ GIE = 1;
 return;
 }
 
-# 901
+# 911
 unsigned char AnalogValue(unsigned char channel)
 {
 RC0 = 0;
@@ -3023,7 +3032,7 @@ return ADRESH;
 
 }
 
-# 931
+# 941
 void DarknessCheck(void)
 {
 unsigned char darknessValue;
@@ -3041,16 +3050,16 @@ bDark = 0;
 
 }
 
-# 964
+# 974
 unsigned char OperationMode(void)
 {
 unsigned char bracketStatus;
-bracketStatus = ((~PORTB) & 0b00000111) ;
+bracketStatus = (PORTD & 0b00000111) ;
 
 return bracketStatus;
 }
 
-# 988
+# 998
 void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1)
 {
 *var3 = eeprom_read(1);
@@ -3060,7 +3069,7 @@ void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var
 
 }
 
-# 1013
+# 1023
 void WriteMemoryAdress(unsigned char var3,unsigned char var2,unsigned char var1)
 {
 eeprom_write(1, var3);
@@ -3070,7 +3079,7 @@ eeprom_write(3, var1);
 
 }
 
-# 1038
+# 1048
 void IncreaseMemoryAdress(void)
 {
 unsigned char addr1, addr2, addr3;
@@ -3093,7 +3102,7 @@ WriteMemoryAdress(addr3, addr2, addr1);
 
 }
 
-# 1076
+# 1086
 void ResetMemoryAdress(void)
 {
 eeprom_write(3,0);
@@ -3101,7 +3110,7 @@ eeprom_write(2,0);
 eeprom_write(1,0);
 }
 
-# 1099
+# 1109
 void saveDataToFlash()
 {
 unsigned char value, addr1, addr2, addr3, seconds, minutes, hours, date, month, year;
@@ -3223,7 +3232,7 @@ IncreaseMemoryAdress();
 
 }
 
-# 1236
+# 1246
 void SendMemoryData()
 {
 unsigned long address, finalAddress = 0;

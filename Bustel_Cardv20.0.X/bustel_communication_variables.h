@@ -42,6 +42,7 @@ File containing all the variables used for communication between bustel-units bu
 #define DONE			1
 #define BEGIN			3
 #define NOTDONE			0
+#define BLINKSTARTED	10
 
 
 #endif

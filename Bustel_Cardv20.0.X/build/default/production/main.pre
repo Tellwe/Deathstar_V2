@@ -2367,18 +2367,16 @@ while(1)
 {
 if(!RB0)
 {
+
+# 52
+for(int i = 0; i < OperationMode(); i++)
+{
 RB1 = 0;
 _delay((unsigned long)((300)*(4000000/4000.0)));
 RB1 = 1;
 _delay((unsigned long)((300)*(4000000/4000.0)));
-write_ram_status(read_ram_status() & 0b11100011);
-ResetMemoryAdress();
-ram_bulk_erase();
-RB1 = 0;
-_delay((unsigned long)((300)*(4000000/4000.0)));
-RB1 = 1;
-_delay((unsigned long)((300)*(4000000/4000.0)));
-while(!RB0);
+}
+
 
 
 }

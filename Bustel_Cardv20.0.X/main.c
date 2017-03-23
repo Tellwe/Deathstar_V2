@@ -36,7 +36,7 @@ int main(void)
 	{
 		if(!iSW1)
 		{
-			oOnBoardLED = 0;
+/*			oOnBoardLED = 0;
 			__delay_ms(300);
 			oOnBoardLED = 1;
 			__delay_ms(300);
@@ -47,8 +47,17 @@ int main(void)
 			__delay_ms(300);
 			oOnBoardLED = 1;
 			__delay_ms(300);
-			while(!iSW1);
+			while(!iSW1);*/
 		
+			for(int i = 0; i < OperationMode(); i++)
+			{
+				oOnBoardLED = 0;
+				__delay_ms(300);
+				oOnBoardLED = 1;
+				__delay_ms(300);
+			}
+
+			
 			
 		}
 
