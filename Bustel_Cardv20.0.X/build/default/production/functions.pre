@@ -1,166 +1,5 @@
 
-# 1 "m25p16.c"
-
-# 33 "m25p16.h"
-void read_ram_id(unsigned char *mem_ptr);
-
-# 41
-unsigned char read_ram_status(void);
-
-# 52
-void ram_bulk_erase(void);
-
-# 65
-void ram_sector_erase(unsigned char sector);
-
-# 78
-void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
-
-# 92
-void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
-
-# 112
-void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr);
-
-# 121
-void write_ram_status(unsigned char status);
-
-# 130
-void power_up_flash_ram(void);
-
-# 142
-void power_down_flash_ram(void);
-
-# 39 "GenericTypeDefs.h"
-typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
-typedef unsigned char BYTE;
-typedef unsigned short int WORD;
-typedef unsigned long DWORD;
-
-typedef union _BYTE_VAL
-{
-BYTE Val;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-} bits;
-} BYTE_VAL;
-
-typedef union _WORD_VAL
-{
-WORD Val;
-BYTE v[2];
-struct
-{
-BYTE LB;
-BYTE HB;
-} byte;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-unsigned char b8:1;
-unsigned char b9:1;
-unsigned char b10:1;
-unsigned char b11:1;
-unsigned char b12:1;
-unsigned char b13:1;
-unsigned char b14:1;
-unsigned char b15:1;
-} bits;
-} WORD_VAL;
-
-typedef union _DWORD_VAL
-{
-DWORD Val;
-WORD w[2];
-BYTE v[4];
-struct
-{
-WORD LW;
-WORD HW;
-} word;
-struct
-{
-BYTE LB;
-BYTE HB;
-BYTE UB;
-BYTE MB;
-} byte;
-struct
-{
-unsigned char b0:1;
-unsigned char b1:1;
-unsigned char b2:1;
-unsigned char b3:1;
-unsigned char b4:1;
-unsigned char b5:1;
-unsigned char b6:1;
-unsigned char b7:1;
-unsigned char b8:1;
-unsigned char b9:1;
-unsigned char b10:1;
-unsigned char b11:1;
-unsigned char b12:1;
-unsigned char b13:1;
-unsigned char b14:1;
-unsigned char b15:1;
-unsigned char b16:1;
-unsigned char b17:1;
-unsigned char b18:1;
-unsigned char b19:1;
-unsigned char b20:1;
-unsigned char b21:1;
-unsigned char b22:1;
-unsigned char b23:1;
-unsigned char b24:1;
-unsigned char b25:1;
-unsigned char b26:1;
-unsigned char b27:1;
-unsigned char b28:1;
-unsigned char b29:1;
-unsigned char b30:1;
-unsigned char b31:1;
-} bits;
-} DWORD_VAL;
-
-# 65 "variables.h"
-unsigned char ReceivedData[40];
-int intBlinkCycle;
-int intBlinkCounter;
-int intHalfSecondCounter;
-int intSecondCounter;
-int intMinuteCounter;
-BOOL bDark;
-int intDarkCheckIntervall;
-int intClockTimer[5];
-BOOL bTimerComplete[5];
-int intNumberOfBlinks = 600;
-BOOL bTransiverModeReceive = FALSE;
-BOOL bValueFromPot = TRUE;
-BOOL bSaveDataToFlash = FALSE;
-
-
-
-const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
-const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
-const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
-
-BOOL bChannelFound = 0;
-int channelFound;
+# 1 "functions.c"
 
 # 26 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\htc.h"
 extern const char __xc8_OPTIM_SPEED;
@@ -2249,6 +2088,156 @@ extern unsigned char __resetbits;
 extern __bit __powerdown;
 extern __bit __timeout;
 
+# 39 "GenericTypeDefs.h"
+typedef enum _BOOL { FALSE = 0, TRUE } BOOL;
+typedef unsigned char BYTE;
+typedef unsigned short int WORD;
+typedef unsigned long DWORD;
+
+typedef union _BYTE_VAL
+{
+BYTE Val;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+} bits;
+} BYTE_VAL;
+
+typedef union _WORD_VAL
+{
+WORD Val;
+BYTE v[2];
+struct
+{
+BYTE LB;
+BYTE HB;
+} byte;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+unsigned char b8:1;
+unsigned char b9:1;
+unsigned char b10:1;
+unsigned char b11:1;
+unsigned char b12:1;
+unsigned char b13:1;
+unsigned char b14:1;
+unsigned char b15:1;
+} bits;
+} WORD_VAL;
+
+typedef union _DWORD_VAL
+{
+DWORD Val;
+WORD w[2];
+BYTE v[4];
+struct
+{
+WORD LW;
+WORD HW;
+} word;
+struct
+{
+BYTE LB;
+BYTE HB;
+BYTE UB;
+BYTE MB;
+} byte;
+struct
+{
+unsigned char b0:1;
+unsigned char b1:1;
+unsigned char b2:1;
+unsigned char b3:1;
+unsigned char b4:1;
+unsigned char b5:1;
+unsigned char b6:1;
+unsigned char b7:1;
+unsigned char b8:1;
+unsigned char b9:1;
+unsigned char b10:1;
+unsigned char b11:1;
+unsigned char b12:1;
+unsigned char b13:1;
+unsigned char b14:1;
+unsigned char b15:1;
+unsigned char b16:1;
+unsigned char b17:1;
+unsigned char b18:1;
+unsigned char b19:1;
+unsigned char b20:1;
+unsigned char b21:1;
+unsigned char b22:1;
+unsigned char b23:1;
+unsigned char b24:1;
+unsigned char b25:1;
+unsigned char b26:1;
+unsigned char b27:1;
+unsigned char b28:1;
+unsigned char b29:1;
+unsigned char b30:1;
+unsigned char b31:1;
+} bits;
+} DWORD_VAL;
+
+# 431 "MRF89XA.h"
+void RegisterSet(BYTE address, BYTE value);
+BYTE RegisterRead(BYTE address);
+void Send_Packet(BYTE packetlen);
+void ReceiveFrame(void);
+void WriteFIFO(BYTE);
+BYTE ReadFIFO(void);
+void SetRFMode(BYTE);
+
+# 4 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\__size_t.h"
+typedef unsigned size_t;
+
+# 14 "C:\Program Files (x86)\Microchip\xc8\v1.40\include\string.h"
+extern void * memcpy(void *, const void *, size_t);
+extern void * memmove(void *, const void *, size_t);
+extern void * memset(void *, int, size_t);
+
+# 34
+extern char * strcat(char *, const char *);
+extern char * strcpy(char *, const char *);
+extern char * strncat(char *, const char *, size_t);
+extern char * strncpy(char *, const char *, size_t);
+extern char * strdup(const char *);
+extern char * strtok(char *, const char *);
+
+
+extern int memcmp(const void *, const void *, size_t);
+extern int strcmp(const char *, const char *);
+extern int stricmp(const char *, const char *);
+extern int strncmp(const char *, const char *, size_t);
+extern int strnicmp(const char *, const char *, size_t);
+extern void * memchr(const void *, int, size_t);
+extern size_t strcspn(const char *, const char *);
+extern char * strpbrk(const char *, const char *);
+extern size_t strspn(const char *, const char *);
+extern char * strstr(const char *, const char *);
+extern char * stristr(const char *, const char *);
+extern char * strerror(int);
+extern size_t strlen(const char *);
+extern char * strchr(const char *, int);
+extern char * strichr(const char *, int);
+extern char * strrchr(const char *, int);
+extern char * strrichr(const char *, int);
+
 # 2 "functions.h"
 void PICInit();
 void DelayDs(int);
@@ -2295,151 +2284,1000 @@ void ResetMemoryAdress(void);
 void SendMemoryData();
 void saveDataToFlash();
 
-# 36 "m25p16.c"
-void read_ram_id(unsigned char* mem_ptr) {
-
-# 46
-RD3 = 0;
-WriteSPI(0x9F);
-mem_ptr[0] = ReadSPI();
-mem_ptr[1] = ReadSPI();
-mem_ptr[2] = ReadSPI();
-RD3 = 1;
-
-}
-
-
-
-unsigned char read_ram_status(void) {
-
-unsigned char status;
-RD3 = 0;
-WriteSPI(0x05);
-status = ReadSPI();
-RD3 = 1;
-return status;
-
-}
-
-
-void ram_bulk_erase(void) {
-
-RD3 = 0;
-WriteSPI(0x06);
-RD3 = 1;
-_delay((unsigned long)((1)*(4000000/4000000.0)));
-RD3 = 0;
-WriteSPI(0xC7);
-RD3 = 1;
-while(read_ram_status());
-}
-
-
-void ram_sector_erase(unsigned char sector) {
-
-RD3 = 0;
-WriteSPI(0x06);
-RD3 = 1;
-_delay((unsigned long)((1)*(4000000/4000000.0)));
-RD3 = 0;
-WriteSPI(0xD8);
-WriteSPI(sector);
-WriteSPI(0x00);
-WriteSPI(0x00);
-RD3 = 1;
-while(read_ram_status());
-
-}
-
-void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
-read_write_flash_ram(0,256,flash_sector,flash_page,0,mem_ptr);
-}
-void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr) {
-read_write_flash_ram(1,256,flash_sector,flash_page,0,mem_ptr);
-}
+# 65 "variables.h"
+unsigned char ReceivedData[40];
+int intBlinkCycle;
+int intBlinkCounter;
+int intHalfSecondCounter;
+int intSecondCounter;
+int intMinuteCounter;
+BOOL bDark;
+int intDarkCheckIntervall;
+int intClockTimer[5];
+BOOL bTimerComplete[5];
+int intNumberOfBlinks = 600;
+BOOL bTransiverModeReceive = FALSE;
+BOOL bValueFromPot = TRUE;
+BOOL bSaveDataToFlash = FALSE;
 
 
 
-void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr) {
+const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
+const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
+const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
 
-# 122
-unsigned short int i;
+BOOL bChannelFound = 0;
+int channelFound;
 
+# 33 "m25p16.h"
+void read_ram_id(unsigned char *mem_ptr);
 
+# 41
+unsigned char read_ram_status(void);
 
-RD3 = 0;
-if(one_read_zero_write)
+# 52
+void ram_bulk_erase(void);
+
+# 65
+void ram_sector_erase(unsigned char sector);
+
+# 78
+void write_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+
+# 92
+void read_flash_page(unsigned char flash_sector,unsigned char flash_page,unsigned char* mem_ptr);
+
+# 112
+void read_write_flash_ram(unsigned char one_read_zero_write,unsigned short int bytes_to_readwrite,unsigned char flash_sector,unsigned char flash_page,unsigned char offset,unsigned char* mem_ptr);
+
+# 121
+void write_ram_status(unsigned char status);
+
+# 130
+void power_up_flash_ram(void);
+
+# 142
+void power_down_flash_ram(void);
+
+# 10 "MCP79510.h"
+void ClockInit();
+void ReadClock(unsigned char *seconds, unsigned char *minutes, unsigned char *hour, unsigned char *date, unsigned char *month, unsigned char *year);
+
+# 16 "functions.c"
+void TransiverToReceive()
 {
-WriteSPI(0x03);
+timerFunction(2, 5);
+
+
+
+SetRFMode(0x20);
+_delay((unsigned long)((10)*(4000000/4000.0)));
+RegisterSet(0x0E,(RegisterRead(0x0E)|0x02));
+SetRFMode(0x40);
+while((RegisterRead(0x0E) & 0b00000010) == 0)
+{
+if(bTimerComplete[2])
+{
+FindChannel();
+break;
+}
+}
+
+SetRFMode(0x60);
+_delay((unsigned long)((500)*(4000000/4000000.0)));
+bTransiverModeReceive = 1;
+}
+
+# 42
+void TransiverReadFIFO()
+{
+unsigned char ReceivedString[30];
+timerFunction(3, 5);
+
+SetRFMode(0x20);
+bTransiverModeReceive = 0;
+int i = 0;
+for (int j = 0; j < 30; ++j)
+{
+ReceivedString[j] = 0;
+}
+while((RB3)&&(!bTimerComplete[3]))
+{
+ReceivedString[i] = ReadFIFO();
+i++;
+}
+
+_delay((unsigned long)((10)*(4000000/4000.0)));
+SetRFMode(0x00);
+
+ReceivedPacketHandler(ReceivedString);
+}
+
+# 73
+void ReceivedPacketHandler(unsigned char Data[])
+{
+
+
+if((strstr(Data, "N1BLINK")) && (OperationMode() == 6))
+{
+intBlinkCycle = 1;
+intBlinkCounter = 0;
+DelayDs(100);
+}
+else if((strstr(Data, "N2BLINK")) && (OperationMode() == 7))
+{
+intBlinkCycle = 1;
+intBlinkCounter = 0;
+DelayDs(100);
+}
+
+
+
+if(Data[0] != 44 || Data[3] != 55)
+return;
+
+switch (Data[1])
+{
+case 1:
+switch (Data[2])
+{
+case 1:
+RC2 = 1;
+DelayDs(10);
+RC2 = 0;
+DelayDs(5);
+break;
+
+case 2:
+RC1 = 1;
+DelayDs(10);
+RC1 = 0;
+DelayDs(5);
+break;
+
+case 3:
+RB1 = 0;
+DelayDs(10);
+RB1 = 1;
+DelayDs(5);
+break;
+
+default:
+break;
+
+}
+break;
+case 2:
+if(Data[2] == 1 && OperationMode() == 6)
+{
+intBlinkCycle = 1;
+intBlinkCounter = 0;
+DelayDs(100);
+TransmittPacket(2, 10);
+}
+if(Data[2] == 2 && OperationMode() == 7)
+{
+intBlinkCycle = 1;
+intBlinkCounter = 0;
+DelayDs(100);
+TransmittPacket(2, 10);
+}
+if(Data[2] == 10 && (OperationMode() == 4 || OperationMode() == 5))
+{
+intBlinkCycle = 1;
+intBlinkCounter = 0;
+DelayDs(100);
+
+}
+break;
+
+case 3:
+if(Data[2] != 0)
+break;
+TransmittPacket(3, AnalogValue(0));
+break;
+
+case 4:
+if(Data[2] != 0)
+break;
+TransmittPacket(4, AnalogValue(3));
+break;
+
+case 5:
+if(Data[2] != 0)
+{
+eeprom_write(0, Data[2]);
+break;
+}
+TransmittPacket(5, eeprom_read(0));
+break;
+
+case 6:
+if(Data[2] == 0)
+{
+if(bValueFromPot == TRUE)
+TransmittPacket(6, 1);
+else
+TransmittPacket(6, 0);
+}
+else if(Data[2] == 1)
+bValueFromPot = TRUE;
+else if(Data[2] == 0)
+bValueFromPot = FALSE;
+
+break;
+
+case 7:
+if(Data[2] != 0)
+break;
+DarknessCheck();
+if(bDark)
+TransmittPacket(7, 1);
+else
+TransmittPacket(7, 2);
+break;
+
+case 9:
+write_ram_status(read_ram_status() & 0b11100011);
+ResetMemoryAdress();
+ram_bulk_erase();
+TransmittPacket(9, 1);
+break;
+
+case 8:
+if(!bSaveDataToFlash)
+SendMemoryData();
+else
+TransmittPacket(8, 0);
+break;
+
+default:
+break;
+}
+}
+
+# 233
+void TransmittPacket(BYTE topic, BYTE value)
+{
+timerFunction(4, 5);
+
+int i = 0;
+
+
+SetRFMode(0x20);
+_delay((unsigned long)((10)*(4000000/4000.0)));
+RegisterSet(0x0E,(RegisterRead(0x0E)|0x02));
+SetRFMode(0x40);
+while((RegisterRead(0x0E) & 0b00000010) == 0)
+{
+if(bTimerComplete[4])
+{
+FindChannel();
+break;
+}
+
+}
+SetRFMode(0x80);
+_delay((unsigned long)((500)*(4000000/4000000.0)));
+
+
+WriteFIFO('S');
+WriteFIFO('Y');
+WriteFIFO('N');
+WriteFIFO('C');
+
+
+WriteFIFO(44);
+WriteFIFO(topic);
+WriteFIFO(value);
+WriteFIFO(55);
+
+
+while(!RB4)
+{
+if(bTimerComplete[4])
+break;
+}
+_delay((unsigned long)((10)*(4000000/4000000.0)));
+SetRFMode(0x00);
+_delay((unsigned long)((50)*(4000000/4000.0)));
+
+}
+
+# 285
+void Mode_0()
+{
+LightWithSensController();
+}
+
+# 293
+void Mode_1()
+{
+
+if((intSecondCounter == 30)&&(!RC2))
+DarknessCheck();
+if((intBlinkCycle == 1)&&(bDark == 1))
+RC2 = 1;
+else
+RC2 = 0;
+}
+
+# 307
+void Mode_2()
+{
+LightWithSensController();
+if(RC2)
+RC1 = 1;
+else
+RC1 = 0;
+}
+
+# 319
+void Mode_3()
+{
+
+}
+
+# 327
+void Mode_4()
+{
+if(!RB5)
+{
+TransmittPacket(2, 1);
+}
+LightWithSensController();
+}
+
+# 339
+void Mode_5()
+{
+if(!RB5)
+{
+TransmittPacket(2, 2);
+}
+LightWithSensController();
+}
+
+# 352
+void LightWithSensController(void)
+{
+
+
+if((intSecondCounter == 30)&&(!RC2))
+DarknessCheck();
+
+
+
+if((bDark == 1)&&(RA1)&&(!RC2))
+{
+
+RC2 = 1;
+
+timerFunction(0,120);
+}
+
+
+if(bTimerComplete[0])
+{
+DarknessCheck();
+if((bDark)&&(RA1))
+{
+timerFunction(0,120);
 }
 else
-{
-WriteSPI(0x06);
-RD3 = 1;
-_delay((unsigned long)((1)*(4000000/4000000.0)));
-RD3 = 0;
-WriteSPI(0x02);
+RC2 = 0;
 
 }
 
-WriteSPI(flash_sector);
-WriteSPI(flash_page);
-WriteSPI(offset);
-
-for (i=0;i<bytes_to_readwrite;i++)
-{
-if (one_read_zero_write)
-{
-mem_ptr[i] = ReadSPI();
 }
+
+# 403
+unsigned char timerFunction(int intTimerNumber, int intSetSeconds )
+{
+intClockTimer[intTimerNumber] = intSetSeconds;
+bTimerComplete[intTimerNumber] = 0;
+return 1;
+}
+
+# 425
+void TimerCounter()
+{
+for (int i = 0; i < 5; i++)
+{
+if(intClockTimer[i]>0)
+intClockTimer[i]--;
 else
+bTimerComplete[i] = 1;
+}
+}
+
+
+
+void PICInit()
 {
-WriteSPI(mem_ptr[i]);
-}
-}
 
+
+OSCCONbits.IRCF2 = 1;
+OSCCONbits.IRCF1 = 1;
+OSCCONbits.IRCF0 = 0;
+OSCCONbits.SCS = 1;
+
+
+PORTA = 0x00;
+PORTB = 0x00;
+PORTC = 0x00;
+PORTD = 0x00;
+PORTE = 0x00;
+
+TRISA = 0b00001011;
+TRISB = 0b00111101;
+TRISC = 0b00010000;
+TRISD = 0b00000111;
+TRISE = 0b00000111;
+
+ANSEL = 0b00000000;
+ANSELH = 0b00000000;
+ANSELbits.ANS0 = 1;
+ANSELbits.ANS3 = 1;
+ANSELbits.ANS5 = 1;
+ANSELbits.ANS6 = 1;
+ANSELbits.ANS7 = 1;
+ANSELHbits.ANS8 = 1;
+
+OPTION_REGbits.nRBPU = 0;
+WPUBbits.WPUB0 = 1;
+while(!RB0);
+WPUBbits.WPUB5 = 1;
+while(!RB5);
+
+
+SSPCONbits.SSPM=0x00;
+SSPCONbits.CKP=0;
+SSPSTATbits.CKE=1;
+SSPSTATbits.SMP=0;
+SSPCONbits.SSPEN=0x01;
+SSPIE = 0;
+
+
+RA5 = 1;
+RA4 = 1;
+RD4 = 1;
 RD3 = 1;
 
-_delay((unsigned long)((1)*(4000000/4000000.0)));
-while (read_ram_status() & 0b00000011) {
-_delay((unsigned long)((1)*(4000000/4000.0)));
+RB1 = 1;
+
+
+
+
+INTCONbits.RBIE = 1;
+INTCONbits.PEIE = 1;
+PIE1bits.TMR1IE = 1;
+INTCONbits.GIE = 1;
+IOCBbits.IOCB5 = 1;
+
+
+T1CON = 0b00110000;
+TMR1H = 0x0B;
+TMR1L = 0xDB;
+T1CONbits.TMR1ON = 1;
+
+
+ADCON0bits.ADCS0 = 0;
+ADCON0bits.ADCS1 = 0;
+ADCON1bits.ADFM = 0;
+ADCON1bits.VCFG1 = 0;
+ADCON1bits.VCFG0 = 0;
+
+
+intSecondCounter = 0;
+intHalfSecondCounter = 0;
+intMinuteCounter = 0;
+}
+
+
+
+void DelayDs(int cnt){
+int i;
+for(i=0;i<cnt;i++){
+_delay((unsigned long)((100)*(4000000/4000.0)));
+}
+}
+
+
+
+void WriteSPI(unsigned char databyte)
+{
+unsigned char buffer;
+buffer = SSPBUF;
+PIR1bits.SSPIF=0;
+SSPBUF = databyte;
+while(PIR1bits.SSPIF == 0);
+PIR1bits.SSPIF = 0;
+}
+
+
+
+unsigned char ReadSPI(void)
+{
+WriteSPI(0x00);
+return SSPBUF;
+}
+
+
+
+void TransiverInit(void)
+{
+
+RegisterSet(0x00, 0x30);
+RegisterSet(0x01,(0xA8));
+RegisterSet(0x02, 0x09);
+RegisterSet(0x03, 0x07);
+RegisterSet(0x05,(0x0A));
+RegisterSet(0x0D,(0x00|0xB0|0x09));
+RegisterSet(0x0E,(0x01|0x10|0x01));
+RegisterSet(0x10, 0xA3);
+RegisterSet(0x12,(0x18|0x20|0x06));
+RegisterSet(0x16,('S'));
+RegisterSet(0x17,('Y'));
+RegisterSet(0x18,('N'));
+RegisterSet(0x19,('C'));
+RegisterSet(0x1A, 0x72);
+RegisterSet(0x1B, 0x3C);
+RegisterSet(0x1F, 0x80);
+RegisterSet(0x00, (RegisterRead(0x00)|0x01));
+
+if(FindChannel() == 1)
+Blink(1);
+SetRFMode(0x00);
+
+}
+
+# 595
+char FindChannel(void)
+{
+int cnt = 0;
+bChannelFound = 0;
+channelFound = 0;
+
+_delay((unsigned long)((1000)*(4000000/4000.0)));
+for (int i = 0; i < 13; i++)
+{
+RegisterSet(0x06,ChannelR[i]);
+RegisterSet(0x07,ChannelP[i]);
+RegisterSet(0x08,ChannelS[i]);
+RegisterSet(0x09,ChannelR[i]);
+RegisterSet(0x0A,ChannelP[i]);
+RegisterSet(0x0B,ChannelS[i]);
+RegisterSet(0x0E,(RegisterRead(0x0E)|0x02));
+SetRFMode(0x40);
+cnt = 0;
+while(cnt < 5)
+{
+
+if((RegisterRead(0x0E) & 0b00000010) != 0)
+{
+bChannelFound = 1;
+channelFound = i;
+return 1;
+}
+cnt++;
+_delay((unsigned long)((1000)*(4000000/4000000.0)));
 }
 
 
 }
+return 0;
+
+}
+
+# 650
+void SetRFMode(BYTE mode)
+{
+RA4 = 0;
+BYTE mcparam0_read;
+mcparam0_read = RegisterRead(0);
+switch (mode) {
+case 0x80:
+RegisterSet(0, (mcparam0_read & 0x1F) | 0x80);
+
+break;
+case 0x60:
+RegisterSet(0, (mcparam0_read & 0x1F) | 0x60);
+
+break;
+case 0x40:
+RegisterSet(0, (mcparam0_read & 0x1F) | 0x40);
+
+break;
+case 0x20:
+RegisterSet(0, (mcparam0_read & 0x1F) | 0x20);
+
+break;
+case 0x00:
+RegisterSet(0, (mcparam0_read & 0x1F) | 0x00);
+
+break;
+}
+RA4 = 1;
+}
+
+# 698
+void Blink(int n)
+{
+for(int i = 1;i<=n;i++)
+{
+RC1 = 1;
+DelayDs(2);
+RC1 = 0;
+DelayDs(6);
+}
+
+}
+
+# 729
+unsigned char RegisterRead(unsigned char adress)
+{
+BYTE value;
+RA4 = 0;
+adress = ((adress<<1)|0x40);
+WriteSPI(adress);
+value = ReadSPI();
+RA4 = 1;
+return value;
+}
+
+# 759
+void RegisterSet(unsigned char adress, unsigned char value)
+{
+RA4 = 0;
+adress = (adress<<1);
+WriteSPI(adress);
+WriteSPI(value);
+RA4 = 1;
+}
+
+# 785
+unsigned char ReadFIFO(void)
+{
+BYTE value;
+RA5 = 0;
+value = ReadSPI();
+RA5 = 1;
+return value;
+
+}
+
+# 812
+void WriteFIFO(unsigned char Data)
+{
+RA5 = 0;
+WriteSPI(Data);
+RA5 = 1;
+}
+
+# 836
+void interrupt tc_int(void){
 
 
-
-void write_ram_status(unsigned char status) {
-
-
-RD3 = 0;
-WriteSPI(0x06);
-RD3 = 1;
-_delay((unsigned long)((2)*(4000000/4000000.0)));
-RD3 = 0;
-WriteSPI(0x01);
-WriteSPI(status);
-RD3 = 1;
-_delay((unsigned long)((2)*(4000000/4000000.0)));
-while (read_ram_status() & 0x01);
+if((RB5 == 0)&&(intBlinkCycle == 0)&&(OperationMode() < 2)){
+intBlinkCycle = 1;
+intBlinkCounter = 0;
 
 }
 
 
-void power_up_flash_ram(void) {
+if(TMR1IF ==1){
+TMR1ON = 0;
+TMR1H = 0x0B;
+TMR1L = 0xDB;
 
-RD3 = 0;
-WriteSPI(0xAB);
-RD3 = 1;
-_delay((unsigned long)((30)*(4000000/4000000.0)));
+if((intBlinkCycle == 1)&&(intBlinkCounter<intNumberOfBlinks*2)){
+intBlinkCounter++;
+
+if(RC1 == 0)
+RC1 = 1;
+else if(RC1 == 1)
+RC1 = 0;
+}
+
+else if((intBlinkCycle == 1)&&(intBlinkCounter >=intNumberOfBlinks*2)){
+intBlinkCycle = 0;
+RC1 = 0;
 }
 
 
-void power_down_flash_ram(void) {
+intHalfSecondCounter++;
+if(intHalfSecondCounter>=2)
+{
+intHalfSecondCounter = 0;
+intSecondCounter++;
+TimerCounter();
 
-RD3 = 0;
-WriteSPI(0xB9);
-RD3 = 1;
+}
+if(intSecondCounter >=60)
+{
+intSecondCounter = 0;
+intMinuteCounter++;
+bSaveDataToFlash = TRUE;
+
+}
+if(intMinuteCounter >= 60)
+{
+intMinuteCounter = 0;
 }
 
+
+TMR1ON = 1;
+}
+TMR1IF = 0;
+RBIF = 0;
+GIE = 1;
+return;
+}
+
+# 911
+unsigned char AnalogValue(unsigned char channel)
+{
+RC0 = 0;
+ADCON0bits.CHS = channel;
+ADCON0bits.ADON = 1;
+DelayDs(1);
+ADCON0bits.GO = 1;
+DelayDs(1);
+while(ADCON0bits.GO);
+ADCON0bits.ADON = 0;
+RC0 = 1;
+
+return ADRESH;
+
+}
+
+# 941
+void DarknessCheck(void)
+{
+unsigned char darknessValue;
+
+
+if(bValueFromPot == TRUE)
+darknessValue= AnalogValue(3);
+else
+darknessValue=eeprom_read(0);
+
+if(AnalogValue(0)>darknessValue)
+bDark = 1;
+else
+bDark = 0;
+
+}
+
+# 974
+unsigned char OperationMode(void)
+{
+unsigned char bracketStatus;
+bracketStatus = (PORTD & 0b00000111) ;
+
+return bracketStatus;
+}
+
+# 998
+void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1)
+{
+*var3 = eeprom_read(1);
+*var2 = eeprom_read(2);
+*var1 = eeprom_read(3);
+
+
+}
+
+# 1023
+void WriteMemoryAdress(unsigned char var3,unsigned char var2,unsigned char var1)
+{
+eeprom_write(1, var3);
+eeprom_write(2, var2);
+eeprom_write(3, var1);
+
+
+}
+
+# 1048
+void IncreaseMemoryAdress(void)
+{
+unsigned char addr1, addr2, addr3;
+unsigned long address = 0;
+
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+address = addr3;
+address = (address << 8) + addr2;
+address = (address << 8) + addr1;
+
+if(address++ >= 0x1FFFFF)
+address = 0x1FFFFF;
+
+addr1 = address & 0xFF;
+addr2 = (address >> 8) & 0xFF;
+addr3 = (address >> 16) & 0xFF;
+
+WriteMemoryAdress(addr3, addr2, addr1);
+
+
+}
+
+# 1086
+void ResetMemoryAdress(void)
+{
+eeprom_write(3,0);
+eeprom_write(2,0);
+eeprom_write(1,0);
+}
+
+# 1109
+void saveDataToFlash()
+{
+unsigned char value, addr1, addr2, addr3, seconds, minutes, hours, date, month, year;
+
+ReadClock(&seconds, &minutes, &hours, &date, &month, &year);
+
+value = year;
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = month;
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = date;
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = hours;
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+
+value = AnalogValue(0);
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = AnalogValue(3);
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = AnalogValue(5);
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+value = AnalogValue(7);
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+
+value = AnalogValue(6);
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+
+value = AnalogValue(8);
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+read_write_flash_ram(
+0,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+IncreaseMemoryAdress();
+
+}
+
+# 1246
+void SendMemoryData()
+{
+unsigned long address, finalAddress = 0;
+unsigned char addr3, addr2, addr1, value;
+
+ReadMemoryAdress(&addr3, &addr2, &addr1);
+
+
+
+finalAddress = addr3;
+finalAddress = (finalAddress << 8) + addr2;
+finalAddress = (finalAddress << 8) + addr1;
+
+TransmittPacket(8,3);
+
+for(address = 0; address < finalAddress; address++)
+{
+
+
+addr1 = address & 0xFF;
+addr2 = (address >> 8) & 0xFF;
+addr3 = (address >> 16) & 0xFF;
+
+if(address ==0)
+TransmittPacket(11, 1);
+else if((address % 10) ==0)
+{
+TransmittPacket(12, 1);
+TransmittPacket(11,1);
+}
+
+
+read_write_flash_ram(
+1,
+1,
+addr3,
+addr2,
+addr1,
+&value);
+
+TransmittPacket(10, value);
+
+
+}
+TransmittPacket(8, 1);
+
+
+}

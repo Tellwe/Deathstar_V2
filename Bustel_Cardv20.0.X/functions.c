@@ -129,12 +129,21 @@ void ReceivedPacketHandler(unsigned char Data[])
 				intBlinkCycle = 1;
 				intBlinkCounter = 0;
 				DelayDs(100);			//Delay between succesfull recived commands
+				TransmittPacket(BUSSIGNAL, BLINKSTARTED);
 			}
 			if(Data[2] == NODE2 && OperationMode() == 7)
 			{
 				intBlinkCycle = 1;
 				intBlinkCounter = 0;
 				DelayDs(100);			//Delay between succesfull recived commands
+				TransmittPacket(BUSSIGNAL, BLINKSTARTED);
+			}
+			if(Data[2] == BLINKSTARTED && (OperationMode() == 4 || OperationMode() == 5))
+			{
+				intBlinkCycle = 1;
+				intBlinkCounter = 0;
+				DelayDs(100);			//Delay between succesfull recived commands
+					
 			}
 			break;
 
@@ -186,13 +195,17 @@ void ReceivedPacketHandler(unsigned char Data[])
 
 		case CLEARMEMORY:
 			write_ram_status(read_ram_status() & 0b11100011);
-			ram_bulk_erase();
 			ResetMemoryAdress();
+			ram_bulk_erase();
 			TransmittPacket(CLEARMEMORY, DONE);
 			break;
 
 		case READMEMORY:
-			SendMemoryData();
+			if(!bSaveDataToFlash)  //if save is in progress the memory is allocated for saving
+				SendMemoryData();
+			else
+				TransmittPacket(READMEMORY, NOTDONE);
+			break;
 
 		default:
 			break;
@@ -299,6 +312,7 @@ void Mode_2()
 	else
 		oLEDBlink = 0;
 }
+
 /****************Mode description**********************
 Not used
 *******************************************************/
@@ -837,10 +851,10 @@ void interrupt tc_int(void){
 		if((intBlinkCycle == 1)&&(intBlinkCounter<intNumberOfBlinks*2)){
 			intBlinkCounter++;
 			
-			if(oOnBoardLED == 0)
-				oOnBoardLED = 1;
-			else if(oOnBoardLED == 1)
-				oOnBoardLED = 0;
+			if(oLEDBlink == 0)
+				oLEDBlink = 1;
+			else if(oLEDBlink == 1)
+				oLEDBlink = 0;
 		}
 		
 		else if((intBlinkCycle == 1)&&(intBlinkCounter >=intNumberOfBlinks*2)){
@@ -861,7 +875,7 @@ void interrupt tc_int(void){
 		{
 			intSecondCounter = 0;
 			intMinuteCounter++;
-			saveDataToFlash();
+			bSaveDataToFlash = TRUE;
 
 		}
 		if(intMinuteCounter >= 60)
@@ -896,6 +910,7 @@ return;
 
 unsigned char AnalogValue(unsigned char channel)
 {
+	oAnalogInputsOFF = 0;
 	ADCON0bits.CHS = channel;
 	ADCON0bits.ADON = 1;
 	DelayDs(1);
@@ -903,6 +918,8 @@ unsigned char AnalogValue(unsigned char channel)
 	DelayDs(1);
 	while(ADCON0bits.GO);
 	ADCON0bits.ADON = 0;
+	oAnalogInputsOFF = 1;
+	
 	return ADRESH;
 
 }
@@ -924,7 +941,7 @@ unsigned char AnalogValue(unsigned char channel)
 void DarknessCheck(void)
 {
 	unsigned char darknessValue;
-	oAnalogInputsOFF = 0;
+	
 	// determine whether we use valuie from pic or potentiometer.
 	if(bValueFromPot == TRUE)
 		darknessValue= AnalogValue(anChPot);
@@ -935,7 +952,6 @@ void DarknessCheck(void)
 		bDark = 1;
 	else
 		bDark = 0;
-	oAnalogInputsOFF = 1; 
 		
 }
 /*********************************************************************
@@ -958,7 +974,7 @@ void DarknessCheck(void)
 unsigned char OperationMode(void)
 {
 	unsigned char bracketStatus;
-	bracketStatus = ((~PORTB) & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
+	bracketStatus = (PORTD & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
 
 	return bracketStatus;
 }
@@ -1004,27 +1020,51 @@ void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var
  * Side Effects:    
  *             
  ********************************************************************/
+void WriteMemoryAdress(unsigned char var3,unsigned char var2,unsigned char var1)
+{
+	eeprom_write(ADDRflashVal3, var3);
+	eeprom_write(ADDRflashVal2, var2);
+	eeprom_write(ADDRflashVal1, var1);
+
+
+}
+/*********************************************************************
+ * 
+ *
+ * Overview:        
+ *              
+ *				
+ *
+ * PreCondition:    
+ *              
+ * Input:       
+ *             
+ * Output:      
+ *				
+ *
+ * Side Effects:    
+ *             
+ ********************************************************************/
 void IncreaseMemoryAdress(void)
 {
-	unsigned char var1, var2, var3;
-	var1 = eeprom_read(ADDRflashVal1);
-	var1++;
-	eeprom_write(ADDRflashVal1,var1);
-	if(var1 == 0)
-	{
-		var2 = eeprom_read(ADDRflashVal2);
-		var2++;
-		eeprom_write(ADDRflashVal2,var2);
-		if(var2 == 0)
-		{
-			var3 = eeprom_read(ADDRflashVal3);
-			var3++;
-			if(var3 > 0x1F)
-				var3 = 0x1F;
+	unsigned char addr1, addr2, addr3;
+	unsigned long address = 0;
+	
+	ReadMemoryAdress(&addr3, &addr2, &addr1);
+	address = addr3;
+	address = (address << 8) + addr2;
+	address = (address << 8) + addr1;
 
-			eeprom_write(ADDRflashVal3, var3);
-		}
-	}
+	if(address++ >= 0x1FFFFF)
+		address = 0x1FFFFF;
+
+	addr1 = address & 0xFF;
+	addr2 = (address >> 8) & 0xFF;
+	addr3 = (address >> 16) & 0xFF;
+
+	WriteMemoryAdress(addr3, addr2, addr1);
+
+
 }
 /*********************************************************************
  * 
@@ -1210,17 +1250,30 @@ void SendMemoryData()
 
 	ReadMemoryAdress(&addr3, &addr2, &addr1);
 
-	finalAddress = (finalAddress << 8) | addr3;
-	finalAddress = (finalAddress << 8) | addr2;
-	finalAddress = (finalAddress << 8) | addr1;
+
+
+	finalAddress = addr3;
+	finalAddress = (finalAddress << 8) + addr2;
+	finalAddress = (finalAddress << 8) + addr1;
+
+	TransmittPacket(READMEMORY,BEGIN);
 
 	for(address = 0; address < finalAddress; address++)
-	{
+	{	
+		
 
-		addr1 = address & 0x00FF;
-		addr2 = address >> 8 & 0x00FF;
-		addr3 = address >> 16 & 0x00FF;
-
+		addr1 = address & 0xFF;
+		addr2 = (address >> 8) & 0xFF;
+		addr3 = (address >> 16) & 0xFF;
+		
+		if(address ==0)
+			TransmittPacket(STARTMEMPACK, YES);
+		else if((address % 10) ==0)
+		{
+			TransmittPacket(ENDMEMPACK, YES);
+			TransmittPacket(STARTMEMPACK,YES);
+		}
+		
 
 		read_write_flash_ram(
 			1,
@@ -1231,6 +1284,8 @@ void SendMemoryData()
 			&value);
 		
 		TransmittPacket(MEMVAL, value);
+		
+
 	}
 	TransmittPacket(READMEMORY, DONE);
 

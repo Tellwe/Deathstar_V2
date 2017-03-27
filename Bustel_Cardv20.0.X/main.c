@@ -1,3 +1,4 @@
+
 #include <xc.h>
 #include "MRF89XA.h"
 #include <string.h>
@@ -9,17 +10,6 @@
 #include "MCP79510.h"
 
 /**********************		Description		*************************************** 					
-
-
-
-
-
-
-
-
-
-
-
 ***********************************************************************************/
 //Configline for initial configuration of registers in the PIC
 
@@ -46,9 +36,28 @@ int main(void)
 	{
 		if(!iSW1)
 		{
-			SendMemoryData();
-			while(!iSW1);
+/*			oOnBoardLED = 0;
+			__delay_ms(300);
+			oOnBoardLED = 1;
+			__delay_ms(300);
+			write_ram_status(read_ram_status() & 0b11100011);
+			ResetMemoryAdress();
+			ram_bulk_erase();
+			oOnBoardLED = 0;
+			__delay_ms(300);
+			oOnBoardLED = 1;
+			__delay_ms(300);
+			while(!iSW1);*/
 		
+			for(int i = 0; i < OperationMode(); i++)
+			{
+				oOnBoardLED = 0;
+				__delay_ms(300);
+				oOnBoardLED = 1;
+				__delay_ms(300);
+			}
+
+			
 			
 		}
 
@@ -61,6 +70,7 @@ int main(void)
 			Mode_1();
 		} 
 		//Mode without blink, oLedBlink set to same sequence as oLEDLight
+
 		if(OperationMode() == 2)
 		{
 			Mode_2();
@@ -81,7 +91,13 @@ int main(void)
 		if(!bTransiverModeReceive)
 			TransiverToReceive();
 		if(trIRQ1 && bTransiverModeReceive)										
-			TransiverReadFIFO();			
+			TransiverReadFIFO();	
+
+		if(bSaveDataToFlash)
+		{
+			saveDataToFlash();
+			bSaveDataToFlash = FALSE; //Important to set to false otherwise the main program will get stuck
+		}		
 
 	}
 

@@ -8,9 +8,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _WriteSPI `(v ~T0 @X0 0 ef1`uc ]
 "5
 [v _ReadSPI `(uc ~T0 @X0 0 ef ]
-[v F1779 `(v ~T0 @X0 1 tf1`ul ]
+[v F1780 `(v ~T0 @X0 1 tf1`ul ]
 "152 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic.h
-[v __delay `JF1779 ~T0 @X0 0 e ]
+[v __delay `JF1780 ~T0 @X0 0 e ]
 [p i __delay ]
 "112 m25p16.h
 [v _read_write_flash_ram `(v ~T0 @X0 0 ef6`uc`us`uc`uc`uc`*uc ]
@@ -173,7 +173,13 @@ Version 3.2 HI-TECH Software Intermediate Code
 . `E30 1
 ]
 [; ;variables.h: 77: BOOL bValueFromPot = TRUE;
-"81
+"78
+[v _bSaveDataToFlash `E30 ~T0 @X0 1 e ]
+[i _bSaveDataToFlash
+. `E30 0
+]
+[; ;variables.h: 78: BOOL bSaveDataToFlash = FALSE;
+"82
 [v _ChannelR `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelR
 :U ..
@@ -192,8 +198,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 139 `i `uc
 ..
 ]
-[; ;variables.h: 81: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
-"82
+[; ;variables.h: 82: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
+"83
 [v _ChannelP `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelP
 :U ..
@@ -212,8 +218,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 111 `i `uc
 ..
 ]
-[; ;variables.h: 82: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
-"83
+[; ;variables.h: 83: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
+"84
 [v _ChannelS `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelS
 :U ..
@@ -232,16 +238,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 42 `i `uc
 ..
 ]
-[; ;variables.h: 83: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
-"85
+[; ;variables.h: 84: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
+"86
 [v _bChannelFound `E30 ~T0 @X0 1 e ]
 [i _bChannelFound
 -> -> 0 `i `E30
 ]
-[; ;variables.h: 85: BOOL bChannelFound = 0;
-"86
+[; ;variables.h: 86: BOOL bChannelFound = 0;
+"87
 [v _channelFound `i ~T0 @X0 1 e ]
-[; ;variables.h: 86: int channelFound;
+[; ;variables.h: 87: int channelFound;
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);
@@ -1766,9 +1772,10 @@ Version 3.2 HI-TECH Software Intermediate Code
 [; ;functions.h: 39: unsigned char OperationMode(void);
 [; ;functions.h: 40: void ReadMemoryAdress(unsigned char* var3,unsigned char* var2,unsigned char* var1);
 [; ;functions.h: 41: void IncreaseMemoryAdress(void);
-[; ;functions.h: 42: void ResetMemoryAdress(void);
-[; ;functions.h: 43: void SendMemoryData();
-[; ;functions.h: 44: void saveDataToFlash();
+[; ;functions.h: 42: void WriteMemoryAdress(unsigned char var3,unsigned char var2,unsigned char var1);
+[; ;functions.h: 43: void ResetMemoryAdress(void);
+[; ;functions.h: 44: void SendMemoryData();
+[; ;functions.h: 45: void saveDataToFlash();
 "36 m25p16.c
 [v _read_ram_id `(v ~T0 @X0 1 ef1`*uc ]
 {
