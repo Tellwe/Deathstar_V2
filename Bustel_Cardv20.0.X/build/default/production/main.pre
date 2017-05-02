@@ -2296,6 +2296,7 @@ int intDarkCheckIntervall;
 int intClockTimer[5];
 BOOL bTimerComplete[5];
 int intNumberOfBlinks = 600;
+int intLightOnTime = 120;
 BOOL bTransiverModeReceive = FALSE;
 BOOL bValueFromPot = TRUE;
 BOOL bSaveDataToFlash = FALSE;
@@ -2356,6 +2357,10 @@ PICInit();
 TransiverInit();
 ClockInit();
 
+if(OperationMode() == 3){
+intNumberOfBlinks = 180;
+intLightOnTime = 180;
+}
 
 
 RB1 = 0;
@@ -2365,22 +2370,8 @@ _delay((unsigned long)((300)*(4000000/4000.0)));
 
 while(1)
 {
-if(!RB0)
-{
 
-# 52
-for(int i = 0; i < OperationMode(); i++)
-{
-RB1 = 0;
-_delay((unsigned long)((300)*(4000000/4000.0)));
-RB1 = 1;
-_delay((unsigned long)((300)*(4000000/4000.0)));
-}
-
-
-
-}
-
+# 68
 if(OperationMode() == 0)
 {
 Mode_0();

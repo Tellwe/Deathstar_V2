@@ -149,6 +149,7 @@ int intDarkCheckIntervall;
 int intClockTimer[5];
 BOOL bTimerComplete[5];
 int intNumberOfBlinks = 600;
+int intLightOnTime = 120;
 BOOL bTransiverModeReceive = FALSE;
 BOOL bValueFromPot = TRUE;
 BOOL bSaveDataToFlash = FALSE;

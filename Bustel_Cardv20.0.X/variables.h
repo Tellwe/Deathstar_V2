@@ -73,6 +73,7 @@ int intDarkCheckIntervall;			//The set time beween controls of the light sensor 
 int intClockTimer[5];				//Timers made by Seb
 BOOL bTimerComplete[5];				//Flag for timer complete by Seb
 int intNumberOfBlinks = 600;		//Number of blinks for a blinkcycle
+int intLightOnTime = 120;			//The time the light should be on
 BOOL bTransiverModeReceive = FALSE;	//Active state of the transiver for receive
 BOOL bValueFromPot = TRUE;			//TODO
 BOOL bSaveDataToFlash = FALSE;		//Variable to tell the main loop to save data to the flash and to make sure that memory handling does not crash between reading and writing

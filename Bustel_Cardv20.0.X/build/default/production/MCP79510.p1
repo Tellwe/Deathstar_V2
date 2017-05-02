@@ -6,9 +6,9 @@ Version 3.2 HI-TECH Software Intermediate Code
 [v _RD4 `Vb ~T0 @X0 0 e@68 ]
 "4 functions.h
 [v _WriteSPI `(v ~T0 @X0 0 ef1`uc ]
-[v F1759 `(v ~T0 @X0 1 tf1`ul ]
+[v F1760 `(v ~T0 @X0 1 tf1`ul ]
 "152 C:\Program Files (x86)\Microchip\xc8\v1.40\include\pic.h
-[v __delay `JF1759 ~T0 @X0 0 e ]
+[v __delay `JF1760 ~T0 @X0 0 e ]
 [p i __delay ]
 "5 functions.h
 [v _ReadSPI `(uc ~T0 @X0 0 ef ]
@@ -152,24 +152,30 @@ Version 3.2 HI-TECH Software Intermediate Code
 ]
 [; ;variables.h: 75: int intNumberOfBlinks = 600;
 "76
+[v _intLightOnTime `i ~T0 @X0 1 e ]
+[i _intLightOnTime
+-> 120 `i
+]
+[; ;variables.h: 76: int intLightOnTime = 120;
+"77
 [v _bTransiverModeReceive `E9 ~T0 @X0 1 e ]
 [i _bTransiverModeReceive
 . `E9 0
 ]
-[; ;variables.h: 76: BOOL bTransiverModeReceive = FALSE;
-"77
+[; ;variables.h: 77: BOOL bTransiverModeReceive = FALSE;
+"78
 [v _bValueFromPot `E9 ~T0 @X0 1 e ]
 [i _bValueFromPot
 . `E9 1
 ]
-[; ;variables.h: 77: BOOL bValueFromPot = TRUE;
-"78
+[; ;variables.h: 78: BOOL bValueFromPot = TRUE;
+"79
 [v _bSaveDataToFlash `E9 ~T0 @X0 1 e ]
 [i _bSaveDataToFlash
 . `E9 0
 ]
-[; ;variables.h: 78: BOOL bSaveDataToFlash = FALSE;
-"82
+[; ;variables.h: 79: BOOL bSaveDataToFlash = FALSE;
+"83
 [v _ChannelR `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelR
 :U ..
@@ -188,8 +194,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 139 `i `uc
 ..
 ]
-[; ;variables.h: 82: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
-"83
+[; ;variables.h: 83: const unsigned char ChannelR[13] = {79,89,99,109,119,149,159,159,169,169,69,129,139};
+"84
 [v _ChannelP `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelP
 :U ..
@@ -208,8 +214,8 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 111 `i `uc
 ..
 ]
-[; ;variables.h: 83: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
-"84
+[; ;variables.h: 84: const unsigned char ChannelP[13] = {63,71,79,87,95,119,126,127,134,135,55,103,111};
+"85
 [v _ChannelS `Cuc ~T0 @X0 -> 13 `i e ]
 [i _ChannelS
 :U ..
@@ -228,16 +234,16 @@ Version 3.2 HI-TECH Software Intermediate Code
 -> -> 42 `i `uc
 ..
 ]
-[; ;variables.h: 84: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
-"86
+[; ;variables.h: 85: const unsigned char ChannelS[13] = {24,27,30,33,36,45,123,48,126,51,21,39,42};
+"87
 [v _bChannelFound `E9 ~T0 @X0 1 e ]
 [i _bChannelFound
 -> -> 0 `i `E9
 ]
-[; ;variables.h: 86: BOOL bChannelFound = 0;
-"87
+[; ;variables.h: 87: BOOL bChannelFound = 0;
+"88
 [v _channelFound `i ~T0 @X0 1 e ]
-[; ;variables.h: 87: int channelFound;
+[; ;variables.h: 88: int channelFound;
 [; ;htc.h: 26: extern const char __xc8_OPTIM_SPEED;
 [; ;htc.h: 28: extern double __fpnormalize(double);
 [; ;xc8debug.h: 14: extern void __builtin_software_breakpoint(void);

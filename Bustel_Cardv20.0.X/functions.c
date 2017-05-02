@@ -314,11 +314,16 @@ void Mode_2()
 }
 
 /****************Mode description**********************
-Not used
+Bustel Minimal
 *******************************************************/
 void Mode_3()
 {
-
+	LightWithSensController();
+	if(bDark && iPIR && intBlinkCycle == 0)
+	{
+		intBlinkCycle = 1;
+		intBlinkCounter = 0;
+	}
 }
 /****************Mode description**********************
 Transmitter node 1
@@ -363,7 +368,7 @@ void LightWithSensController(void)
 			//Set the light to ON
 			oLEDLight = 1;
 			//Initiate timer
-			timerFunction(0,120);
+			timerFunction(0,intLightOnTime);
 		}
 
 		//Check if the time limit is reached
@@ -372,7 +377,7 @@ void LightWithSensController(void)
 			DarknessCheck();
 			if((bDark)&&(iPIR))
 			{
-				timerFunction(0,120);
+				timerFunction(0,intLightOnTime);
 			}
 			else
 				oLEDLight = 0;

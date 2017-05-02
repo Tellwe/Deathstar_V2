@@ -25,6 +25,10 @@ int main(void)
 	TransiverInit();
 	ClockInit();
 
+	if(OperationMode() == 3){
+		intNumberOfBlinks = 180;	//Blinkcycle is 3 minutes, XTrafik req.
+		intLightOnTime = 180;		//Lightcycle is 3 minutes, XTrafik req.
+	}
 
 	//Initiation Complete
 	oOnBoardLED = 0;
@@ -34,9 +38,9 @@ int main(void)
 
 	while(1)
 	{
-		if(!iSW1)
+		/*if(!iSW1)
 		{
-/*			oOnBoardLED = 0;
+			oOnBoardLED = 0;
 			__delay_ms(300);
 			oOnBoardLED = 1;
 			__delay_ms(300);
@@ -47,7 +51,7 @@ int main(void)
 			__delay_ms(300);
 			oOnBoardLED = 1;
 			__delay_ms(300);
-			while(!iSW1);*/
+			while(!iSW1);
 		
 			for(int i = 0; i < OperationMode(); i++)
 			{
@@ -59,7 +63,7 @@ int main(void)
 
 			
 			
-		}
+		}*/
 
 		if(OperationMode() == 0)
 		{
