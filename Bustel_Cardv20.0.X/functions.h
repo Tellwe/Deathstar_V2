@@ -7,7 +7,7 @@ void TransiverInitReceiving(void);
 void TransiverInitTransmitter(void);
 void TransiverInit(void);
 void WriteControlRegTransiver(unsigned char , unsigned char);
-void Blink(int);
+void Blink(unsigned char, int);
 void TransiverSleep(void);
 void TransiverRX(void);
 void TransiverTX(void);

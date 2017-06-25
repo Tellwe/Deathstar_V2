@@ -31,39 +31,10 @@ int main(void)
 	}
 
 	//Initiation Complete
-	oOnBoardLED = 0;
-	__delay_ms(300);
-	oOnBoardLED = 1;
-	__delay_ms(300);
+	Blink(LED1, OperationMode());
 
 	while(1)
 	{
-		/*if(!iSW1)
-		{
-			oOnBoardLED = 0;
-			__delay_ms(300);
-			oOnBoardLED = 1;
-			__delay_ms(300);
-			write_ram_status(read_ram_status() & 0b11100011);
-			ResetMemoryAdress();
-			ram_bulk_erase();
-			oOnBoardLED = 0;
-			__delay_ms(300);
-			oOnBoardLED = 1;
-			__delay_ms(300);
-			while(!iSW1);
-		
-			for(int i = 0; i < OperationMode(); i++)
-			{
-				oOnBoardLED = 0;
-				__delay_ms(300);
-				oOnBoardLED = 1;
-				__delay_ms(300);
-			}
-
-			
-			
-		}*/
 
 		if(OperationMode() == 0)
 		{
