@@ -476,6 +476,8 @@ void PICInit()
 	while(!RB0);		//Wait for the input to stabilize
 	WPUBbits.WPUB5 = 1; //Weak pull-up enabled RB5
 	while(!RB5);		//Wait for the input to stabilize
+	
+
 
 	//Configuration of the SPI communication
 	SSPCONbits.SSPM=0x00;       // SPI Master mode, clock = Fosc/4 (1000 Khz)
@@ -574,7 +576,7 @@ void TransiverInit(void)
 	RegisterSet(GCONREG, (RegisterRead(GCONREG)|0x01));
 
 	if(FindChannel() == 1)
-		Blink(1);
+		Blink(LED2, 1);
 	SetRFMode(RF_SLEEP);
 
 }
@@ -700,13 +702,37 @@ void SetRFMode(BYTE mode)
  *              
  *
  ********************************************************************/
-void Blink(int n)
+void Blink(unsigned char led, int n)
 {
 	for(int i = 1;i<=n;i++)
 	{
-		oLEDBlink = 1;
+		switch (led){
+			case LED1:
+				oOnBoardLED = 0;
+				break;
+			case LED2:
+				oLEDBlink = 1;
+				break;
+			case LED3:
+				oLEDLight = 1;
+				break;
+			default:
+				break;
+		}
 		DelayDs(2);
-		oLEDBlink = 0;
+		switch (led){
+			case LED1:
+				oOnBoardLED = 1;
+				break;
+			case LED2:
+				oLEDBlink = 0;
+				break;
+			case LED3:
+				oLEDLight = 0;
+				break;
+			default:
+				break;
+		}
 		DelayDs(6);	
 	}
 	
@@ -979,9 +1005,9 @@ void DarknessCheck(void)
 unsigned char OperationMode(void)
 {
 	unsigned char bracketStatus;
-	bracketStatus = (PORTD & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
+	bracketStatus = ((~PORTD) & 0b00000111) ;		//Read the status of PORTB, remove the unread bits, invert and remove bit 3-7 again.
 
-	return bracketStatus;
+	return CodedOperationMode; //bracketStatus;
 }
 /*********************************************************************
  * 
